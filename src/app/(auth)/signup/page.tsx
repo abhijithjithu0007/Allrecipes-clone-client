@@ -34,15 +34,12 @@ export default function Page() {
           <h1 className="text-3xl font-bold mb-6">Create an account</h1>
 
           <div className="flex flex-col gap-4">
-            {/* Email Sign-up Button */}
             <button className="flex font-bold items-center justify-center py-3 px-2 outline outline-1 hover:bg-black hover:text-white">
               <MdOutlineEmail className="mr-2" size={25} />
               Sign up with Email
             </button>
-
-            {/* Google Sign-up Button */}
             <button
-              onClick={() => signIn("google")}
+              onClick={() => signIn("google", { callbackUrl: "/login" })}
               className="group flex font-bold items-center justify-center py-3 px-2 outline outline-1 hover:bg-blue-400 hover:text-white"
             >
               <FaGoogle

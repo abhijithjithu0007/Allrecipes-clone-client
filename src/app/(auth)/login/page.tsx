@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { MdOutlineEmail } from "react-icons/md";
 import { FaGoogle } from "react-icons/fa";
+import { signIn } from "next-auth/react";
 
 export default function Page() {
   return (
@@ -34,7 +35,10 @@ export default function Page() {
               <MdOutlineEmail className="mr-2" size={25} />
               Login with Email
             </button>
-            <button className="group flex font-bold items-center justify-center py-3 px-2  outline outline-1 hover:bg-blue-400 hover:text-white">
+            <button
+              onClick={() => signIn("google")}
+              className="group flex font-bold items-center justify-center py-3 px-2  outline outline-1 hover:bg-blue-400 hover:text-white"
+            >
               <FaGoogle
                 className="mr-2 text-blue-400 group-hover:text-white"
                 size={25}
