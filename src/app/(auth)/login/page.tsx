@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { MdOutlineEmail } from "react-icons/md";
 import { FaGoogle } from "react-icons/fa";
