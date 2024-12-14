@@ -31,12 +31,12 @@ export function EmailOtpInput() {
           <div>
             <InputOTP maxLength={6} pattern={REGEXP_ONLY_DIGITS_AND_CHARS}>
               <InputOTPGroup className="w-full gap-3">
-                <InputOTPSlot index={0} className="border-2 border-black p-4" />
-                <InputOTPSlot index={1} className="border-2 border-black p-4" />
-                <InputOTPSlot index={2} className="border-2 border-black p-4" />
-                <InputOTPSlot index={3} className="border-2 border-black p-4" />
-                <InputOTPSlot index={4} className="border-2 border-black p-4" />
-                <InputOTPSlot index={5} className="border-2 border-black p-4" />
+                <InputOTPSlot index={0} />
+                <InputOTPSlot index={1} />
+                <InputOTPSlot index={2} />
+                <InputOTPSlot index={3} />
+                <InputOTPSlot index={4} />
+                <InputOTPSlot index={5} />
               </InputOTPGroup>
             </InputOTP>
           </div>
