@@ -3,11 +3,35 @@
 import Image from "next/image";
 import { MdOutlineEmail } from "react-icons/md";
 import { FaGoogle } from "react-icons/fa";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
+import { AppDispatch } from "@/lib/store";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/lib/store";
+import { goToEmailInput } from "@/lib/features/emailAuthSlice";
+import { EmailInput } from "@/components/email-input";
+import { EmailOtpInput } from "@/components/email-otp";
 
 export default function Page() {
-  const { data: session } = useSession();
-  console.log(session?.user);
+  const dispatch: AppDispatch = useDispatch();
+  const currentStep = useSelector(
+    (state: RootState) => state.emailAuth.currentStep
+  );
+
+  const renderContent = () => {
+    if (currentStep === "emailInput") return <EmailInput />;
+    if (currentStep === "otpInput") return <EmailOtpInput />;
+
+    // Default button for "Sign up with Email"
+    return (
+      <button
+        onClick={() => dispatch(goToEmailInput())}
+        className="flex font-bold items-center justify-center py-3 px-2 outline outline-1 hover:bg-black hover:text-white"
+      >
+        <MdOutlineEmail className="mr-2" size={25} />
+        Sign up with Email
+      </button>
+    );
+  };
 
   return (
     <div className="flex h-screen w-full">
@@ -31,38 +55,36 @@ export default function Page() {
               className="object-contain"
             />
           </div>
-          <h1 className="text-3xl font-bold mb-6">Create an account</h1>
 
           <div className="flex flex-col gap-4">
-            <button className="flex font-bold items-center justify-center py-3 px-2 outline outline-1 hover:bg-black hover:text-white">
-              <MdOutlineEmail className="mr-2" size={25} />
-              Sign up with Email
-            </button>
-            <button
-              onClick={() => signIn("google", { callbackUrl: "/login" })}
-              className="group flex font-bold items-center justify-center py-3 px-2 outline outline-1 hover:bg-blue-400 hover:text-white"
-            >
-              <FaGoogle
-                className="mr-2 text-blue-400 group-hover:text-white"
-                size={25}
-              />
-              Sign up with Google
-            </button>
+            {/* Render dynamic content for email input or OTP */}
+            {renderContent()}
+
+            {/* Only show "Sign up with Google" if currentStep is not active */}
+            {currentStep === "" && (
+              <button
+                onClick={() => signIn("google")}
+                className="group flex font-bold items-center justify-center py-3 px-2 outline outline-1 hover:bg-blue-400 hover:text-white"
+              >
+                <FaGoogle
+                  className="mr-2 text-blue-400 group-hover:text-white"
+                  size={25}
+                />
+                Sign up with Google
+              </button>
+            )}
           </div>
 
-          <p className="mt-4 text-center">
-            Have an account?{" "}
-            <a href="/login" className="underline">
-              Log in
-            </a>
-          </p>
-          <p className="mt-10">
-            By signing up, you agree to the{" "}
-            <span className="underline">Terms of Service</span> and{" "}
-            <span className="underline">Privacy Policy.</span>
-            If you live in the US you will also opt in to Allrecipes email
-            communication.
-          </p>
+          {/* Hide the terms and privacy policy paragraph when the user starts the email signup process */}
+          {currentStep === "" && (
+            <p className="mt-10">
+              By signing up, you agree to the{" "}
+              <span className="underline">Terms of Service</span> and{" "}
+              <span className="underline">Privacy Policy.</span>
+              If you live in the US you will also opt in to Allrecipes email
+              communication.
+            </p>
+          )}
         </div>
       </div>
     </div>

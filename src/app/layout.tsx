@@ -1,6 +1,7 @@
 import "./globals.css";
-import SessionProvider from "../components/SessionProvider";
 import { getServerSession } from "next-auth";
+import SessionProvider from "../components/Provider/SessionProvider";
+import { ReduxProvider } from "@/components/Provider/reduxProvider";
 
 export default async function RootLayout({
   children,
@@ -11,7 +12,9 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body>
-        <SessionProvider session={session}>{children}</SessionProvider>
+        <ReduxProvider>
+          <SessionProvider session={session}>{children}</SessionProvider>
+        </ReduxProvider>
       </body>
     </html>
   );
