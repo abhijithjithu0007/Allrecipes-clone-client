@@ -21,7 +21,6 @@ export default function Page() {
     if (currentStep === "emailInput") return <EmailInput />;
     if (currentStep === "otpInput") return <EmailOtpInput />;
 
-    // Default button for "Sign up with Email"
     return (
       <button
         onClick={() => dispatch(goToEmailInput())}
@@ -57,10 +56,8 @@ export default function Page() {
           </div>
 
           <div className="flex flex-col gap-4">
-            {/* Render dynamic content for email input or OTP */}
             {renderContent()}
 
-            {/* Only show "Sign up with Google" if currentStep is not active */}
             {currentStep === "" && (
               <button
                 onClick={() => signIn("google")}
@@ -75,7 +72,6 @@ export default function Page() {
             )}
           </div>
 
-          {/* Hide the terms and privacy policy paragraph when the user starts the email signup process */}
           {currentStep === "" && (
             <p className="mt-10">
               By signing up, you agree to the{" "}

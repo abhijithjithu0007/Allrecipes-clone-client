@@ -1,53 +1,110 @@
+"use client";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { useDispatch, useSelector } from "react-redux";
+
+import { AppDispatch, RootState } from "@/lib/store";
+import { verifyOtp } from "@/lib/features/emailAuthSlice";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp";
 import { Button } from "@/components/ui/button";
-import { Label } from "./ui/label";
+
+const FormSchema = z.object({
+  otp: z.string().min(6, {
+    message: "Your one-time password must be 6 characters.",
+  }),
+});
 
 export function EmailOtpInput() {
+  const dispatch: AppDispatch = useDispatch();
+  const { email, loading, error } = useSelector(
+    (state: RootState) => state.emailAuth
+  );
+
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      otp: "",
+    },
+  });
+
+  const handleVerifyOtp = (data: z.infer<typeof FormSchema>) => {
+    if (!email) {
+      alert("No email found. Please try again.");
+      return;
+    }
+
+    dispatch(verifyOtp({ email, otp: data.otp }));
+  };
+
   return (
     <div>
       <h1 className="text-3xl font-bold mb-6">Check your email</h1>
 
-      <div className="flex flex-col gap-4 justify-center items-center">
-        <div className="flex flex-col gap-5">
-          <p className="text-xl">
-            If this account exists, a unique <br /> verification code will be
-            sent to{" "}
-            <span className="font-bold"> abhijithjithu36151@gmail.com.</span>
-          </p>
-          <p className="text-xl">
-            Enter the code here to complete <br /> your sign-up
-          </p>
-        </div>
+      <div className="flex flex-col gap-4 ">
+        <p className="text-xl">
+          If this account exists, a unique <br /> verification code will be sent
+          to <span className="font-bold"> {email}.</span>
+        </p>
+        <p className="text-xl">
+          Enter the code here to complete <br /> your sign-up
+        </p>
 
-        <div className="flex flex-col gap-6 justify-center items-center mt-5">
-          <Label className="text-lg font-bold">
-            Enter your unique code below:
-          </Label>
-          <div>
-            <InputOTP maxLength={6} pattern={REGEXP_ONLY_DIGITS_AND_CHARS}>
-              <InputOTPGroup className="w-full gap-3">
-                <InputOTPSlot index={0} />
-                <InputOTPSlot index={1} />
-                <InputOTPSlot index={2} />
-                <InputOTPSlot index={3} />
-                <InputOTPSlot index={4} />
-                <InputOTPSlot index={5} />
-              </InputOTPGroup>
-            </InputOTP>
-          </div>
-
-          <Button
-            variant="outline"
-            className="w-full p-7 bg-customColor text-lg font-bold text-white rounded-none"
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(handleVerifyOtp)}
+            className="flex flex-col gap-6 justify-center items-center mt-5"
           >
-            Verify OTP
-          </Button>
-        </div>
+            <FormField
+              control={form.control}
+              name="otp"
+              render={({ field }) => (
+                <FormItem className="text-center">
+                  <FormLabel className="text-lg font-bold">
+                    Enter your unique code below:
+                  </FormLabel>
+                  <FormControl>
+                    <InputOTP maxLength={6} {...field}>
+                      <InputOTPGroup className="w-full gap-3">
+                        <InputOTPSlot index={0} />
+                        <InputOTPSlot index={1} />
+                        <InputOTPSlot index={2} />
+                        <InputOTPSlot index={3} />
+                        <InputOTPSlot index={4} />
+                        <InputOTPSlot index={5} />
+                      </InputOTPGroup>
+                    </InputOTP>
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button
+              type="submit"
+              disabled={loading}
+              variant="outline"
+              className="w-full p-7 bg-customColor text-md font-bold text-white rounded-none"
+            >
+              LOG ME IN
+            </Button>
+          </form>
+        </Form>
+
+        {error && <p className="text-red-500 mt-4">{error}</p>}
       </div>
     </div>
   );
