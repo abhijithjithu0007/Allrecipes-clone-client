@@ -21,6 +21,7 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 const FormSchema = z.object({
   otp: z.string().min(6, {
@@ -34,6 +35,8 @@ export function EmailOtpInput() {
     (state: RootState) => state.emailAuth
   );
 
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -41,13 +44,17 @@ export function EmailOtpInput() {
     },
   });
 
-  const handleVerifyOtp = (data: z.infer<typeof FormSchema>) => {
+  const handleVerifyOtp = async (data: z.infer<typeof FormSchema>) => {
     if (!email) {
       alert("No email found. Please try again.");
       return;
     }
 
-    dispatch(verifyOtp({ email, otp: data.otp }));
+    const output = await dispatch(verifyOtp({ email, otp: data.otp }));
+    if (verifyOtp.fulfilled.match(output)) {
+      alert("Otp verfied succes");
+      router.push("/u/home");
+    }
   };
 
   return (
