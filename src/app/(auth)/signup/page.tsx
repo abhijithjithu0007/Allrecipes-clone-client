@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { MdOutlineEmail } from "react-icons/md";
 import { FaGoogle } from "react-icons/fa";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { AppDispatch } from "@/lib/store";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/lib/store";
@@ -16,10 +16,12 @@ import {
 import { EmailInput } from "@/components/email-input";
 import { EmailOtpInput } from "@/components/email-otp";
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
   const { data: session } = useSession();
   const dispatch: AppDispatch = useDispatch();
+  const router = useRouter();
   const currentStep = useSelector(
     (state: RootState) => state.emailAuth.currentStep
   );
@@ -27,17 +29,25 @@ export default function Page() {
   useEffect(() => {
     if (session?.user) {
       const { name, email } = session.user;
-      console.log("Session data:", session.user);
       dispatch(setName(name || ""));
       dispatch(setEmail(email || ""));
-      dispatch(googleRegister({ name: name || "", email: email || "" }));
+      dispatch(googleRegister({ name: name || "", email: email || "" }))
+        .unwrap()
+        .then((response) => {
+          if (response.message) {
+            alert(response.message);
+          }
+        })
+        .catch((error) => {
+          alert(`Registration failed: ${error}`);
+        });
     }
   }, [session, dispatch]);
 
   const handleGoogleSignup = async () => {
-    const result = await signIn("google", { callbackUrl: "/u/home" });
-    if (result?.error) {
-      console.error("Google Sign-In Error:", result.error);
+    const result = await signIn("google");
+    if (result?.ok) {
+      router.push("/u/home");
     }
   };
 

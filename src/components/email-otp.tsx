@@ -31,8 +31,13 @@ const FormSchema = z.object({
 
 export function EmailOtpInput() {
   const dispatch: AppDispatch = useDispatch();
-  const { email, loading, error } = useSelector(
-    (state: RootState) => state.emailAuth
+  const { email } = useSelector((state: RootState) => state.emailAuth);
+
+  const loading = useSelector(
+    (state: RootState) => state.emailAuth.loading.verifyOtp
+  );
+  const error = useSelector(
+    (state: RootState) => state.emailAuth.error.verifyOtp
   );
 
   const router = useRouter();
@@ -51,9 +56,13 @@ export function EmailOtpInput() {
     }
 
     const output = await dispatch(verifyOtp({ email, otp: data.otp }));
+    console.log(output);
+
     if (verifyOtp.fulfilled.match(output)) {
-      alert("Otp verfied succes");
       router.push("/u/home");
+    }
+    if (verifyOtp.rejected.match(output)) {
+      alert(error);
     }
   };
 
@@ -102,7 +111,7 @@ export function EmailOtpInput() {
             />
             <Button
               type="submit"
-              disabled={loading}
+              disabled={!form.formState.isValid || loading}
               variant="outline"
               className="w-full p-7 bg-customColor text-md font-bold text-white rounded-none"
             >

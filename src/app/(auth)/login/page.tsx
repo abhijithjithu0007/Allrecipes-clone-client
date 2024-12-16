@@ -3,9 +3,34 @@
 import Image from "next/image";
 import { MdOutlineEmail } from "react-icons/md";
 import { FaGoogle } from "react-icons/fa";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import { AppDispatch, RootState } from "@/lib/store";
+import { useDispatch, useSelector } from "react-redux";
+import { googleLogin, setName } from "@/lib/features/googleAuthSlice";
+import { setEmail } from "@/lib/features/emailAuthSlice";
+import { useEffect } from "react";
 
 export default function Page() {
+  const { data: session } = useSession();
+  const dispatch: AppDispatch = useDispatch();
+  // const currentStep = useSelector(
+  //   (state: RootState) => state.emailAuth.currentStep
+  // );
+
+  useEffect(() => {
+    if (session?.user) {
+      const { name, email } = session.user;
+      dispatch(setName(name || ""));
+      dispatch(setEmail(email || ""));
+      dispatch(googleLogin(email || ""));
+    }
+  }, [session, dispatch]);
+  console.log(session?.user || {});
+
+  const handleGoogleSignIn = async () => {
+    const result = await signIn("google", { callbackUrl: "/u/home" });
+    alert("Login successfully.");
+  };
   return (
     <div className="flex h-screen w-full">
       <div className="relative w-1/2 h-full">
@@ -36,7 +61,7 @@ export default function Page() {
               Login with Email
             </button>
             <button
-              onClick={() => signIn("google")}
+              onClick={handleGoogleSignIn}
               className="group flex font-bold items-center justify-center py-3 px-2  outline outline-1 hover:bg-blue-400 hover:text-white"
             >
               <FaGoogle

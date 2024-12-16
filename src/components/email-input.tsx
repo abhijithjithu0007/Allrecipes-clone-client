@@ -5,19 +5,24 @@ import { sendOtp, setEmail } from "@/lib/features/emailAuthSlice";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "./ui/label";
+import validator from "validator";
 
 export function EmailInput() {
   const dispatch: AppDispatch = useDispatch();
   const email = useSelector((state: RootState) => state.emailAuth.email);
-  const loading = useSelector((state: RootState) => state.emailAuth.loading);
-  const error = useSelector((state: RootState) => state.emailAuth.error);
+  const loading = useSelector(
+    (state: RootState) => state.emailAuth.loading.sendOtp
+  );
+  const error = useSelector(
+    (state: RootState) => state.emailAuth.error.sendOtp
+  );
 
-  const handleSendOtp = () => {
-    if (!email) {
-      alert("Please enter a valid email.");
+  const handleSendOtp = async () => {
+    if (!email || !validator.isEmail(email)) {
+      alert("Please enter a valid email address.");
       return;
     }
-    dispatch(sendOtp(email));
+    await dispatch(sendOtp(email));
   };
   return (
     <div>
