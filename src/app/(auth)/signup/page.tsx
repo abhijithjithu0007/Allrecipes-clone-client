@@ -3,19 +3,43 @@
 import Image from "next/image";
 import { MdOutlineEmail } from "react-icons/md";
 import { FaGoogle } from "react-icons/fa";
-import { signIn } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { AppDispatch } from "@/lib/store";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/lib/store";
-import { goToEmailInput } from "@/lib/features/emailAuthSlice";
+import {
+  goToEmailInput,
+  setName,
+  setEmail,
+  googleRegister,
+} from "@/lib/features/emailAuthSlice";
 import { EmailInput } from "@/components/email-input";
 import { EmailOtpInput } from "@/components/email-otp";
+import { useEffect } from "react";
 
 export default function Page() {
+  const { data: session } = useSession();
   const dispatch: AppDispatch = useDispatch();
   const currentStep = useSelector(
     (state: RootState) => state.emailAuth.currentStep
   );
+
+  useEffect(() => {
+    if (session?.user) {
+      const { name, email } = session.user;
+      console.log("Session data:", session.user);
+      dispatch(setName(name || ""));
+      dispatch(setEmail(email || ""));
+      dispatch(googleRegister({ name: name || "", email: email || "" }));
+    }
+  }, [session, dispatch]);
+
+  const handleGoogleSignup = async () => {
+    const result = await signIn("google", { callbackUrl: "/u/home" });
+    if (result?.error) {
+      console.error("Google Sign-In Error:", result.error);
+    }
+  };
 
   const renderContent = () => {
     if (currentStep === "emailInput") return <EmailInput />;
@@ -60,7 +84,7 @@ export default function Page() {
 
             {currentStep === "" && (
               <button
-                onClick={() => signIn("google")}
+                onClick={handleGoogleSignup}
                 className="group flex font-bold items-center justify-center py-3 px-2 outline outline-1 hover:bg-blue-400 hover:text-white"
               >
                 <FaGoogle
@@ -76,6 +100,7 @@ export default function Page() {
             <p className="mt-10">
               By signing up, you agree to the{" "}
               <span className="underline">Terms of Service</span> and{" "}
+              {/* <button onClick={() => signOut()}>======</button> */}
               <span className="underline">Privacy Policy.</span>
               If you live in the US you will also opt in to Allrecipes email
               communication.
