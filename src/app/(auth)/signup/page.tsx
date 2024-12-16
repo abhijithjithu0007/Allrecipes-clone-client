@@ -7,12 +7,12 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { AppDispatch } from "@/lib/store";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/lib/store";
+import { goToEmailInput } from "@/lib/features/emailAuthSlice";
 import {
-  goToEmailInput,
   setName,
-  setEmail,
   googleRegister,
-} from "@/lib/features/emailAuthSlice";
+  setEmail,
+} from "@/lib/features/googleAuthSlice";
 import { EmailInput } from "@/components/email-input";
 import { EmailOtpInput } from "@/components/email-otp";
 import { useEffect } from "react";
