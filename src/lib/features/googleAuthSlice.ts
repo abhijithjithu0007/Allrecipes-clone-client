@@ -16,7 +16,7 @@ const initialState: googleAuthState = {
 };
 
 export const googleRegister = createAsyncThunk(
-  "emailAuth/googleRegister",
+  "googleAuth/googleRegister",
   async (
     { name, email }: { name: string; email: string },
     { rejectWithValue }
@@ -29,9 +29,26 @@ export const googleRegister = createAsyncThunk(
       console.log("Google Register Response:", response.data); // Debug log
       return response.data;
     } catch (error: any) {
-      console.error("Google Register Error:", error.response?.data);
+      console.log("Google Register Error:", error.response?.data);
       return rejectWithValue(
         error.response?.data?.message || "Failed to register"
+      );
+    }
+  }
+);
+export const googleLogin = createAsyncThunk(
+  "auth/login",
+  async (email: string, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/api/auth/g-login",
+        { email }
+      );
+      return response.data;
+    } catch (error: any) {
+      console.log("Login Error:", error.response?.data);
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to login"
       );
     }
   }
@@ -58,6 +75,17 @@ const googleAuthSlice = createSlice({
         state.loading = false;
       })
       .addCase(googleRegister.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(googleLogin.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(googleLogin.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(googleLogin.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });
