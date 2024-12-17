@@ -9,9 +9,10 @@ import { RootState } from "@/lib/store";
 import { goToEmailInputForLogin } from "@/lib/features/emailAuthSlice";
 import { EmailInputLogin } from "@/components/auth-components/email-input-login";
 import { EmailOtpInputLogin } from "@/components/auth-components/email-otp-login";
+import { useSession } from "next-auth/react";
 
 export default function Page() {
-  // const { data: session } = useSession();
+  const { data: session } = useSession();
   const dispatch: AppDispatch = useDispatch();
   const currentStep = useSelector(
     (state: RootState) => state.emailAuth.currrentStepOfLogin

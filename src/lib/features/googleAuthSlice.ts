@@ -35,6 +35,7 @@ export const googleRegister = createAsyncThunk(
         JSON.stringify({
           email: userData.email,
           token: userData.data,
+          authMethod: "google",
         }),
         { expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) }
       );
