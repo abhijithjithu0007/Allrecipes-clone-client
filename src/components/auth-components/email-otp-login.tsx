@@ -57,9 +57,6 @@ export function EmailOtpInputLogin() {
     if (verifyOtpForLogin.fulfilled.match(output)) {
       router.push("/u/home");
     }
-    if (verifyOtpForLogin.rejected.match(output)) {
-      alert(error);
-    }
   };
 
   return (

@@ -56,13 +56,9 @@ export function EmailOtpInput() {
     }
 
     const output = await dispatch(verifyOtp({ email, otp: data.otp }));
-    console.log(output);
 
     if (verifyOtp.fulfilled.match(output)) {
       router.push("/u/home");
-    }
-    if (verifyOtp.rejected.match(output)) {
-      alert(error);
     }
   };
 

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 interface EmailAuthState {
   email: string;
@@ -67,6 +68,16 @@ export const verifyOtp = createAsyncThunk(
       const response = await axios.post(
         "http://localhost:3001/api/auth/verifyOtp",
         { email, otp }
+      );
+      const { data } = response;
+      const userData = data.data;
+      Cookies.set(
+        "user",
+        JSON.stringify({
+          email: userData.email,
+          token: userData.token,
+        }),
+        { expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) }
       );
       return response.data;
     } catch (error: any) {
