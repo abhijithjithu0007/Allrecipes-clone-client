@@ -57,6 +57,18 @@ export const googleLogin = createAsyncThunk(
         "http://localhost:3001/api/auth/g-login",
         { email }
       );
+      const { data } = response;
+      const userData = data.data;
+
+      Cookies.set(
+        "user",
+        JSON.stringify({
+          email: userData.email,
+          token: userData.token,
+          authMethod: "google",
+        }),
+        { expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) }
+      );
       return response.data;
     } catch (error: any) {
       console.log("Login Error:", error.response?.data);

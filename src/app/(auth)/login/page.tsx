@@ -9,14 +9,44 @@ import { RootState } from "@/lib/store";
 import { goToEmailInputForLogin } from "@/lib/features/emailAuthSlice";
 import { EmailInputLogin } from "@/components/auth-components/email-input-login";
 import { EmailOtpInputLogin } from "@/components/auth-components/email-otp-login";
-import { useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { googleLogin } from "@/lib/features/googleAuthSlice";
 
 export default function Page() {
   const { data: session } = useSession();
-  const dispatch: AppDispatch = useDispatch();
   const currentStep = useSelector(
     (state: RootState) => state.emailAuth.currrentStepOfLogin
   );
+  const dispatch: AppDispatch = useDispatch();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (session?.user) {
+      const { email } = session.user;
+      if (email) {
+        dispatch(googleLogin(email || ""))
+          .unwrap()
+          .then((response) => {
+            if (response.message) {
+              alert(response.message);
+            }
+
+            if (response.statusCode === 200) {
+              router.push("/u/home");
+            }
+          })
+          .catch((error) => {
+            alert(`Registration failed: ${error}`);
+          });
+      }
+    }
+  }, [session, dispatch]);
+
+  const handleGoogleSignup = async () => {
+    await signIn("google");
+  };
 
   const renderContent = () => {
     if (currentStep === "emailInput") return <EmailInputLogin />;
@@ -60,7 +90,10 @@ export default function Page() {
             {renderContent()}
 
             {currentStep === "" && (
-              <button className="group flex font-bold items-center justify-center py-3 px-2 outline outline-1 hover:bg-blue-400 hover:text-white">
+              <button
+                onClick={handleGoogleSignup}
+                className="group flex font-bold items-center justify-center py-3 px-2 outline outline-1 hover:bg-blue-400 hover:text-white"
+              >
                 <FaGoogle
                   className="mr-2 text-blue-400 group-hover:text-white"
                   size={25}
