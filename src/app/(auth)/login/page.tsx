@@ -3,34 +3,35 @@
 import Image from "next/image";
 import { MdOutlineEmail } from "react-icons/md";
 import { FaGoogle } from "react-icons/fa";
-import { signIn, useSession } from "next-auth/react";
-import { AppDispatch, RootState } from "@/lib/store";
+import { AppDispatch } from "@/lib/store";
 import { useDispatch, useSelector } from "react-redux";
-import { googleLogin, setName } from "@/lib/features/googleAuthSlice";
-import { setEmail } from "@/lib/features/emailAuthSlice";
-import { useEffect } from "react";
+import { RootState } from "@/lib/store";
+import { goToEmailInputForLogin } from "@/lib/features/emailAuthSlice";
+import { EmailInputLogin } from "@/components/auth-components/email-input-login";
+import { EmailOtpInputLogin } from "@/components/auth-components/email-otp-login";
 
 export default function Page() {
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
   const dispatch: AppDispatch = useDispatch();
-  // const currentStep = useSelector(
-  //   (state: RootState) => state.emailAuth.currentStep
-  // );
+  const currentStep = useSelector(
+    (state: RootState) => state.emailAuth.currrentStepOfLogin
+  );
 
-  useEffect(() => {
-    if (session?.user) {
-      const { name, email } = session.user;
-      dispatch(setName(name || ""));
-      dispatch(setEmail(email || ""));
-      dispatch(googleLogin(email || ""));
-    }
-  }, [session, dispatch]);
-  console.log(session?.user || {});
+  const renderContent = () => {
+    if (currentStep === "emailInput") return <EmailInputLogin />;
+    if (currentStep === "otpInput") return <EmailOtpInputLogin />;
 
-  const handleGoogleSignIn = async () => {
-    const result = await signIn("google", { callbackUrl: "/u/home" });
-    alert("Login successfully.");
+    return (
+      <button
+        onClick={() => dispatch(goToEmailInputForLogin())}
+        className="flex font-bold items-center justify-center py-3 px-2 outline outline-1 hover:bg-black hover:text-white"
+      >
+        <MdOutlineEmail className="mr-2" size={25} />
+        Login with Email
+      </button>
+    );
   };
+
   return (
     <div className="flex h-screen w-full">
       <div className="relative w-1/2 h-full">
@@ -53,31 +54,29 @@ export default function Page() {
               className="object-contain"
             />
           </div>
-          <h1 className="text-3xl font-bold mb-6">Login</h1>
 
           <div className="flex flex-col gap-4">
-            <button className="flex font-bold items-center justify-center py-3 px-2  outline outline-1 hover:bg-black hover:text-white ">
-              <MdOutlineEmail className="mr-2" size={25} />
-              Login with Email
-            </button>
-            <button
-              onClick={handleGoogleSignIn}
-              className="group flex font-bold items-center justify-center py-3 px-2  outline outline-1 hover:bg-blue-400 hover:text-white"
-            >
-              <FaGoogle
-                className="mr-2 text-blue-400 group-hover:text-white"
-                size={25}
-              />
-              Login with Google
-            </button>
+            {renderContent()}
+
+            {currentStep === "" && (
+              <button className="group flex font-bold items-center justify-center py-3 px-2 outline outline-1 hover:bg-blue-400 hover:text-white">
+                <FaGoogle
+                  className="mr-2 text-blue-400 group-hover:text-white"
+                  size={25}
+                />
+                Login with Google
+              </button>
+            )}
           </div>
 
-          <p className="mt-4 text-center">
-            Don't have an account?{" "}
-            <a href="/signup" className="underline">
-              Join now
-            </a>
-          </p>
+          {currentStep === "" && (
+            <p className="mt-10 text-center">
+              Dont have an account?
+              <a href="/signup" className="underline">
+                Join now
+              </a>
+            </p>
+          )}
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ import { AppDispatch, RootState } from "@/lib/store";
 import { sendOtp, setEmail } from "@/lib/features/emailAuthSlice";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Label } from "./ui/label";
+import { Label } from "../ui/label";
 import validator from "validator";
 
 export function EmailInput() {

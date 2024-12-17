@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 interface googleAuthState {
   email: string;
@@ -26,7 +27,18 @@ export const googleRegister = createAsyncThunk(
         "http://localhost:3001/api/auth/register",
         { name, email }
       );
-      console.log("Google Register Response:", response.data); // Debug log
+      const { data } = response;
+      const userData = data.data;
+
+      Cookies.set(
+        "user",
+        JSON.stringify({
+          email: userData.email,
+          token: userData.data,
+        }),
+        { expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) }
+      );
+      console.log("Google Register Response:", response.data);
       return response.data;
     } catch (error: any) {
       console.log("Google Register Error:", error.response?.data);

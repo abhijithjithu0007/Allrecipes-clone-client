@@ -13,8 +13,8 @@ import {
   googleRegister,
   setEmail,
 } from "@/lib/features/googleAuthSlice";
-import { EmailInput } from "@/components/email-input";
-import { EmailOtpInput } from "@/components/email-otp";
+import { EmailInput } from "@/components/auth-components/email-input";
+import { EmailOtpInput } from "@/components/auth-components/email-otp";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
@@ -29,26 +29,29 @@ export default function Page() {
   useEffect(() => {
     if (session?.user) {
       const { name, email } = session.user;
-      dispatch(setName(name || ""));
-      dispatch(setEmail(email || ""));
-      dispatch(googleRegister({ name: name || "", email: email || "" }))
-        .unwrap()
-        .then((response) => {
-          if (response.message) {
-            alert(response.message);
-          }
-        })
-        .catch((error) => {
-          alert(`Registration failed: ${error}`);
-        });
+      if (name && email) {
+        dispatch(setName(name));
+        dispatch(setEmail(email));
+        dispatch(googleRegister({ name: name || "", email: email || "" }))
+          .unwrap()
+          .then((response) => {
+            if (response.message) {
+              alert(response.message);
+            }
+
+            if (response.statusCode === 200) {
+              router.push("/u/home");
+            }
+          })
+          .catch((error) => {
+            alert(`Registration failed: ${error}`);
+          });
+      }
     }
   }, [session, dispatch]);
 
   const handleGoogleSignup = async () => {
-    const result = await signIn("google");
-    if (result?.ok) {
-      router.push("/u/home");
-    }
+    await signIn("google");
   };
 
   const renderContent = () => {
@@ -107,14 +110,23 @@ export default function Page() {
           </div>
 
           {currentStep === "" && (
-            <p className="mt-10">
-              By signing up, you agree to the{" "}
-              <span className="underline">Terms of Service</span> and{" "}
-              {/* <button onClick={() => signOut()}>======</button> */}
-              <span className="underline">Privacy Policy.</span>
-              If you live in the US you will also opt in to Allrecipes email
-              communication.
-            </p>
+            <div>
+              <p className="mt-10">
+                By signing up, you agree to the{" "}
+                <span className="underline">Terms of Service</span> and{" "}
+                <span className="underline">Privacy Policy.</span>
+                If you live in the US you will also opt in to Allrecipes email
+                communication.
+              </p>
+              <div className="text-center mt-5">
+                <span>
+                  Already have an account?
+                  <a className="underline" href="/login">
+                    login
+                  </a>
+                </span>
+              </div>
+            </div>
           )}
         </div>
       </div>

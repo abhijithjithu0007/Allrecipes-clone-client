@@ -4,27 +4,37 @@ import axios from "axios";
 interface EmailAuthState {
   email: string;
   currentStep: "emailInput" | "otpInput" | "";
+  currrentStepOfLogin: "emailInput" | "otpInput" | "";
   otp: string;
   loading: {
     sendOtp: boolean;
+    sendOtpForLogin: boolean;
     verifyOtp: boolean;
+    verifyOtpForLogin: boolean;
   };
   error: {
     sendOtp: string | null;
+    sendOtpForLogin: string | null;
     verifyOtp: string | null;
+    verifyOtpForLogin: string | null;
   };
 }
 
 const initialState: EmailAuthState = {
   email: "",
   currentStep: "",
+  currrentStepOfLogin: "",
   loading: {
     sendOtp: false,
+    sendOtpForLogin: false,
     verifyOtp: false,
+    verifyOtpForLogin: false,
   },
   error: {
     sendOtp: null,
     verifyOtp: null,
+    sendOtpForLogin: null,
+    verifyOtpForLogin: null,
   },
   otp: "",
 };
@@ -34,7 +44,7 @@ export const sendOtp = createAsyncThunk(
   async (email: string, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        "http://localhost:3001/api/aut  h/sendOtp",
+        "http://localhost:3001/api/auth/sendOtp",
         { email }
       );
       return response.data;
@@ -68,6 +78,45 @@ export const verifyOtp = createAsyncThunk(
   }
 );
 
+export const sendOtpForLogin = createAsyncThunk(
+  "emailAuth/sendOtpForLogin",
+  async (email: string, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/api/auth/send-login-otp",
+        { email }
+      );
+      return response.data;
+    } catch (error: any) {
+      console.log("Error sending OTP:", error.response?.data);
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to send OTP"
+      );
+    }
+  }
+);
+
+export const verifyOtpForLogin = createAsyncThunk(
+  "emailAuth/verifyOtpForLogin",
+  async (
+    { email, otp }: { email: string; otp: string },
+    { rejectWithValue }
+  ) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/api/auth/verify-login-otp",
+        { email, otp }
+      );
+      return response.data;
+    } catch (error: any) {
+      console.log("Error verifying OTP:", error.response?.data);
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to verify OTP"
+      );
+    }
+  }
+);
+
 const emailAuthSlice = createSlice({
   name: "emailAuth",
   initialState,
@@ -83,6 +132,12 @@ const emailAuthSlice = createSlice({
     },
     goToEmailInput(state) {
       state.currentStep = "emailInput";
+    },
+    goToEmailInputForLogin(state) {
+      state.currrentStepOfLogin = "emailInput";
+    },
+    goToOtpInputForLogin(state) {
+      state.currrentStepOfLogin = "otpInput";
     },
   },
   extraReducers: (builder) => {
@@ -110,10 +165,40 @@ const emailAuthSlice = createSlice({
       .addCase(verifyOtp.rejected, (state, action) => {
         state.loading.verifyOtp = false;
         state.error.verifyOtp = action.payload as string;
+      })
+      .addCase(sendOtpForLogin.pending, (state) => {
+        state.loading.sendOtpForLogin = true;
+        state.error.sendOtpForLogin = null;
+      })
+      .addCase(sendOtpForLogin.fulfilled, (state) => {
+        state.loading.sendOtpForLogin = false;
+        state.currrentStepOfLogin = "otpInput";
+      })
+      .addCase(sendOtpForLogin.rejected, (state, action) => {
+        state.loading.sendOtpForLogin = false;
+        state.error.sendOtpForLogin = action.payload as string;
+      })
+      .addCase(verifyOtpForLogin.pending, (state) => {
+        state.loading.verifyOtpForLogin = true;
+        state.error.verifyOtpForLogin = null;
+      })
+      .addCase(verifyOtpForLogin.fulfilled, (state) => {
+        state.loading.verifyOtpForLogin = false;
+        state.currrentStepOfLogin = "";
+      })
+      .addCase(verifyOtpForLogin.rejected, (state, action) => {
+        state.loading.verifyOtpForLogin = false;
+        state.error.verifyOtpForLogin = action.payload as string;
       });
   },
 });
 
-export const { setEmail, goToOtpInput, goToEmailInput, setOtp } =
-  emailAuthSlice.actions;
+export const {
+  setEmail,
+  goToOtpInput,
+  goToEmailInput,
+  setOtp,
+  goToOtpInputForLogin,
+  goToEmailInputForLogin,
+} = emailAuthSlice.actions;
 export default emailAuthSlice.reducer;
