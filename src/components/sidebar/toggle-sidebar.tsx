@@ -16,16 +16,26 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-export default function Togglesidebar() {
+export default function Togglesidebar({
+  isOpen,
+  setIsOpen,
+}: {
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   return (
-    <div className="w-72 p-4 flex flex-col justify-evenly  h-screen">
-      <div className="flex items-center gap-3">
-        <IoCloseSharp size={30} />
+    <div className="w-72 p-4 flex flex-col justify-evenly bg-white  h-screen z-50">
+      <div className="flex justify-around items-center gap-3">
         <Image
           src="/images/allrecipes_logo.jpg"
           alt=""
           width={120}
           height={35}
+        />
+        <IoCloseSharp
+          onClick={() => setIsOpen(false)}
+          size={32}
+          className="z-50"
         />
       </div>
       <div className="p-2">

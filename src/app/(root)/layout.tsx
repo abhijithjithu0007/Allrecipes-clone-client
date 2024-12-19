@@ -1,3 +1,5 @@
+import Navbar from "@/components/navbar/navbar";
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -5,7 +7,10 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Navbar />
+        {children}
+      </body>
     </html>
   );
 }
