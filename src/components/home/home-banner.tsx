@@ -12,8 +12,8 @@ export default function Homebanner() {
           height={0}
         />
       </div>
-      <div className=" bg-[#F5F6EA] w-1/3">
-        <h1>Latest $ Trending</h1>
+      <div className=" bg-[#F5F6EA] w-1/3 text-center">
+        <h1 className="text-3xl font-bold">Latest $ Trending</h1>
         <div className="p-10">
           <h1>latest-food is this</h1>
           <h1>latest-food is this</h1>

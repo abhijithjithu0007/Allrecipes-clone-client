@@ -13,6 +13,7 @@ import { IoPersonCircle, IoReorderThreeOutline } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { signOut } from "next-auth/react";
+import Link from "next/link";
 
 export default function Mainnav({
   isOpen,
@@ -97,7 +98,10 @@ export default function Mainnav({
                         Saved Recipe & Collection
                       </li>
                       <hr />
-                      <li className="hover:bg-gray-100 p-2">Add Recipe</li>
+                      <Link href="/u/add-recipe">
+                        {" "}
+                        <li className="hover:bg-gray-100 p-2">Add Recipe</li>
+                      </Link>
                     </ul>
                   </NavigationMenuContent>
                 </>
