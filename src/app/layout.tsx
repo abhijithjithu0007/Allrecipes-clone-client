@@ -2,7 +2,7 @@ import "./globals.css";
 import { getServerSession } from "next-auth";
 import SessionProvider from "../components/Provider/SessionProvider";
 import { ReduxProvider } from "@/components/Provider/reduxProvider";
-import Togglesidebar from "@/components/sidebar/toggle-sidebar";
+import Mainnav from "@/components/navbar/main-nav";
 
 export default async function RootLayout({
   children,
@@ -17,7 +17,7 @@ export default async function RootLayout({
           <SessionProvider session={session}>{children}</SessionProvider>
         </ReduxProvider> */}
 
-        <Togglesidebar />
+        <Mainnav />
       </body>
     </html>
   );

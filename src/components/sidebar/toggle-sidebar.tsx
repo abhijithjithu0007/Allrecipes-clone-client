@@ -36,7 +36,7 @@ export default function Togglesidebar() {
           <Input
             id="email"
             type="email"
-            placeholder="what are you looking for"
+            placeholder="What are you looking for"
             className=" rounded-none border border-black"
           />
           <div className="p-[10px] bg-customColor text-white">
