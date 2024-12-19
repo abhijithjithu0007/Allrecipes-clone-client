@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import Searchfiled from "./search-filed";
-import { CgProfile } from "react-icons/cg";
 import Image from "next/image";
 import {
   NavigationMenu,
@@ -10,7 +9,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { IoReorderThreeOutline } from "react-icons/io5";
+import { IoPersonCircle, IoReorderThreeOutline } from "react-icons/io5";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { signOut } from "next-auth/react";
@@ -71,14 +70,15 @@ export default function Mainnav({
                     href="/login"
                     className="flex items-center gap-2"
                   >
-                    <CgProfile size={20} /> Login
+                    <IoPersonCircle size={20} /> Login
                   </NavigationMenuLink>
                 </NavigationMenuTrigger>
               ) : (
                 <>
                   <NavigationMenuTrigger>
                     <div className="flex text-base gap-2 items-center">
-                      <CgProfile size={20} /> My Profile
+                      <IoPersonCircle size={25} className="text-customColor" />{" "}
+                      My Profile
                     </div>
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>

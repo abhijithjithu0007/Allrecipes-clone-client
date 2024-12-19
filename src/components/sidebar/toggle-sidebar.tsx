@@ -1,10 +1,9 @@
 import Image from "next/image";
 import React from "react";
 
-import { IoCloseSharp } from "react-icons/io5";
+import { IoCloseSharp, IoPersonCircle } from "react-icons/io5";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
-import { CgProfile } from "react-icons/cg";
 import { IoLogoInstagram } from "react-icons/io5";
 import { IoSearch } from "react-icons/io5";
 import { CiFacebook } from "react-icons/ci";
@@ -82,7 +81,7 @@ export default function Togglesidebar({
           <AccordionItem value="item-1">
             <AccordionTrigger>
               <div className="gap-3 flex justify-center items-center    ">
-                <CgProfile className="text-customColor" />
+                <IoPersonCircle className="text-customColor" />
                 My profile
               </div>
             </AccordionTrigger>
