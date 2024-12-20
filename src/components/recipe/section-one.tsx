@@ -16,7 +16,7 @@ export default function Sectionone() {
           <h1 className="text-3xl font-bold pl-8 relative z-10">
             Add a Recipe
           </h1>
-          <div className="bg-[#e7ab46] h-6 w-full absolute top-5     left-0"></div>
+          <div className="bg-[#e7ab46] h-6 w-full absolute top-5 left-0"></div>
         </div>
         <div>
           <p>
@@ -26,8 +26,8 @@ export default function Sectionone() {
         </div>
         <hr />
       </div>
-      <div className="flex justify-around p-6">
-        <div className="flex flex-col gap-6">
+      <div className="flex p-6">
+        <div className="flex flex-col gap-6 w-1/2">
           <div>
             <Label htmlFor="" className="text-base font-bold">
               Recipe Title{" "}
@@ -45,10 +45,13 @@ export default function Sectionone() {
               Description{" "}
             </Label>
 
-            <Textarea placeholder="Type your message here." />
+            <Textarea
+              placeholder="Type your message here."
+              className="min-h-28"
+            />
           </div>
         </div>
-        <div>
+        <div className="w-1/2 flex flex-col justify-center items-center gap-2">
           <Label htmlFor="email" className="text-base font-bold">
             {`Photo (Optional)`}
           </Label>

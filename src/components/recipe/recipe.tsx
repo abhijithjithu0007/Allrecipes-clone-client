@@ -7,7 +7,7 @@ import Finalsection from "./final-section";
 export default function Recipe() {
   return (
     <div className="flex flex-col justify-center items-center">
-      <div className="w-1/2 shadow-lg bg-white">
+      <div className="w-1/2 shadow-lg bg-white mb-10">
         <Sectionone />
         <Ingredients />
         <Directions />

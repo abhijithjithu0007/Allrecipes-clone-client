@@ -135,6 +135,14 @@ export default function Finalsection() {
           Submit Recipe
         </button>
       </div>
+      <hr />
+      <div className="p-8">
+        <p className="text-gray-500 text-sm italic">
+          Allrecipes is all about cooks like you. If you found this recipe in a
+          magazine, cookbook, or on a website, we can't publish it. Published
+          recipes are subject to our Terms of Service.
+        </p>
+      </div>
     </div>
   );
 }
