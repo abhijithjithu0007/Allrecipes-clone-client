@@ -8,6 +8,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Textarea } from "../ui/textarea";
 
 export default function Finalsection() {
   return (
@@ -55,7 +67,7 @@ export default function Finalsection() {
         <div className="w-1/2">
           <Select>
             <SelectTrigger>
-              <SelectValue placeholder="Breakfast" defaultValue="Breakfast" />
+              <SelectValue placeholder="Breakfast" defaultValue="" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="light">Breakfast</SelectItem>
@@ -69,7 +81,7 @@ export default function Finalsection() {
           </Select>
         </div>
       </div>
-      <div className="flex justify-around p-4 items-center">
+      <div className="flex justify-around p-4 items-center mb-6">
         <Label htmlFor="" className="text-base font-bold">
           Cuisine
         </Label>
@@ -77,7 +89,7 @@ export default function Finalsection() {
         <div className="w-1/2">
           <Select>
             <SelectTrigger>
-              <SelectValue placeholder="Italian" defaultValue="Italian" />
+              <SelectValue placeholder="Italian" defaultValue="" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="Italian">Italian</SelectItem>
@@ -91,6 +103,37 @@ export default function Finalsection() {
             </SelectContent>
           </Select>
         </div>
+      </div>
+      <hr />
+      <div className="p-8 flex flex-col gap-3">
+        <Label htmlFor="" className="text-base font-bold">
+          {`Notes (optional)`}
+        </Label>
+
+        <Textarea placeholder="Type your notes here." className="min-h-36" />
+      </div>
+      <div className="flex justify-end gap-6 items-center p-10">
+        <AlertDialog>
+          <AlertDialogTrigger className="underline font-bold ">
+            Cancel
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                Are you sure you want to leave this page? Your changes will be
+                lost if you go back.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction>Continue</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+        <button className="bg-customColor text-lg font-bold p-3 pl-10 pr-10 rounded-sm text-white hover:bg-orange-600">
+          Submit Recipe
+        </button>
       </div>
     </div>
   );

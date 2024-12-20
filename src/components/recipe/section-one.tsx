@@ -29,19 +29,19 @@ export default function Sectionone() {
       <div className="flex justify-around p-6">
         <div className="flex flex-col gap-6">
           <div>
-            <Label htmlFor="email" className="text-base font-bold">
+            <Label htmlFor="" className="text-base font-bold">
               Recipe Title{" "}
             </Label>
 
             <Input
-              id="email"
-              type="email"
-              placeholder="yourname@example.com"
-              className="p-6 placeholder:text-lg outline outline-1 rounded-none mt-2"
+              id="title"
+              type="text"
+              placeholder="e.g. Grandma's Apple Pie"
+              className="p-6 placeholder:text-base outline outline-1 rounded-none mt-2"
             />
           </div>
           <div>
-            <Label htmlFor="email" className="text-base font-bold">
+            <Label htmlFor="" className="text-base font-bold">
               Description{" "}
             </Label>
 
