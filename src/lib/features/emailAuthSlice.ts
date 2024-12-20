@@ -78,7 +78,7 @@ export const verifyOtp = createAsyncThunk(
           token: userData.token,
           authMethod: "email",
         }),
-        { expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) }
+        { expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000) }
       );
       return response.data;
     } catch (error: any) {
@@ -128,7 +128,7 @@ export const verifyOtpForLogin = createAsyncThunk(
           token: userData.token,
           authMethod: "email",
         }),
-        { expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) }
+        { expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000) }
       );
       return response.data;
     } catch (error: any) {

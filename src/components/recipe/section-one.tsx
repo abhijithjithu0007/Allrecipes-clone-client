@@ -1,11 +1,28 @@
+"use client";
 import React from "react";
-import { FaPlus } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { setTitle, setDescription } from "@/lib/features/formSlice";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import Image from "next/image";
 import { Textarea } from "../ui/textarea";
+import { AppDispatch, RootState } from "@/lib/store";
+import { FaPlus } from "react-icons/fa";
 
 export default function Sectionone() {
+  const dispatch: AppDispatch = useDispatch();
+  const { title, description } = useSelector((state: RootState) => state.form);
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setTitle(e.target.value));
+  };
+
+  const handleDescriptionChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    dispatch(setDescription(e.target.value));
+  };
+
   return (
     <div className="p-5">
       <div className="flex flex-col gap-4">
@@ -29,33 +46,43 @@ export default function Sectionone() {
       <div className="flex p-6">
         <div className="flex flex-col gap-6 w-1/2">
           <div>
-            <Label htmlFor="" className="text-base font-bold">
-              Recipe Title{" "}
+            <Label htmlFor="title" className="text-base font-bold">
+              Recipe Title
             </Label>
 
             <Input
               id="title"
               type="text"
+              value={title}
+              onChange={handleTitleChange}
               placeholder="e.g. Grandma's Apple Pie"
               className="p-6 placeholder:text-base outline outline-1 rounded-none mt-2"
             />
           </div>
           <div>
-            <Label htmlFor="" className="text-base font-bold">
-              Description{" "}
+            <Label htmlFor="description" className="text-base font-bold">
+              Description
             </Label>
 
             <Textarea
+              id="description"
+              value={description}
+              onChange={handleDescriptionChange}
               placeholder="Type your message here."
               className="min-h-28"
             />
           </div>
         </div>
         <div className="w-1/2 flex flex-col justify-center items-center gap-2">
-          <Label htmlFor="email" className="text-base font-bold">
-            {`Photo (Optional)`}
+          <Label htmlFor="photo" className="text-base font-bold">
+            Photo (Optional)
           </Label>
-          <Image src="/images/loginImg.png" alt="" width={200} height={200} />
+          <Image
+            src="/images/loginImg.png"
+            alt="Recipe Image"
+            width={200}
+            height={200}
+          />
           <p className="text-xs text-gray-600 pt-2">
             Use JPEG or PNG. Must be at least <br /> 960 x 960. Max file size:
             30MB

@@ -37,7 +37,7 @@ export const googleRegister = createAsyncThunk(
           token: userData.data,
           authMethod: "google",
         }),
-        { expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) }
+        { expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000) }
       );
       console.log("Google Register Response:", response.data);
       return response.data;
@@ -67,7 +67,7 @@ export const googleLogin = createAsyncThunk(
           token: userData.token,
           authMethod: "google",
         }),
-        { expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) }
+        { expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000) }
       );
       return response.data;
     } catch (error: any) {
