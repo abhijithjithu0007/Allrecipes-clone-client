@@ -2,6 +2,7 @@ import React from "react";
 import Sectionone from "./section-one";
 import Ingredients from "./ingredients";
 import Directions from "./directions";
+import Finalsection from "./final-section";
 
 export default function Recipe() {
   return (
@@ -10,6 +11,7 @@ export default function Recipe() {
         <Sectionone />
         <Ingredients />
         <Directions />
+        <Finalsection />
       </div>
     </div>
   );
