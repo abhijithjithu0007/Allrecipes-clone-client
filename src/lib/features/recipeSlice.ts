@@ -16,15 +16,31 @@ interface Recipe {
 interface RecipeState {
   recipes: Recipe[];
   status: "idle" | "loading" | "succeeded" | "failed";
-  error: string | null;
-  responseMessage: string | null;
+  loading: {
+    getRecipeByMeal: boolean;
+    getRecipeByIngredient: boolean;
+    getRecipeByCuisine: boolean;
+  };
+  error: {
+    getRecipeByMeal: string | null;
+    getRecipeByIngredient: string | null;
+    getRecipeByCuisine: string | null;
+  };
 }
 
 const initialState: RecipeState = {
   recipes: [],
   status: "idle",
-  error: null,
-  responseMessage: null,
+  loading: {
+    getRecipeByMeal: false,
+    getRecipeByIngredient: false,
+    getRecipeByCuisine: false,
+  },
+  error: {
+    getRecipeByMeal: null,
+    getRecipeByIngredient: null,
+    getRecipeByCuisine: null,
+  },
 };
 
 export const getRecipeByMeal = createAsyncThunk(
@@ -43,6 +59,38 @@ export const getRecipeByMeal = createAsyncThunk(
   }
 );
 
+export const getRecipeByIngredient = createAsyncThunk(
+  "recipe/getRecipeByIngredient",
+  async (ingredient: string, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get(
+        `/recipe/get-recipe-by-ingredient/${ingredient}`
+      );
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to fetch recipes"
+      );
+    }
+  }
+);
+
+export const getRecipeByCuisine = createAsyncThunk(
+  "recipe/getRecipeByCuisine",
+  async (cuisine: string, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get(
+        `/recipe/get-recipe-by-cuisine/${cuisine}`
+      );
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to fetch recipes"
+      );
+    }
+  }
+);
+
 const recipeSlice = createSlice({
   name: "recipe",
   initialState,
@@ -51,16 +99,47 @@ const recipeSlice = createSlice({
     builder
       .addCase(getRecipeByMeal.pending, (state) => {
         state.status = "loading";
-        state.error = null;
-        state.responseMessage = null;
+        state.error.getRecipeByMeal = null;
+        state.loading.getRecipeByMeal = true;
       })
       .addCase(getRecipeByMeal.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.recipes = action.payload.data;
+        state.loading.getRecipeByMeal = false;
       })
       .addCase(getRecipeByMeal.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.payload as string;
+        state.error.getRecipeByMeal = action.payload as string;
+      })
+      .addCase(getRecipeByIngredient.pending, (state) => {
+        state.status = "loading";
+        state.error.getRecipeByIngredient = null;
+        state.loading.getRecipeByIngredient = true;
+      })
+      .addCase(getRecipeByIngredient.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.recipes = action.payload.data;
+        state.loading.getRecipeByIngredient = false;
+      })
+      .addCase(getRecipeByIngredient.rejected, (state, action) => {
+        state.status = "failed";
+        state.error.getRecipeByIngredient = action.payload as string;
+        state.loading.getRecipeByIngredient = false;
+      })
+      .addCase(getRecipeByCuisine.pending, (state) => {
+        state.status = "loading";
+        state.error.getRecipeByCuisine = null;
+        state.loading.getRecipeByCuisine = true;
+      })
+      .addCase(getRecipeByCuisine.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.recipes = action.payload.data;
+        state.loading.getRecipeByCuisine = false;
+      })
+      .addCase(getRecipeByCuisine.rejected, (state, action) => {
+        state.status = "failed";
+        state.error.getRecipeByCuisine = action.payload as string;
+        state.loading.getRecipeByCuisine = false;
       });
   },
 });

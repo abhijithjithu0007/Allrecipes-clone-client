@@ -102,13 +102,28 @@ function IngredientsMenu() {
                 </NavigationMenuLink>
               </li>
               <li className="hover:bg-gray-100 p-2 cursor-pointer">
-                <NavigationMenuLink href="/ingredients/fruits">
-                  Fruits
+                <NavigationMenuLink href="/ingredients/egg">
+                  Egg
                 </NavigationMenuLink>
               </li>
               <li className="hover:bg-gray-100 p-2 cursor-pointer">
-                <NavigationMenuLink href="/ingredients/vegetables">
-                  Vegetables
+                <NavigationMenuLink href="/ingredients/fish">
+                  Fish
+                </NavigationMenuLink>
+              </li>
+              <li className="hover:bg-gray-100 p-2 cursor-pointer">
+                <NavigationMenuLink href="/ingredients/rice">
+                  Rice
+                </NavigationMenuLink>
+              </li>
+              <li className="hover:bg-gray-100 p-2 cursor-pointer">
+                <NavigationMenuLink href="/ingredients/mushroom">
+                  Mushroom
+                </NavigationMenuLink>
+              </li>
+              <li className="hover:bg-gray-100 p-2 cursor-pointer">
+                <NavigationMenuLink href="/ingredients/wheat">
+                  Wheat
                 </NavigationMenuLink>
               </li>
             </ul>
