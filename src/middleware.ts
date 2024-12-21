@@ -15,15 +15,15 @@ export function middleware(request: NextRequest) {
   }
 
   if (pathname === "/") {
-    return NextResponse.redirect(new URL("/u/home", request.url));
+    return NextResponse.redirect(new URL("/home", request.url));
   }
 
-  if (pathname === "/u/home") {
+  if (pathname === "/home") {
     return NextResponse.next();
   }
 
   if (userData?.token && (pathname === "/login" || pathname === "/signup")) {
-    return NextResponse.redirect(new URL("/u/home", request.url));
+    return NextResponse.redirect(new URL("/home", request.url));
   }
 
   return NextResponse.next();

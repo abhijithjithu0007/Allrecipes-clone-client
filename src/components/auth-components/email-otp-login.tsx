@@ -55,7 +55,7 @@ export function EmailOtpInputLogin() {
     const output = await dispatch(verifyOtpForLogin({ email, otp: data.otp }));
 
     if (verifyOtpForLogin.fulfilled.match(output)) {
-      router.push("/u/home");
+      router.push("/home");
     }
   };
 

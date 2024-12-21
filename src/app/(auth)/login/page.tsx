@@ -34,7 +34,7 @@ export default function Page() {
             }
 
             if (response.statusCode === 200) {
-              router.push("/u/home");
+              router.push("/home");
             }
           })
           .catch((error) => {

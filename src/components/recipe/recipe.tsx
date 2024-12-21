@@ -42,7 +42,7 @@ export default function Recipe() {
           progress: undefined,
           theme: "light",
         });
-        router.push("/u/home");
+        router.push("/home");
       }
     }
   }, [resposeMsg, status]);

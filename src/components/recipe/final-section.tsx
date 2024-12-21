@@ -185,7 +185,7 @@ export default function Finalsection() {
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <Link href="/u/home">
+              <Link href="/home">
                 <AlertDialogAction>Continue</AlertDialogAction>
               </Link>
             </AlertDialogFooter>
