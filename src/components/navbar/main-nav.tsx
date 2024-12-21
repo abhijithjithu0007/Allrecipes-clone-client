@@ -27,7 +27,9 @@ export default function Mainnav({
   const userCookie = Cookies.get("user");
 
   useEffect(() => {
-    if (!userCookie) setIsLogout(true);
+    if (!userCookie) {
+      setIsLogout(true);
+    }
   }, [userCookie]);
 
   const handleLogOut = async () => {
