@@ -14,12 +14,10 @@ export default function Page() {
 
   const imageUrl = mealsImages[mealType as keyof typeof mealsImages];
 
-  const recipeData = useSelector((state: RootState) => state.recipe.recipes);
+  const { recipes } = useSelector((state: RootState) => state.recipe);
   useEffect(() => {
     dispatch(getRecipeByMeal(passingMealType));
   }, [passingMealType]);
-
-  console.log(recipeData);
 
   return (
     <div>
@@ -39,7 +37,7 @@ export default function Page() {
             <h1 className="uppercase font-semibold">Recipes</h1>
           </div>
           <div className="flex flex-col gap-5">
-            <h1 className="uppercase text-4xl font-extrabold">{mealType}</h1>
+            <h1 className="uppercase text-5xl font-extrabold">{mealType}</h1>
             <p>
               Create a delicious everyday breakfast or pull together an amazing
               brunch with top-rated recipes for pancakes and waffles, bacon and
@@ -52,21 +50,28 @@ export default function Page() {
       <h1 className="uppercase text-3xl underline text-center p-10 font-extrabold">
         EXPLORE <span className="text-customColor">{mealType}</span>
       </h1>
-      <div>
-        <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-          {/*image*/}
-          <div className="p-5">
-            <a href="#">
-              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                Noteworthy technology acquisitions 2021
-              </h5>
-            </a>
-            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              Here are the biggest enterprise technology acquisitions of 2021 so
-              far, in reverse chronological order.
-            </p>
+      <div className="grid grid-cols-1 gap-5 p-10 md:grid-cols-2 lg:grid-cols-3">
+        {recipes.map((recipe, ind) => (
+          <div key={ind} className="max-w-sm bg-white">
+            <Image
+              className="rounded-t-lg w-full h-64"
+              src="https://www.allrecipes.com/img/icons/recipe-add-photo-square.jpg"
+              alt=""
+              width={400}
+              height={100}
+            />
+            <div className=" pt-5">
+              <a>
+                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                  {recipe.title}
+                </h5>
+              </a>
+              <p className="mb-3 font-bold text-gray-500 dark:text-gray-400">
+                {recipe.description}
+              </p>
+            </div>
           </div>
-        </div>
+        ))}
       </div>
     </div>
   );
