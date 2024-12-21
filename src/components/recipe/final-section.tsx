@@ -1,5 +1,4 @@
 "use client";
-import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setServings,
@@ -33,28 +32,7 @@ import { Textarea } from "../ui/textarea";
 import { AppDispatch, RootState } from "@/lib/store";
 import Link from "next/link";
 
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
 export default function Finalsection() {
-  const resposeMsg = useSelector(
-    (state: RootState) => state.form.responseMessage
-  );
-  useEffect(() => {
-    if (resposeMsg) {
-      toast.success(resposeMsg, {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    }
-  }, [resposeMsg]);
-
   const dispatch: AppDispatch = useDispatch();
   const { servings, prepTime, mealType, cuisine, notes } = useSelector(
     (state: RootState) => state.form
@@ -147,6 +125,8 @@ export default function Finalsection() {
               <SelectItem value="Dessert">Dessert</SelectItem>
               <SelectItem value="Side Dish">Side Dish</SelectItem>
               <SelectItem value="Appetizer">Appetizer</SelectItem>
+              <SelectItem value="Appetizer">Salads</SelectItem>
+              <SelectItem value="Appetizer">Drinks</SelectItem>
             </SelectContent>
           </Select>
         </div>

@@ -33,7 +33,7 @@ const initialState: FormState = {
   notes: "",
   status: "idle",
   error: null,
-  responseMessage: null,
+  responseMessage: "",
 };
 
 export const addNewRecipe = createAsyncThunk(
@@ -89,14 +89,13 @@ const formSlice = createSlice({
         state.error = null;
         state.responseMessage = null;
       })
-      .addCase(addNewRecipe.fulfilled, (state, action) => {
+      .addCase(addNewRecipe.fulfilled, (state) => {
         state.status = "succeeded";
-        state.responseMessage = action.payload.message;
+        state.responseMessage = "Recipe added successfully";
       })
       .addCase(addNewRecipe.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload as string;
-        state.responseMessage = action.payload as string;
       });
   },
 });
