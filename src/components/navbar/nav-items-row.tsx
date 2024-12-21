@@ -48,6 +48,31 @@ function MealsMenu() {
                   Dinners
                 </NavigationMenuLink>
               </li>
+              <li className="hover:bg-gray-100 p-1 cursor-pointer">
+                <NavigationMenuLink href="/meals/desserts">
+                  Desserts
+                </NavigationMenuLink>
+              </li>
+              <li className="hover:bg-gray-100 p-1 cursor-pointer">
+                <NavigationMenuLink href="/meals/salads">
+                  Salads
+                </NavigationMenuLink>
+              </li>
+              <li className="hover:bg-gray-100 p-1 cursor-pointer">
+                <NavigationMenuLink href="/meals/drinks">
+                  Drinks
+                </NavigationMenuLink>
+              </li>
+              <li className="hover:bg-gray-100 p-1 cursor-pointer">
+                <NavigationMenuLink href="/meals/snacks">
+                  Snacks
+                </NavigationMenuLink>
+              </li>
+              <li className="hover:bg-gray-100 p-1 cursor-pointer">
+                <NavigationMenuLink href="/meals/side-dish">
+                  Side-Dish
+                </NavigationMenuLink>
+              </li>
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
@@ -64,7 +89,7 @@ function IngredientsMenu() {
           <NavigationMenuTrigger>
             <div className="text-sm">INGREDIENTS</div>
           </NavigationMenuTrigger>
-          <NavigationMenuContent className="h-[400px] overflow-y-auto">
+          <NavigationMenuContent>
             <ul className="flex gap-2 p-4 flex-col lg:w-[170px]">
               <li className="hover:bg-gray-100 p-2 cursor-pointer">
                 <NavigationMenuLink href="/ingredients/chicken">
@@ -72,43 +97,18 @@ function IngredientsMenu() {
                 </NavigationMenuLink>
               </li>
               <li className="hover:bg-gray-100 p-2 cursor-pointer">
-                <NavigationMenuLink href="/ingredients/Beef">
+                <NavigationMenuLink href="/ingredients/beef">
                   Beef
                 </NavigationMenuLink>
               </li>
               <li className="hover:bg-gray-100 p-2 cursor-pointer">
-                <NavigationMenuLink href="/ingredients/Fruits">
+                <NavigationMenuLink href="/ingredients/fruits">
                   Fruits
                 </NavigationMenuLink>
               </li>
               <li className="hover:bg-gray-100 p-2 cursor-pointer">
-                <NavigationMenuLink href="/ingredients/Vegetables">
+                <NavigationMenuLink href="/ingredients/vegetables">
                   Vegetables
-                </NavigationMenuLink>
-              </li>
-              <li className="hover:bg-gray-100 p-2 cursor-pointer">
-                <NavigationMenuLink href="/ingredients/Desserts">
-                  Desserts
-                </NavigationMenuLink>
-              </li>
-              <li className="hover:bg-gray-100 p-2 cursor-pointer">
-                <NavigationMenuLink href="/ingredients/Salads">
-                  Salads
-                </NavigationMenuLink>
-              </li>
-              <li className="hover:bg-gray-100 p-2 cursor-pointer">
-                <NavigationMenuLink href="/ingredients/Drinks">
-                  Drinks
-                </NavigationMenuLink>
-              </li>
-              <li className="hover:bg-gray-100 p-2 cursor-pointer">
-                <NavigationMenuLink href="/ingredients/Snacks">
-                  Snacks
-                </NavigationMenuLink>
-              </li>
-              <li className="hover:bg-gray-100 p-2 cursor-pointer">
-                <NavigationMenuLink href="/ingredients/Side-dish">
-                  Side-Dish
                 </NavigationMenuLink>
               </li>
             </ul>
