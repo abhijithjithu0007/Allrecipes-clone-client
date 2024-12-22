@@ -11,7 +11,7 @@ import Link from "next/link";
 
 export default function Navitemsrow() {
   return (
-    <div className="flex justify-between items-center p-5 ">
+    <div className="flex justify-between items-center p-4 pl-12 pr-14 ">
       <div className="flex">
         <MealsMenu />
         <IngredientsMenu />
@@ -32,7 +32,7 @@ function MealsMenu() {
         <NavigationMenuItem>
           <NavigationMenuTrigger>
             <Link href="/recipe-a-z">
-              <div className="text-sm">MEALS</div>
+              <div className="text-sm font-bold">MEALS</div>
             </Link>
           </NavigationMenuTrigger>
           <NavigationMenuContent>
@@ -92,7 +92,7 @@ function IngredientsMenu() {
         <NavigationMenuItem>
           <NavigationMenuTrigger>
             <Link href="/recipe-a-z">
-              <div className="text-sm">INGREDIENTS</div>
+              <div className="text-sm font-bold">INGREDIENTS</div>
             </Link>
           </NavigationMenuTrigger>
           <NavigationMenuContent>
@@ -142,7 +142,7 @@ function CuisineMenu() {
         <NavigationMenuItem>
           <NavigationMenuTrigger>
             <Link href="/recipe-a-z">
-              <div className="text-sm">CUISINE</div>
+              <div className="text-sm font-bold">CUISINE</div>
             </Link>
           </NavigationMenuTrigger>
           <NavigationMenuContent className="max-h-[350px] overflow-y-auto">
@@ -211,7 +211,7 @@ function AboutUsMenu() {
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger>
-            <div className="text-sm">ABOUT US</div>
+            <div className="text-sm font-bold">ABOUT US</div>
           </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="flex gap-2 p-4 flex-col lg:w-[170px] z-50">

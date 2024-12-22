@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/lib/store";
 import { getRecipeByIngredient } from "@/lib/features/recipeSlice";
+import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 
 export default function Page() {
   const { ingType } = useParams<{ ingType: string }>();
@@ -33,8 +34,12 @@ export default function Page() {
 
       <div className="p-10 text-center">
         <div className="pl-20 pr-20">
-          <div className="pb-10">
-            <h1 className="uppercase font-semibold">Recipes</h1>
+          <div className="pb-10 flex items-center justify-center gap-2 uppercase font-bold text-black">
+            <h1 className="">Recipes</h1>
+            <MdOutlineKeyboardArrowRight />
+            <h1 className="">Ingredients</h1>
+            <MdOutlineKeyboardArrowRight />
+            <h1>{ingType}</h1>
           </div>
           <div className="flex flex-col gap-5">
             <h1 className="uppercase text-5xl font-extrabold">{ingType}</h1>
@@ -43,7 +48,7 @@ export default function Page() {
         </div>
       </div>
       <h1 className="uppercase text-3xl underline text-center p-10 font-extrabold">
-        EXPLORE <span className="text-customColor">{ingType}</span>
+        <span className="text-customColor">{ingType}</span> RECIPES
       </h1>
       <div className="grid grid-cols-1 gap-5 p-10 md:grid-cols-2 lg:grid-cols-3">
         {recipes.map((recipe, ind) => (
