@@ -8,7 +8,7 @@ export const accordionData = [
   {
     trigger: "INGREDIENTS",
     path: "/ingredients",
-    content: ["Chicken", "Beef", "Fruits", "Vegetables"],
+    content: ["Chicken", "Beef", "Fruits", "Vegitables"],
   },
   {
     trigger: "ABOUT US",

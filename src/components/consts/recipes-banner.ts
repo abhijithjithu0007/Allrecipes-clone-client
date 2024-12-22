@@ -83,3 +83,56 @@ export const mealsImages = {
     text: "Side dishes are the supporting stars of any meal, adding balance and variety to the main course. From creamy mashed potatoes and roasted vegetables to flavorful rice and bread, side dishes complete the dining experience.",
   },
 };
+
+export const cuisineImage = {
+  mexican: {
+    image:
+      "https://www.allrecipes.com/thmb/iQjbgTlip2tJfX684kyoQQtPpjs=/1900x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/4562745_Chef-Johns-Chicken-Tinga-2000-4eaff62b17c1447686598db8409d90a1.jpg",
+    text: "Mexican cuisine is a vibrant fusion of flavors and textures, featuring staples like tortillas, beans, and chilies. From sizzling fajitas to hearty enchiladas, the dishes are full of spice and zest.",
+  },
+  italian: {
+    image:
+      "https://www.allrecipes.com/thmb/Y6KMit6JIVfl8xE8ihvrKHj9YN8=/1900x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/1026419_Wedding-Gift-Spaghetti-Sauce-2000-aa58f288e10244c5b4fee5f34b06728c.jpg",
+    text: "Italian cuisine is a celebration of fresh ingredients, from pasta and olive oil to tomatoes and basil. Enjoy classics like spaghetti carbonara, margherita pizza, and rich tiramisu.",
+  },
+  chinese: {
+    image:
+      "https://www.allrecipes.com/thmb/-WRbSowtqaCjiUZgSYz_AmXijvM=/1900x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/8536-sweet-and-sour-chicken-2400x600-210-2000-2c46fad51a73434ba8a26bfa88a32770.jpg",
+    text: "Chinese cuisine offers a vast array of flavors, balancing sweet, sour, salty, and umami. From crispy spring rolls to flavorful stir-fries, it's a culinary adventure.",
+  },
+  indian: {
+    image:
+      "https://www.allrecipes.com/thmb/YijhWjy7e-CfpENBNQaFIugoXQg=/1900x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/212721-Indian-Chicken-Curry-Murgh-Kari-mfs_002-2400x600-1-2000-953276925ca941ee955c2bbf865dbfd4.jpg",
+    text: "Indian cuisine is a medley of aromatic spices and diverse flavors. Savor dishes like butter chicken, biryani, and spiced lentil curries, complemented by naan or roti.",
+  },
+  greek: {
+    image:
+      "https://www.allrecipes.com/thmb/IuwV7EVKlyhCarC2q_LxGeFNgAg=/1900x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/6718233_Lamb-Souvlaki-2000-ec09dd09220b46ab9589abb2a7717c62.jpg",
+    text: "Greek cuisine is rooted in fresh, wholesome ingredients like olives, feta, and seafood. Indulge in delights like gyros, moussaka, and baklava for a taste of the Mediterranean.",
+  },
+  japanese: {
+    image:
+      "https://www.allrecipes.com/thmb/jIxfMG13QMUR4fM8O59vk0Vh-0s=/1900x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Japanese-cat-header-PASSANO_ALR0721_Kids_2385-2400x600-1-2000-e61ca9beec8644f79d8e0cadebc94f59.jpg",
+    text: "Japanese cuisine emphasizes simplicity and harmony, featuring sushi, ramen, and tempura. Each dish reflects a balance of flavor, texture, and presentation.",
+  },
+  french: {
+    image:
+      "https://i.pinimg.com/736x/1c/23/28/1c2328cc6d758e8d6a513405a43847da.jpg",
+    text: "French cuisine is synonymous with elegance and flavor, from buttery croissants to hearty coq au vin. Experience the artistry of fine dining with each bite.",
+  },
+  american: {
+    image:
+      "https://i.pinimg.com/736x/f5/52/63/f55263bb685a526893bcbdc9fca382b8.jpg",
+    text: "American cuisine offers a diverse range of flavors, from classic burgers and fries to hearty barbecue. Each dish reflects the nation's rich culinary heritage.",
+  },
+  korean: {
+    image:
+      "https://i.pinimg.com/736x/de/63/aa/de63aa036e0624d9dd0d9e8c3106d213.jpg",
+    text: "Korean cuisine combines bold flavors and unique textures. From spicy kimchi to sizzling bulgogi, it's a feast for the senses.",
+  },
+  russian: {
+    image:
+      "https://i.pinimg.com/736x/9b/0a/8d/9b0a8d4c8ccd9227a87bc4c7e5b500e2.jpg",
+    text: "Russian cuisine is hearty and comforting, featuring dishes like borscht, pelmeni, and blini. Each bite tells a story of tradition and resilience.",
+  },
+};
