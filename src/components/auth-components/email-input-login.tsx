@@ -22,7 +22,6 @@ export function EmailInputLogin() {
       alert("Please enter a valid email address.");
       return;
     }
-    // Send OTP for login
     await dispatch(sendOtpForLogin(email));
   };
 

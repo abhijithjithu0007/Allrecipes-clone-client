@@ -17,11 +17,13 @@ interface RecipeState {
   recipes: Recipe[];
   status: "idle" | "loading" | "succeeded" | "failed";
   loading: {
+    getAllrecipes: boolean;
     getRecipeByMeal: boolean;
     getRecipeByIngredient: boolean;
     getRecipeByCuisine: boolean;
   };
   error: {
+    getAllrecipes: string | null;
     getRecipeByMeal: string | null;
     getRecipeByIngredient: string | null;
     getRecipeByCuisine: string | null;
@@ -32,11 +34,13 @@ const initialState: RecipeState = {
   recipes: [],
   status: "idle",
   loading: {
+    getAllrecipes: false,
     getRecipeByMeal: false,
     getRecipeByIngredient: false,
     getRecipeByCuisine: false,
   },
   error: {
+    getAllrecipes: null,
     getRecipeByMeal: null,
     getRecipeByIngredient: null,
     getRecipeByCuisine: null,
@@ -82,6 +86,19 @@ export const getRecipeByCuisine = createAsyncThunk(
       const response = await axiosInstance.get(
         `/recipe/get-recipe-by-cuisine/${cuisine}`
       );
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to fetch recipes"
+      );
+    }
+  }
+);
+export const getAllrecipes = createAsyncThunk(
+  "recipe/getAllrecipes",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get(`/recipe/get-all-recipes`);
       return response.data;
     } catch (error: any) {
       return rejectWithValue(
@@ -140,6 +157,21 @@ const recipeSlice = createSlice({
         state.status = "failed";
         state.error.getRecipeByCuisine = action.payload as string;
         state.loading.getRecipeByCuisine = false;
+      })
+      .addCase(getAllrecipes.pending, (state) => {
+        state.status = "loading";
+        state.error.getAllrecipes = null;
+        state.loading.getAllrecipes = true;
+      })
+      .addCase(getAllrecipes.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.recipes = action.payload.data;
+        state.loading.getAllrecipes = false;
+      })
+      .addCase(getAllrecipes.rejected, (state, action) => {
+        state.status = "failed";
+        state.error.getAllrecipes = action.payload as string;
+        state.loading.getAllrecipes = false;
       });
   },
 });
