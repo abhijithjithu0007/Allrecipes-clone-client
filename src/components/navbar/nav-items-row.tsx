@@ -116,11 +116,7 @@ function IngredientsMenu() {
                   Rice
                 </NavigationMenuLink>
               </li>
-              <li className="hover:bg-gray-100 p-2 cursor-pointer">
-                <NavigationMenuLink href="/ingredients/mushroom">
-                  Mushroom
-                </NavigationMenuLink>
-              </li>
+
               <li className="hover:bg-gray-100 p-2 cursor-pointer">
                 <NavigationMenuLink href="/ingredients/wheat">
                   Wheat

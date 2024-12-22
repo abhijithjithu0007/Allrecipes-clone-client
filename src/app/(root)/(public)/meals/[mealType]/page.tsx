@@ -23,7 +23,7 @@ export default function Page() {
     <div>
       <div style={{ width: "100%", height: "300px", position: "relative" }}>
         <Image
-          src={imageUrl}
+          src={imageUrl.image}
           alt={mealType}
           layout="fill"
           objectFit="cover"
@@ -38,12 +38,7 @@ export default function Page() {
           </div>
           <div className="flex flex-col gap-5">
             <h1 className="uppercase text-5xl font-extrabold">{mealType}</h1>
-            <p>
-              Create a delicious everyday breakfast or pull together an amazing
-              brunch with top-rated recipes for pancakes and waffles, bacon and
-              eggs, brunch casseroles, coffee cakes, muffins, quiche, and so
-              much more.
-            </p>
+            <p>{imageUrl.text}</p>
           </div>
         </div>
       </div>
