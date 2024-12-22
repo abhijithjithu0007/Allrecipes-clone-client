@@ -214,7 +214,7 @@ function AboutUsMenu() {
             <div className="text-sm font-bold">ABOUT US</div>
           </NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="flex gap-2 p-4 flex-col lg:w-[170px] z-50">
+            <ul className="flex gap-2 p-4 flex-col lg:w-[170px] z-30">
               <li className="hover:bg-gray-100 p-2 cursor-pointer">
                 <NavigationMenuLink href="/aboutus/about-all-recipes">
                   About All Recipes

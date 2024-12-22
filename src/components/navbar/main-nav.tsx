@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Searchfiled from "./search-filed";
+import Searchfield from "./search-field";
 import Image from "next/image";
 import {
   NavigationMenu,
@@ -61,7 +61,7 @@ export default function Mainnav({
         />
       </div>
       <div className="w-full mt-2">
-        <Searchfiled />
+        <Searchfield />
       </div>
       <div className="w-full flex justify-end mt-2 z-40">
         <NavigationMenu>
