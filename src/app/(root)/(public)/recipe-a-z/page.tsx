@@ -54,14 +54,14 @@ export default function Page() {
           <h3 className="font-bold text-lg">
             Find a topic by its first letter:
           </h3>
-          <div className="flex gap-6 *:font-semibold pt-5">
+          <div className="flex gap-5 font-semibold pt-5">
             {alphabet.map((letter) => (
               <button
                 key={letter}
                 onClick={() => scrollToSection(letter)}
                 disabled={!groupedRecipes[letter]}
                 className={`p-2 border border-customColor ${
-                  !groupedRecipes[letter] ? "opacity-50 cursor-not-allowed" : ""
+                  !groupedRecipes[letter] ? "opacity-30 cursor-not-allowed" : ""
                 }`}
               >
                 {letter}
@@ -69,7 +69,7 @@ export default function Page() {
             ))}
           </div>
         </div>
-        <div className="p-10 pl-16 space-y-10">
+        <div className="p-10 pl-16 space-y-16">
           {Object.entries(groupedRecipes).map(([letter, recipes]) => (
             <div
               key={letter}
@@ -82,12 +82,12 @@ export default function Page() {
                 {letter}
               </span>
               <div className="pt-5 text-xl grid grid-cols-4 gap-5">
-                {recipes.map((recipe) => (
-                  <Link href="/">
-                    <p key={recipe._id} className="border-t-2 pt-2">
-                      {recipe.title}
-                    </p>
-                  </Link>
+                {recipes.map((recipe, ind) => (
+                  <div key={ind}>
+                    <Link href={`/meals/${recipe.mealType.toLowerCase()}`}>
+                      <p className="border-t pt-2 text-lg">{recipe.title}</p>
+                    </Link>
+                  </div>
                 ))}
               </div>
             </div>

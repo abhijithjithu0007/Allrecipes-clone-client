@@ -7,6 +7,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
+import Link from "next/link";
 
 export default function Navitemsrow() {
   return (
@@ -14,6 +15,7 @@ export default function Navitemsrow() {
       <div className="flex">
         <MealsMenu />
         <IngredientsMenu />
+        <CuisineMenu />
         <AboutUsMenu />
       </div>
       <div>
@@ -29,7 +31,9 @@ function MealsMenu() {
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger>
-            <div className="text-sm">MEALS</div>
+            <Link href="/recipe-a-z">
+              <div className="text-sm">MEALS</div>
+            </Link>
           </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="flex gap-2 p-4 flex-col lg:w-[170px]">
@@ -87,7 +91,9 @@ function IngredientsMenu() {
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger>
-            <div className="text-sm">INGREDIENTS</div>
+            <Link href="/recipe-a-z">
+              <div className="text-sm">INGREDIENTS</div>
+            </Link>
           </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="flex gap-2 p-4 flex-col lg:w-[170px]">
@@ -120,6 +126,75 @@ function IngredientsMenu() {
               <li className="hover:bg-gray-100 p-2 cursor-pointer">
                 <NavigationMenuLink href="/ingredients/wheat">
                   Wheat
+                </NavigationMenuLink>
+              </li>
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+      </NavigationMenuList>
+    </NavigationMenu>
+  );
+}
+function CuisineMenu() {
+  return (
+    <NavigationMenu>
+      <NavigationMenuList>
+        <NavigationMenuItem>
+          <NavigationMenuTrigger>
+            <Link href="/recipe-a-z">
+              <div className="text-sm">CUISINE</div>
+            </Link>
+          </NavigationMenuTrigger>
+          <NavigationMenuContent className="max-h-[350px] overflow-y-auto">
+            <ul className="flex gap-2 p-4 flex-col lg:w-[170px]">
+              <li className="hover:bg-gray-100 p-2 cursor-pointer">
+                <NavigationMenuLink href="/cuisine/italian">
+                  Italian
+                </NavigationMenuLink>
+              </li>
+              <li className="hover:bg-gray-100 p-2 cursor-pointer">
+                <NavigationMenuLink href="/cuisine/chinese">
+                  Chinese
+                </NavigationMenuLink>
+              </li>
+              <li className="hover:bg-gray-100 p-2 cursor-pointer">
+                <NavigationMenuLink href="/cuisine/indian">
+                  Indian
+                </NavigationMenuLink>
+              </li>
+              <li className="hover:bg-gray-100 p-2 cursor-pointer">
+                <NavigationMenuLink href="/cuisine/mexican">
+                  Mexican
+                </NavigationMenuLink>
+              </li>
+              <li className="hover:bg-gray-100 p-2 cursor-pointer">
+                <NavigationMenuLink href="/cuisine/french">
+                  French
+                </NavigationMenuLink>
+              </li>
+              <li className="hover:bg-gray-100 p-2 cursor-pointer">
+                <NavigationMenuLink href="/cuisine/japanese">
+                  Japanese
+                </NavigationMenuLink>
+              </li>
+              <li className="hover:bg-gray-100 p-2 cursor-pointer">
+                <NavigationMenuLink href="/cuisine/american">
+                  American
+                </NavigationMenuLink>
+              </li>
+              <li className="hover:bg-gray-100 p-2 cursor-pointer">
+                <NavigationMenuLink href="/cuisine/korean">
+                  Korean
+                </NavigationMenuLink>
+              </li>
+              <li className="hover:bg-gray-100 p-2 cursor-pointer">
+                <NavigationMenuLink href="/cuisine/greek">
+                  Greek
+                </NavigationMenuLink>
+              </li>
+              <li className="hover:bg-gray-100 p-2 cursor-pointer">
+                <NavigationMenuLink href="/cuisine/russian">
+                  Russian
                 </NavigationMenuLink>
               </li>
             </ul>
