@@ -3,47 +3,34 @@ import { Input } from "../ui/input";
 import { IoSearch } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/lib/store";
-import { getAllrecipes } from "@/lib/features/recipeSlice";
+import { searchRecipes } from "@/lib/features/recipeSlice";
 
-export default function Searchfield() {
+let debounceTimer: NodeJS.Timeout;
+
+export default function SearchField() {
   const [query, setQuery] = useState<string>("");
-  const [results, setResults] = useState<string[]>([]);
-
-  // Mock data for demonstration
-  const mockData: string[] = [
-    "Pasta",
-    "Pizza",
-    "Pancakes",
-    "Pumpkin Pie",
-    "Pineapple Smoothie",
-  ];
   const dispatch: AppDispatch = useDispatch();
 
-  const { recipes } = useSelector((state: RootState) => state.recipe);
+  const { recipes, loading } = useSelector((state: RootState) => state.recipe);
 
   useEffect(() => {
-    dispatch(getAllrecipes());
-  }, []);
+    if (query.trim()) {
+      debounceTimer = setTimeout(() => {
+        dispatch(searchRecipes(query));
+      }, 700);
+    }
+
+    return () => {
+      clearTimeout(debounceTimer);
+    };
+  }, [query, dispatch]);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setQuery(value);
-
-    // Filter mock data based on query
-    if (value.trim()) {
-      setResults(
-        mockData.filter((item) =>
-          item.toLowerCase().includes(value.toLowerCase())
-        )
-      );
-    } else {
-      setResults([]);
-    }
+    setQuery(e.target.value);
   };
 
   return (
     <div className="relative">
-      {/* Search Input */}
       <div className="flex justify-center items-center">
         <Input
           id="search"
@@ -58,16 +45,17 @@ export default function Searchfield() {
         </div>
       </div>
 
-      {/* Search Results */}
       {query && (
         <div
           className="absolute top-full left-0 w-full bg-white border border-gray-200 shadow-lg z-50"
           style={{ maxHeight: "200px", overflowY: "auto" }}
         >
-          {results.length > 0 ? (
-            results.map((result, index) => (
+          {loading.getAllrecipes ? (
+            <div className="p-2 text-gray-500">Loading...</div>
+          ) : recipes.length > 0 ? (
+            recipes.map((recipe, index) => (
               <div key={index} className="p-2 hover:bg-gray-100 cursor-pointer">
-                {result}
+                {recipe.title} - {recipe.cuisine} ({recipe.mealType})
               </div>
             ))
           ) : (

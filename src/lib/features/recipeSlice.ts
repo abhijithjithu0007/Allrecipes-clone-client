@@ -107,6 +107,21 @@ export const getAllrecipes = createAsyncThunk(
     }
   }
 );
+export const searchRecipes = createAsyncThunk(
+  "recipe/searchRecipes",
+  async (query: string, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get(
+        `/recipe/search-recipe/${query}`
+      );
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to fetch recipes"
+      );
+    }
+  }
+);
 
 const recipeSlice = createSlice({
   name: "recipe",
@@ -169,6 +184,21 @@ const recipeSlice = createSlice({
         state.loading.getAllrecipes = false;
       })
       .addCase(getAllrecipes.rejected, (state, action) => {
+        state.status = "failed";
+        state.error.getAllrecipes = action.payload as string;
+        state.loading.getAllrecipes = false;
+      })
+      .addCase(searchRecipes.pending, (state) => {
+        state.status = "loading";
+        state.error.getAllrecipes = null;
+        state.loading.getAllrecipes = true;
+      })
+      .addCase(searchRecipes.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.recipes = action.payload.data;
+        state.loading.getAllrecipes = false;
+      })
+      .addCase(searchRecipes.rejected, (state, action) => {
         state.status = "failed";
         state.error.getAllrecipes = action.payload as string;
         state.loading.getAllrecipes = false;
