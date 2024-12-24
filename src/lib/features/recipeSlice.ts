@@ -1,11 +1,17 @@
 import axiosInstance from "@/utils/axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
+interface PrepTime {
+  value: string;
+  unit: string;
+}
 interface Recipe {
+  _id: string;
   title: string;
   description: string;
   ingredients: string[];
   directions: string[];
+  prepTime: PrepTime;
   servings: string;
   mealType: string;
   cuisine: string;
@@ -123,6 +129,22 @@ export const searchRecipes = createAsyncThunk(
   }
 );
 
+export const getRecipeById = createAsyncThunk(
+  "recipe/getRecipeById",
+  async (recipeId: string, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get(
+        `/recipe/get-recipe-by-id/${recipeId}`
+      );
+      return response.data;
+    } catch (error: any) {
+      return rejectWithValue(
+        error.response?.data?.message || "Failed to fetch recipe"
+      );
+    }
+  }
+);
+
 const recipeSlice = createSlice({
   name: "recipe",
   initialState,
@@ -199,6 +221,21 @@ const recipeSlice = createSlice({
         state.loading.getAllrecipes = false;
       })
       .addCase(searchRecipes.rejected, (state, action) => {
+        state.status = "failed";
+        state.error.getAllrecipes = action.payload as string;
+        state.loading.getAllrecipes = false;
+      })
+      .addCase(getRecipeById.pending, (state) => {
+        state.status = "loading";
+        state.error.getAllrecipes = null;
+        state.loading.getAllrecipes = true;
+      })
+      .addCase(getRecipeById.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.recipes = [action.payload.data];
+        state.loading.getAllrecipes = false;
+      })
+      .addCase(getRecipeById.rejected, (state, action) => {
         state.status = "failed";
         state.error.getAllrecipes = action.payload as string;
         state.loading.getAllrecipes = false;

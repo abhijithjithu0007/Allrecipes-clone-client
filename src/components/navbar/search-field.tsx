@@ -4,6 +4,7 @@ import { IoSearch } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/lib/store";
 import { searchRecipes } from "@/lib/features/recipeSlice";
+import Link from "next/link";
 
 let debounceTimer: NodeJS.Timeout;
 
@@ -17,7 +18,7 @@ export default function SearchField() {
     if (query.trim()) {
       debounceTimer = setTimeout(() => {
         dispatch(searchRecipes(query));
-      }, 700);
+      }, 800);
     }
 
     return () => {
@@ -54,9 +55,11 @@ export default function SearchField() {
             <div className="p-2 text-gray-500">Loading...</div>
           ) : recipes.length > 0 ? (
             recipes.map((recipe, index) => (
-              <div key={index} className="p-2 hover:bg-gray-100 cursor-pointer">
-                {recipe.title} - {recipe.cuisine} ({recipe.mealType})
-              </div>
+              <Link key={index} href={`/recipe/${recipe._id}`}>
+                <div className="p-2 hover:bg-gray-100 cursor-pointer">
+                  {recipe.title} - {recipe.cuisine} ({recipe.mealType})
+                </div>
+              </Link>
             ))
           ) : (
             <div className="p-2 text-gray-500">No results found</div>
