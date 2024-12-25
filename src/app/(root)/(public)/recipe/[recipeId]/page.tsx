@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/lib/store";
 import { getRecipeById } from "@/lib/features/recipeSlice";
 import { useParams } from "next/navigation";
+import Link from "next/link";
 
 export default function Page() {
   const dispatch: AppDispatch = useDispatch();
@@ -36,7 +37,12 @@ export default function Page() {
         <div>
           <h3 className="uppercase font-bold flex items-center gap-2">
             Recipes <MdOutlineKeyboardArrowRight />
-            {recipe?.mealType}
+            <Link
+              href={`/meals/${recipe?.mealType.toLowerCase()}`}
+              className="hover:underline"
+            >
+              {recipe?.mealType}
+            </Link>
           </h3>
           <h1 className="text-5xl font-bold pt-8">{recipe?.title}</h1>
           <p className="text-gray-700 pt-6 pb-4">{recipe?.description}</p>

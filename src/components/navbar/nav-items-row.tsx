@@ -31,7 +31,7 @@ function MealsMenu() {
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger>
-            <Link href="/recipe-a-z">
+            <Link href="/recipe-a-z" className="hover:underline">
               <div className="text-sm font-bold">MEALS</div>
             </Link>
           </NavigationMenuTrigger>
@@ -91,7 +91,7 @@ function IngredientsMenu() {
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger>
-            <Link href="/recipe-a-z">
+            <Link href="/recipe-a-z" className="hover:underline">
               <div className="text-sm font-bold">INGREDIENTS</div>
             </Link>
           </NavigationMenuTrigger>
@@ -141,7 +141,7 @@ function CuisineMenu() {
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger>
-            <Link href="/recipe-a-z">
+            <Link href="/recipe-a-z" className="hover:underline">
               <div className="text-sm font-bold">CUISINE</div>
             </Link>
           </NavigationMenuTrigger>
@@ -210,7 +210,7 @@ function AboutUsMenu() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>
+          <NavigationMenuTrigger className="hover:underline">
             <div className="text-sm font-bold">ABOUT US</div>
           </NavigationMenuTrigger>
           <NavigationMenuContent>

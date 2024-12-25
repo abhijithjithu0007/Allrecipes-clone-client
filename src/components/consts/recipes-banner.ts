@@ -57,7 +57,7 @@ export const mealsImages = {
       "https://www.allrecipes.com/thmb/A-u4ckt4ptt4N7GWjYl3KzuWrOw=/1900x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/2400x600-8965-broccoli-chicken-casserole-mfs_065-2000-2ca307c6cef6467192f260df6edca897.jpg",
     text: "Dinner is a time to unwind and enjoy a hearty, flavorful meal with loved ones. Whether it’s a comforting casserole, a savory stir-fry, or a gourmet multi-course spread, dinner brings families and friends together over delicious food.",
   },
-  desserts: {
+  dessert: {
     image:
       "https://i.pinimg.com/736x/4e/26/ff/4e26ff0867ffef7cf3ceecd420a13a4e.jpg",
     text: "Desserts are a sweet ending to any meal, delighting the senses with their indulgent flavors. From rich chocolate cakes and creamy ice creams to fruity tarts and delicate pastries, desserts are the perfect way to treat yourself.",
