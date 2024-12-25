@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/lib/store";
 import { getRecipeByCuisine } from "@/lib/features/recipeSlice";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import Link from "next/link";
 
 export default function Page() {
   const { cuisineType } = useParams<{ cuisineType: string }>();
@@ -53,25 +54,27 @@ export default function Page() {
       </h1>
       <div className="grid grid-cols-1 gap-5 p-10 md:grid-cols-2 lg:grid-cols-3">
         {recipes.map((recipe, ind) => (
-          <div key={ind} className="max-w-sm bg-white">
-            <Image
-              className="rounded-t-lg w-full h-64"
-              src="https://www.allrecipes.com/img/icons/recipe-add-photo-square.jpg"
-              alt=""
-              width={400}
-              height={100}
-            />
-            <div className=" pt-5">
-              <a>
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                  {recipe.title}
-                </h5>
-              </a>
-              <p className="mb-3 font-bold text-gray-500 dark:text-gray-400">
-                {recipe.description}
-              </p>
+          <Link key={ind} href={`/recipe/${recipe._id}`}>
+            <div className="max-w-sm bg-white">
+              <Image
+                className="rounded-t-lg w-full h-64"
+                src="https://www.allrecipes.com/img/icons/recipe-add-photo-square.jpg"
+                alt=""
+                width={400}
+                height={100}
+              />
+              <div className=" pt-5">
+                <span>
+                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    {recipe.title}
+                  </h5>
+                </span>
+                <p className="mb-3 font-bold text-gray-500 dark:text-gray-400">
+                  {recipe.description}
+                </p>
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>

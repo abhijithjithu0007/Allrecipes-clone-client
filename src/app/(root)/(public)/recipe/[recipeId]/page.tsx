@@ -14,6 +14,9 @@ export default function Page() {
   const dispatch: AppDispatch = useDispatch();
   const { recipeId } = useParams<{ recipeId: string }>();
   const { recipes } = useSelector((state: RootState) => state.recipe);
+  const { getRecipeByIdLoad } = useSelector(
+    (state: RootState) => state.recipe.loading
+  );
 
   useEffect(() => {
     if (recipeId) {
@@ -23,8 +26,8 @@ export default function Page() {
 
   const recipe = recipes.length > 0 ? recipes[0] : null;
 
-  if (!recipe) {
-    return <div>Loading recipe...</div>; // Show a loading state or placeholder
+  if (getRecipeByIdLoad) {
+    return <div>Loading recipe...</div>;
   }
 
   return (
@@ -33,10 +36,10 @@ export default function Page() {
         <div>
           <h3 className="uppercase font-bold flex items-center gap-2">
             Recipes <MdOutlineKeyboardArrowRight />
-            {recipe.mealType}
+            {recipe?.mealType}
           </h3>
-          <h1 className="text-5xl font-bold pt-8">{recipe.title}</h1>
-          <p className="text-gray-700 pt-6 pb-4">{recipe.description}</p>
+          <h1 className="text-5xl font-bold pt-8">{recipe?.title}</h1>
+          <p className="text-gray-700 pt-6 pb-4">{recipe?.description}</p>
           <Image
             src="https://www.allrecipes.com/img/icons/recipe-add-photo-square.jpg"
             alt=""
@@ -48,13 +51,13 @@ export default function Page() {
             <p className="flex flex-col items-center">
               Prep time:
               <span>
-                {recipe.prepTime?.value} {recipe.prepTime?.unit}
+                {recipe?.prepTime?.value} {recipe?.prepTime?.unit}
               </span>
             </p>
             <p className="flex flex-col items-center">
               Servings:
               <span>
-                {recipe.servings} to {parseInt(recipe.servings) + 1}
+                {recipe?.servings} to {parseInt(recipe?.servings || "0") + 1}
               </span>
             </p>
           </div>
@@ -73,7 +76,7 @@ export default function Page() {
             <h1 className="font-bold text-4xl">Ingredients</h1>
             <div className="p-4 mt-6">
               <ul className="flex flex-col gap-4 pb-3 list-disc pl-5 marker:text-yellow-500">
-                {recipe.ingredients.map((ingredient, index) => (
+                {recipe?.ingredients?.map((ingredient, index) => (
                   <li key={index}>{ingredient}</li>
                 ))}
               </ul>
@@ -83,7 +86,7 @@ export default function Page() {
           <div className="mt-7">
             <h1 className="text-4xl font-bold">Directions</h1>
             <div className="mt-8 p-4">
-              {recipe.directions.map((direction, index) => (
+              {recipe?.directions?.map((direction, index) => (
                 <div key={index} className="mb-4">
                   <h3 className="text-lg font-bold">Step {index + 1}</h3>
                   <p>{direction}</p>

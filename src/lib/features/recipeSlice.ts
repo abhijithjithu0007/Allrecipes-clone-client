@@ -27,12 +27,16 @@ interface RecipeState {
     getRecipeByMeal: boolean;
     getRecipeByIngredient: boolean;
     getRecipeByCuisine: boolean;
+    searchRecipe: boolean;
+    getRecipeByIdLoad: boolean;
   };
   error: {
     getAllrecipes: string | null;
     getRecipeByMeal: string | null;
     getRecipeByIngredient: string | null;
     getRecipeByCuisine: string | null;
+    searchRecipe: string | null;
+    getRecipeByIdError: string | null;
   };
 }
 
@@ -44,12 +48,16 @@ const initialState: RecipeState = {
     getRecipeByMeal: false,
     getRecipeByIngredient: false,
     getRecipeByCuisine: false,
+    searchRecipe: false,
+    getRecipeByIdLoad: false,
   },
   error: {
     getAllrecipes: null,
     getRecipeByMeal: null,
     getRecipeByIngredient: null,
     getRecipeByCuisine: null,
+    searchRecipe: null,
+    getRecipeByIdError: null,
   },
 };
 
@@ -212,8 +220,8 @@ const recipeSlice = createSlice({
       })
       .addCase(searchRecipes.pending, (state) => {
         state.status = "loading";
-        state.error.getAllrecipes = null;
-        state.loading.getAllrecipes = true;
+        state.error.searchRecipe = null;
+        state.loading.searchRecipe = true;
       })
       .addCase(searchRecipes.fulfilled, (state, action) => {
         state.status = "succeeded";
@@ -222,23 +230,23 @@ const recipeSlice = createSlice({
       })
       .addCase(searchRecipes.rejected, (state, action) => {
         state.status = "failed";
-        state.error.getAllrecipes = action.payload as string;
-        state.loading.getAllrecipes = false;
+        state.error.searchRecipe = action.payload as string;
+        state.loading.searchRecipe = false;
       })
       .addCase(getRecipeById.pending, (state) => {
         state.status = "loading";
-        state.error.getAllrecipes = null;
-        state.loading.getAllrecipes = true;
+        state.error.getRecipeByIdError = null;
+        state.loading.getRecipeByIdLoad = true;
       })
       .addCase(getRecipeById.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.recipes = [action.payload.data];
-        state.loading.getAllrecipes = false;
+        state.loading.getRecipeByIdLoad = false;
       })
       .addCase(getRecipeById.rejected, (state, action) => {
         state.status = "failed";
-        state.error.getAllrecipes = action.payload as string;
-        state.loading.getAllrecipes = false;
+        state.error.getRecipeByIdError = action.payload as string;
+        state.loading.getRecipeByIdLoad = false;
       });
   },
 });

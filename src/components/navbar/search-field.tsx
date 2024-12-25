@@ -55,7 +55,11 @@ export default function SearchField() {
             <div className="p-2 text-gray-500">Loading...</div>
           ) : recipes.length > 0 ? (
             recipes.map((recipe, index) => (
-              <Link key={index} href={`/recipe/${recipe._id}`}>
+              <Link
+                key={index}
+                href={`/recipe/${recipe._id}`}
+                onClick={() => setQuery("")}
+              >
                 <div className="p-2 hover:bg-gray-100 cursor-pointer">
                   {recipe.title} - {recipe.cuisine} ({recipe.mealType})
                 </div>
