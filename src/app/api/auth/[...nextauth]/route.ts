@@ -8,13 +8,6 @@ export const authOptions: AuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
   ],
-  session: {
-    strategy: "jwt",
-  },
-  jwt: {
-    secret: process.env.NEXTAUTH_SECRET!,
-    maxAge: 24 * 60 * 60,
-  },
 };
 
 export const handler = NextAuth(authOptions);

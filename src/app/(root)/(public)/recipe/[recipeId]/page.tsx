@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { ImSpoonKnife } from "react-icons/im";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +10,27 @@ import { getRecipeById } from "@/lib/features/recipeSlice";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import CookMode from "@/components/recipe/cook-mode";
+import Recipetab from "@/components/recipe/recipe-multi-tab";
+
+const convertFractionToDecimal = (fraction: string): number => {
+  const fractionMap: { [key: string]: number } = {
+    "1/4": 0.25,
+    "1/2": 0.5,
+    "3/4": 0.75,
+  };
+  return fractionMap[fraction] || parseFloat(fraction);
+};
+
+const adjustIngredient = (ingredient: string, mesure: number): string => {
+  return ingredient.replace(/\d+\/\d+|\d+/g, (match) => {
+    if (match.includes("/")) {
+      const decimal = convertFractionToDecimal(match);
+      return (decimal * mesure).toFixed(2).replace(/\.00$/, "");
+    }
+    const wholeNumber = parseInt(match);
+    return (wholeNumber * mesure).toString();
+  });
+};
 
 export default function Page() {
   const dispatch: AppDispatch = useDispatch();
@@ -18,6 +39,7 @@ export default function Page() {
   const { getRecipeByIdLoad } = useSelector(
     (state: RootState) => state.recipe.loading
   );
+  const [mesure, setMesure] = useState<number>(1);
 
   useEffect(() => {
     if (recipeId) {
@@ -68,12 +90,21 @@ export default function Page() {
             </p>
           </div>
           <CookMode />
+          <div className="p-5 mt-4">
+            <Recipetab setMesure={setMesure} />
+            <p className="text-xs text-gray-600 p-2">
+              Original recipe (1X) {recipe?.servings} servings
+            </p>
+          </div>
           <div className="mt-7">
             <h1 className="font-bold text-4xl">Ingredients</h1>
             <div className="p-4 mt-6">
               <ul className="flex flex-col gap-4 pb-3 list-disc pl-5 marker:text-yellow-500">
                 {recipe?.ingredients?.map((ingredient, index) => (
-                  <li key={index}>{ingredient}</li>
+                  <li key={index}>
+                    {/* Adjust ingredient quantity based on mesure */}
+                    {adjustIngredient(ingredient, mesure)}
+                  </li>
                 ))}
               </ul>
             </div>
