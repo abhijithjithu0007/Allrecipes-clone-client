@@ -16,7 +16,6 @@ import { signOut } from "next-auth/react";
 import Link from "next/link";
 
 export default function Mainnav({
-  isOpen,
   setIsOpen,
 }: {
   isOpen: boolean;
@@ -30,7 +29,7 @@ export default function Mainnav({
     if (!userCookie) {
       setIsLogout(true);
     }
-  }, [userCookie]);
+  }, []);
 
   const handleLogOut = async () => {
     const user = JSON.parse(userCookie || "{}");

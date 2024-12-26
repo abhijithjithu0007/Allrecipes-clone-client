@@ -123,7 +123,7 @@ export default function Finalsection() {
               <SelectItem value="Dinner">Dinner</SelectItem>
               <SelectItem value="Snack">Snack</SelectItem>
               <SelectItem value="Dessert">Dessert</SelectItem>
-              <SelectItem value="Side-Dish">Side-Dish</SelectItem>
+              <SelectItem value="Side-dish">Side-Dish</SelectItem>
               <SelectItem value="Appetizer">Appetizer</SelectItem>
               <SelectItem value="Salads">Salads</SelectItem>
               <SelectItem value="Drinks">Drinks</SelectItem>

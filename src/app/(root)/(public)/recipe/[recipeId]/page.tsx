@@ -1,6 +1,5 @@
 "use client";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
+
 import Image from "next/image";
 import React, { useEffect } from "react";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
@@ -10,6 +9,7 @@ import { AppDispatch, RootState } from "@/lib/store";
 import { getRecipeById } from "@/lib/features/recipeSlice";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import CookMode from "@/components/recipe/cook-mode";
 
 export default function Page() {
   const dispatch: AppDispatch = useDispatch();
@@ -67,17 +67,7 @@ export default function Page() {
               </span>
             </p>
           </div>
-
-          <div className="flex items-center space-x-2 pt-10">
-            <Switch id="airplane-mode" />
-            <Label htmlFor="cook-mode" className="text-base font-bold">
-              Cook Mode{" "}
-              <span className="text-gray-700 font-medium text-sm">
-                (Keep screen wake)
-              </span>
-            </Label>
-          </div>
-
+          <CookMode />
           <div className="mt-7">
             <h1 className="font-bold text-4xl">Ingredients</h1>
             <div className="p-4 mt-6">
@@ -88,7 +78,6 @@ export default function Page() {
               </ul>
             </div>
           </div>
-
           <div className="mt-7">
             <h1 className="text-4xl font-bold">Directions</h1>
             <div className="mt-8 p-4">
@@ -100,7 +89,6 @@ export default function Page() {
               ))}
             </div>
           </div>
-
           <div className="mt-10 p-6">
             <button className="bg-customColor flex items-center gap-2 text-sm font-bold p-4 pl-20 pr-20 text-white hover:bg-orange-600">
               <h1> I MADE IT</h1>
