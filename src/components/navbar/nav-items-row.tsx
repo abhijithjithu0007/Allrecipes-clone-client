@@ -32,7 +32,7 @@ function MealsMenu() {
         <NavigationMenuItem>
           <NavigationMenuTrigger>
             <Link href="/recipe-a-z" className="hover:underline">
-              <div className="text-sm font-bold">MEALS</div>
+              <div className="text-sm font-extrabold">MEALS</div>
             </Link>
           </NavigationMenuTrigger>
           <NavigationMenuContent>
@@ -92,7 +92,7 @@ function IngredientsMenu() {
         <NavigationMenuItem>
           <NavigationMenuTrigger>
             <Link href="/recipe-a-z" className="hover:underline">
-              <div className="text-sm font-bold">INGREDIENTS</div>
+              <div className="text-sm font-extrabold">INGREDIENTS</div>
             </Link>
           </NavigationMenuTrigger>
           <NavigationMenuContent>
@@ -142,7 +142,7 @@ function CuisineMenu() {
         <NavigationMenuItem>
           <NavigationMenuTrigger>
             <Link href="/recipe-a-z" className="hover:underline">
-              <div className="text-sm font-bold">CUISINE</div>
+              <div className="text-sm font-extrabold">CUISINE</div>
             </Link>
           </NavigationMenuTrigger>
           <NavigationMenuContent className="max-h-[350px] overflow-y-auto">
@@ -211,7 +211,7 @@ function AboutUsMenu() {
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger className="hover:underline">
-            <div className="text-sm font-bold">ABOUT US</div>
+            <div className="text-sm font-extrabold">ABOUT US</div>
           </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="flex gap-2 p-4 flex-col lg:w-[170px] z-30">
