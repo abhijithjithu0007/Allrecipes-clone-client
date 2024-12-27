@@ -123,6 +123,15 @@ const formSlice = createSlice({
       .addCase(addNewRecipe.fulfilled, (state) => {
         state.status = "succeeded";
         state.responseMessage = "Recipe added successfully";
+        state.description = "";
+        state.title = "";
+        state.ingredients = [];
+        state.directions = [];
+        state.servings = "";
+        state.prepTime = { value: "", unit: "mins" };
+        state.mealType = "";
+        state.cuisine = "";
+        state.notes = "";
       })
       .addCase(addNewRecipe.rejected, (state, action) => {
         state.status = "failed";
