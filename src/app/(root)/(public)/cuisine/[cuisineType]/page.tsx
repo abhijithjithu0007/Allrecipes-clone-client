@@ -8,6 +8,7 @@ import { AppDispatch, RootState } from "@/lib/store";
 import { getRecipeByCuisine } from "@/lib/features/recipeSlice";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import Link from "next/link";
+import Skelton from "@/components/consts/skelton";
 
 export default function Page() {
   const { cuisineType } = useParams<{ cuisineType: string }>();
@@ -18,6 +19,9 @@ export default function Page() {
   const imageUrl = cuisineImage[cuisineType as keyof typeof cuisineImage];
 
   const { recipes } = useSelector((state: RootState) => state.recipe);
+  const { getRecipeByCuisineLoad } = useSelector(
+    (state: RootState) => state.recipe.loading
+  );
   useEffect(() => {
     dispatch(getRecipeByCuisine(passingCuisineType));
   }, [passingCuisineType]);
@@ -52,31 +56,38 @@ export default function Page() {
       <h1 className="uppercase text-3xl underline text-center p-10 font-extrabold">
         EXPLORE <span className="text-customColor">{cuisineType}</span> FOODS
       </h1>
-      <div className="grid grid-cols-1 gap-5 p-10 md:grid-cols-2 lg:grid-cols-3">
-        {recipes.map((recipe, ind) => (
-          <Link key={ind} href={`/recipe/${recipe._id}`}>
-            <div className="max-w-sm bg-white">
-              <Image
-                className="rounded-t-lg w-full h-64"
-                src="https://www.allrecipes.com/img/icons/recipe-add-photo-square.jpg"
-                alt=""
-                width={400}
-                height={100}
-              />
-              <div className=" pt-5">
-                <span>
-                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    {recipe.title}
-                  </h5>
-                </span>
-                <p className="mb-3 font-bold text-gray-500 dark:text-gray-400">
-                  {recipe.description}
-                </p>
+      {getRecipeByCuisineLoad ? (
+        <Skelton />
+      ) : (
+        <div className="grid grid-cols-1 gap-5 p-10 md:grid-cols-2 lg:grid-cols-3">
+          {recipes.map((recipe, ind) => (
+            <Link key={ind} href={`/recipe/${recipe._id}`}>
+              <div className="max-w-sm bg-white">
+                <Image
+                  className="rounded-t-lg w-full h-64"
+                  src={
+                    recipe?.image ||
+                    "https://www.allrecipes.com/img/icons/recipe-add-photo-square.jpg"
+                  }
+                  alt=""
+                  width={400}
+                  height={100}
+                />
+                <div className=" pt-5">
+                  <span>
+                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                      {recipe.title}
+                    </h5>
+                  </span>
+                  <p className="mb-3 font-bold text-gray-500 dark:text-gray-400">
+                    {recipe.description}
+                  </p>
+                </div>
               </div>
-            </div>
-          </Link>
-        ))}
-      </div>
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

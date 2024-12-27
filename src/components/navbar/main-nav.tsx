@@ -26,9 +26,14 @@ export default function Mainnav({
   const userCookie = Cookies.get("user");
 
   useEffect(() => {
-    if (!userCookie) {
-      setIsLogout(true);
-    }
+    const handlecheck = async () => {
+      if (!userCookie) {
+        setIsLogout(true);
+        await signOut({ redirect: false });
+      }
+    };
+
+    handlecheck();
   }, []);
 
   const handleLogOut = async () => {
@@ -78,7 +83,7 @@ export default function Mainnav({
               ) : (
                 <>
                   <NavigationMenuTrigger>
-                    <div className="flex text-base gap-2 items-center">
+                    <div className="flex text-sm gap-2 items-center">
                       <IoPersonCircle size={25} className="text-customColor" />{" "}
                       My Profile
                     </div>

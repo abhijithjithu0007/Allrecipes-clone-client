@@ -12,7 +12,7 @@ import Link from "next/link";
 export default function Navitemsrow() {
   return (
     <div className="flex justify-between items-center p-4 pl-12 pr-14 ">
-      <div className="flex">
+      <div className="flex ">
         <MealsMenu />
         <IngredientsMenu />
         <CuisineMenu />

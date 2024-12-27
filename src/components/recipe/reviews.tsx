@@ -3,11 +3,15 @@ import React from "react";
 import { FaRegStar } from "react-icons/fa";
 import { Textarea } from "../ui/textarea";
 
-export default function Reviews() {
+interface Props {
+  title: string | undefined;
+}
+
+export default function Reviews({ title }: Props) {
   return (
-    <div className="w-1/2">
-      <h1 className="text-4xl font-bold">Reviews</h1>
-      <div className="bg-[#f5f6ea] p-6">
+    <div className="w-1/2 mt-10">
+      <h1 className="text-4xl font-bold">Reviews (2)</h1>
+      <div className="bg-[#f5f6ea] p-6 mt-4">
         <div className="bg-white p-6">
           {" "}
           <div className="flex items-center justify-start gap-4">
@@ -18,7 +22,7 @@ export default function Reviews() {
               width={60}
               height={60}
             />
-            <p className="text-lg font-bold">Green Bean Mac and Cheese</p>
+            <p className="text-lg font-bold">{title}</p>
           </div>
           <div className="flex flex-col gap-2 mt-4">
             <p className="text-base font-bold">

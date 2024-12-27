@@ -31,7 +31,7 @@ export const ingredientsImages = {
   },
   fish: {
     image:
-      "https://i.pinimg.com/736x/28/47/6b/28476b8f2e3ebfe7625312114e1e0835.jpg",
+      "https://www.allrecipes.com/thmb/ix0rqcdnZcF7GQl8Xu4yBxmtHyE=/1900x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/seafood-header-Passano_ALR0720_Grill_4084-2400x600-1-2000-4ea8d91381094cb9ad62de7cdf9877ba.jpg",
     text: "Fish is a nutrient-rich and flavorful protein that’s central to cuisines around the world. Whether grilled, baked, fried, or used in soups and curries, fish provides a delicate texture and taste that pairs beautifully with a variety of spices and ingredients.",
   },
   wheat: {
@@ -57,29 +57,29 @@ export const mealsImages = {
       "https://www.allrecipes.com/thmb/A-u4ckt4ptt4N7GWjYl3KzuWrOw=/1900x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/2400x600-8965-broccoli-chicken-casserole-mfs_065-2000-2ca307c6cef6467192f260df6edca897.jpg",
     text: "Dinner is a time to unwind and enjoy a hearty, flavorful meal with loved ones. Whether it’s a comforting casserole, a savory stir-fry, or a gourmet multi-course spread, dinner brings families and friends together over delicious food.",
   },
-  dessert: {
+  desserts: {
     image:
-      "https://i.pinimg.com/736x/4e/26/ff/4e26ff0867ffef7cf3ceecd420a13a4e.jpg",
+      "https://www.allrecipes.com/thmb/qkvWiQGA0cu_Sbbz4YNbcbkSJ4g=/1900x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/2400-17377-chocolate-cupcakes-ddmfs-600-2x1-1-2000-87d706063df547599c485f3d190600c5.jpg",
     text: "Desserts are a sweet ending to any meal, delighting the senses with their indulgent flavors. From rich chocolate cakes and creamy ice creams to fruity tarts and delicate pastries, desserts are the perfect way to treat yourself.",
   },
   salads: {
     image:
-      "https://i.pinimg.com/736x/c4/70/e3/c470e3d23cb1e0391558df963b5f575f.jpg",
+      "https://www.allrecipes.com/thmb/p5ypo2B9PnG34Zm-fOvYaPJfvTo=/1900x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/2400-AR-14452-GreenSalad-0028-2x1-1-2000-c0687125d0ff4990b7c4922daf147aea.jpg",
     text: "Salads are a vibrant and refreshing addition to any meal, packed with fresh vegetables, greens, and bold dressings. Whether light and simple or hearty and loaded with toppings, salads offer endless combinations to suit every taste.",
   },
   drinks: {
     image:
-      "https://i.pinimg.com/736x/ce/e7/64/cee7648b5c37f2e659bd9bd78c9450e2.jpg",
+      "https://www.allrecipes.com/thmb/Z4Kj5Q5xqRAezFDzR8K_rwQGxcQ=/1900x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/75045-caebde3361fc4565a161153e3dc2915b.jpg",
     text: "Drinks bring hydration and flavor to your day, ranging from refreshing smoothies and cocktails to soothing teas and coffees. They complement meals or can be enjoyed on their own as a treat.",
   },
   snacks: {
     image:
-      "https://i.pinimg.com/736x/06/ed/42/06ed4211eff090878101f035a02a9e31.jpg",
+      "https://www.allrecipes.com/thmb/zdCIlg9V9Dpo45O7OK_tJ8q53fE=/1900x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/ChefJohnsBakedStuffedBriewithCranberriesWalnuts3x1banner-825fecca675f4486b0f16667a738b090.jpg",
     text: "Snacks are the perfect pick-me-up between meals, offering a quick and satisfying way to curb hunger. From crunchy nuts and chips to healthy granola bars and fruit, snacks keep you fueled throughout the day.",
   },
   "side-dish": {
     image:
-      "https://i.pinimg.com/736x/98/16/f7/9816f7d013047078d5eae0951076cbc0.jpg",
+      "https://www.allrecipes.com/thmb/t0NPiEtxrGZZMPj6LWcZslYZg7A=/1900x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/75083-93c6af155bba4b2fb102f34a6768e0ce.jpg",
     text: "Side dishes are the supporting stars of any meal, adding balance and variety to the main course. From creamy mashed potatoes and roasted vegetables to flavorful rice and bread, side dishes complete the dining experience.",
   },
 };
