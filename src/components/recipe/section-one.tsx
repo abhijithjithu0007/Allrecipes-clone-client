@@ -74,7 +74,7 @@ export default function Sectionone() {
               value={title}
               onChange={handleTitleChange}
               placeholder="e.g. Grandma's Apple Pie"
-              className="p-6 placeholder:text-base outline outline-1 rounded-none mt-2"
+              className="p-6 placeholder:text-sm outline outline-1 rounded-none mt-2"
             />
           </div>
           <div>

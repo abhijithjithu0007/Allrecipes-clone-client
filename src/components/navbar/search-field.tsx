@@ -37,11 +37,11 @@ export default function SearchField() {
           id="search"
           type="text"
           placeholder="Find a recipe or ingredient"
-          className="rounded-none border border-black"
+          className="border border-black rounded-r-none"
           value={query}
           onChange={handleInputChange}
         />
-        <div className="p-[10px] bg-customColor text-white">
+        <div className="p-[10px] bg-customColor text-white rounded-r-md">
           <IoSearch />
         </div>
       </div>
@@ -51,7 +51,7 @@ export default function SearchField() {
           className="absolute top-full left-0 w-full bg-white border border-gray-200 shadow-lg z-50"
           style={{ maxHeight: "200px", overflowY: "auto" }}
         >
-          {loading.getAllrecipes ? (
+          {loading.getAllrecipesLoad ? (
             <div className="p-2 text-gray-500">Loading...</div>
           ) : recipes.length > 0 ? (
             recipes.map((recipe, index) => (

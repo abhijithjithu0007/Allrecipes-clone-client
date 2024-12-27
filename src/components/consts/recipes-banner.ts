@@ -122,7 +122,7 @@ export const cuisineImage = {
   },
   american: {
     image:
-      "https://i.pinimg.com/736x/f5/52/63/f55263bb685a526893bcbdc9fca382b8.jpg",
+      "https://www.allrecipes.com/thmb/-T5KIeZfAdqCmJGFpewS_-_2Syo=/1900x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/2400-16755-Basic-Corn-Muffins-ddmfs-103217-4x3-1-2000-e7e71c209a0a450ea4a2259073211565.jpg ",
     text: "American cuisine offers a diverse range of flavors, from classic burgers and fries to hearty barbecue. Each dish reflects the nation's rich culinary heritage.",
   },
   korean: {
