@@ -1,6 +1,9 @@
+"use client";
 import Image from "next/image";
-import React from "react";
-import { FaRegStar } from "react-icons/fa";
+import React, { useState } from "react";
+import { FaStar } from "react-icons/fa";
+import { IoMdStarOutline } from "react-icons/io";
+
 import { Textarea } from "../ui/textarea";
 
 interface Props {
@@ -8,6 +11,10 @@ interface Props {
 }
 
 export default function Reviews({ title }: Props) {
+  const [selectedRating, setSelectedRating] = useState<number>(0);
+  const [hoveredRating, setHoveredRating] = useState<number>(0);
+
+  const ratings: string[] = ["Terrible", "Bad", "OK", "Good", "Excellent"];
   return (
     <div className="w-1/2 mt-10">
       <h1 className="text-4xl font-bold">Reviews (2)</h1>
@@ -31,12 +38,37 @@ export default function Reviews({ title }: Props) {
                 (required)
               </span>{" "}
             </p>
-            <div className="flex gap-2 p-2">
-              <FaRegStar size={40} />
-              <FaRegStar size={40} />
-              <FaRegStar size={40} />
-              <FaRegStar size={40} />
-              <FaRegStar size={40} />
+            <div className="p-3 flex items-center gap-4">
+              <div className="flex gap-2">
+                {ratings.map((_, index) => {
+                  const ratingValue = index + 1;
+                  return (
+                    <label
+                      key={ratingValue}
+                      onMouseEnter={() => setHoveredRating(ratingValue)}
+                      onMouseLeave={() => setHoveredRating(0)}
+                      onClick={() => setSelectedRating(ratingValue)}
+                      className="cursor-pointer"
+                    >
+                      {ratingValue <= (hoveredRating || selectedRating) ? (
+                        <FaStar size={40} className="text-customColor" />
+                      ) : (
+                        <IoMdStarOutline size={40} />
+                      )}
+                    </label>
+                  );
+                })}
+              </div>
+              <div className="h-12 w-[1px] bg-slate-400"></div>
+              <div>
+                {hoveredRating || selectedRating ? (
+                  <p className="text-sm">
+                    {ratings[(hoveredRating || selectedRating) - 1]}
+                  </p>
+                ) : (
+                  <p className="text-sm">Hover over the stars to rate</p>
+                )}
+              </div>
             </div>
           </div>
           <div className="mt-7">

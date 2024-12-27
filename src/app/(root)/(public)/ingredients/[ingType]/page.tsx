@@ -56,7 +56,7 @@ export default function Page() {
           <Link key={ind} href={`/recipe/${recipe._id}`}>
             <div className="max-w-sm bg-white">
               <Image
-                className="rounded-t-lg w-full h-64"
+                className="rounded-t-lg w-full h-64 object-cover"
                 src={
                   recipe?.image ||
                   "https://www.allrecipes.com/img/icons/recipe-add-photo-square.jpg"

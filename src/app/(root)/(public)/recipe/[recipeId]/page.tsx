@@ -60,7 +60,7 @@ export default function Page() {
         <div>
           <div className="p-5 pl-40">
             <div>
-              <h3 className="uppercase font-bold flex items-center gap-2">
+              <h3 className="uppercase text-sm font-bold flex items-center gap-2">
                 Recipes <MdOutlineKeyboardArrowRight />
                 <Link
                   href={`/meals/${recipe?.mealType.toLowerCase()}`}
