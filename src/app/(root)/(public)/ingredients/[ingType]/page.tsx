@@ -57,7 +57,10 @@ export default function Page() {
             <div className="max-w-sm bg-white">
               <Image
                 className="rounded-t-lg w-full h-64"
-                src="https://www.allrecipes.com/img/icons/recipe-add-photo-square.jpg"
+                src={
+                  recipe?.image ||
+                  "https://www.allrecipes.com/img/icons/recipe-add-photo-square.jpg"
+                }
                 alt=""
                 width={400}
                 height={100}

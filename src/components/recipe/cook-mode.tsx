@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { Switch } from "../ui/switch";
 import { Label } from "../ui/label";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function CookMode() {
   const [isCookMode, setIsCookMode] = useState<boolean>(false);
@@ -12,13 +14,21 @@ export default function CookMode() {
       if (wakeLock) {
         await wakeLock.release();
         setWakeLock(null);
-        console.log("Cook mode turn off.");
       }
     } else {
       try {
         const wakeLockInstance = await navigator.wakeLock.request("screen");
         setWakeLock(wakeLockInstance);
-        console.log("Cook mode activated.");
+        toast.success("Cook mode activated.", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       } catch (err) {
         console.error(err);
       }

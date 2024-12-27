@@ -72,11 +72,14 @@ export default function Page() {
               <h1 className="text-5xl font-bold pt-8">{recipe?.title}</h1>
               <p className="text-gray-700 pt-6 pb-4">{recipe?.description}</p>
               <Image
-                src="https://www.allrecipes.com/img/icons/recipe-add-photo-square.jpg"
+                src={
+                  recipe?.image ||
+                  "https://www.allrecipes.com/img/icons/recipe-add-photo-square.jpg"
+                }
                 alt=""
                 width={500}
                 height={500}
-                className="rounded-md"
+                className="rounded-md max-h-[600px] max-w-[500px]"
               />
               <div className="grid grid-cols-2 gap-5 border border-gray-500 border-t-8 border-t-[#e7ab46] rounded-md p-5 w-1/3 mt-5">
                 <p className="flex flex-col items-center">
