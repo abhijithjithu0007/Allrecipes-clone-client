@@ -1,5 +1,6 @@
 import axiosInstance from "@/utils/axios";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import axios from "axios";
 
 interface PrepTime {
   value: string;
@@ -12,6 +13,7 @@ interface FormState {
   ingredients: string[];
   directions: string[];
   servings: string;
+  image: string;
   prepTime: PrepTime;
   mealType: string;
   cuisine: string;
@@ -27,6 +29,7 @@ const initialState: FormState = {
   ingredients: [],
   directions: [],
   servings: "",
+  image: "",
   prepTime: { value: "", unit: "mins" },
   mealType: "",
   cuisine: "",
@@ -46,6 +49,26 @@ export const addNewRecipe = createAsyncThunk(
       return rejectWithValue(
         error.response?.data?.message || "Failed to add new recipe"
       );
+    }
+  }
+);
+
+export const uploadImage = createAsyncThunk<string, File>(
+  "upload/uploadImage",
+  async (file, { rejectWithValue }) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "allrecipes");
+    formData.append("folder", "recipes");
+
+    try {
+      const response = await axios.post(
+        "https://api.cloudinary.com/v1_1/dzxrdd7a4/image/upload",
+        formData
+      );
+      return response.data.secure_url;
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data?.message || "Upload failed");
     }
   }
 );
@@ -81,6 +104,14 @@ const formSlice = createSlice({
     setNotes: (state, action: PayloadAction<string>) => {
       state.notes = action.payload;
     },
+    resetImage: (state) => {
+      state.image = "";
+    },
+    resetStatus: (state) => {
+      state.status = "idle";
+      state.error = null;
+      state.responseMessage = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -94,6 +125,17 @@ const formSlice = createSlice({
         state.responseMessage = "Recipe added successfully";
       })
       .addCase(addNewRecipe.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload as string;
+      })
+      .addCase(uploadImage.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(uploadImage.fulfilled, (state, action) => {
+        state.image = action.payload;
+      })
+      .addCase(uploadImage.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload as string;
       });
@@ -110,6 +152,8 @@ export const {
   setMealType,
   setCuisine,
   setNotes,
+  resetImage,
+  resetStatus,
 } = formSlice.actions;
 
 export const selectForm = (state: { form: FormState }) => state.form;

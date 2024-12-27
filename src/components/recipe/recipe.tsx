@@ -5,12 +5,15 @@ import Ingredients from "./ingredients";
 import Directions from "./directions";
 import Finalsection from "./final-section";
 import { useSelector } from "react-redux";
-import { RootState } from "@/lib/store";
+import { AppDispatch, RootState } from "@/lib/store";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
+import { resetImage, resetStatus } from "@/lib/features/formSlice";
+import { useDispatch } from "react-redux";
 
 export default function Recipe() {
+  const dispatch: AppDispatch = useDispatch();
   const resposeMsg = useSelector(
     (state: RootState) => state.form.responseMessage
   );
@@ -42,6 +45,8 @@ export default function Recipe() {
           progress: undefined,
           theme: "light",
         });
+        dispatch(resetImage());
+        dispatch(resetStatus());
         router.push("/home");
       }
     }

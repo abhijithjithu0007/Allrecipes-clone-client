@@ -1,17 +1,24 @@
 "use client";
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setTitle, setDescription } from "@/lib/features/formSlice";
+import {
+  setTitle,
+  setDescription,
+  uploadImage,
+} from "@/lib/features/formSlice";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import Image from "next/image";
 import { Textarea } from "../ui/textarea";
 import { AppDispatch, RootState } from "@/lib/store";
 import { FaPlus } from "react-icons/fa";
+import { useRef } from "react";
 
 export default function Sectionone() {
   const dispatch: AppDispatch = useDispatch();
   const { title, description } = useSelector((state: RootState) => state.form);
+  const { image } = useSelector((state: RootState) => state.form);
+
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setTitle(e.target.value));
@@ -21,6 +28,17 @@ export default function Sectionone() {
     e: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     dispatch(setDescription(e.target.value));
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0];
+    if (selectedFile) {
+      dispatch(uploadImage(selectedFile));
+    }
+  };
+
+  const handleImageClick = () => {
+    fileInputRef.current?.click();
   };
 
   return (
@@ -77,12 +95,23 @@ export default function Sectionone() {
           <Label htmlFor="photo" className="text-base font-bold">
             Photo (Optional)
           </Label>
-          <Image
-            src="/images/loginImg.png"
-            alt="Recipe Image"
-            width={200}
-            height={200}
+
+          <input
+            ref={fileInputRef}
+            type="file"
+            onChange={handleFileChange}
+            className="hidden"
           />
+
+          <div onClick={handleImageClick} className="cursor-pointer">
+            <Image
+              src={image || "/images/loginImg.png"}
+              alt="Recipe Image"
+              width={200}
+              height={200}
+            />
+          </div>
+
           <p className="text-xs text-gray-600 pt-2">
             Use JPEG or PNG. Must be at least <br /> 960 x 960. Max file size:
             30MB
