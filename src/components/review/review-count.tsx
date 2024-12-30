@@ -19,7 +19,7 @@ export default function Reviewcount({ data }: Props) {
       {data.length === 0 ? (
         <p className="p-3">Be the first to review!</p>
       ) : (
-        <div className="p-5">
+        <div className="p-8">
           <h3 className="text-center">{totalRatings} Ratings</h3>
           <div className="flex flex-col gap-3 items-center">
             {starCounts.map((count, index) => {

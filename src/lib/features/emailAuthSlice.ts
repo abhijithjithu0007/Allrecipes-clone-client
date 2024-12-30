@@ -75,6 +75,7 @@ export const verifyOtp = createAsyncThunk(
         "user",
         JSON.stringify({
           email: userData.email,
+          id: userData.id,
           token: userData.token,
           authMethod: "email",
         }),
@@ -125,6 +126,7 @@ export const verifyOtpForLogin = createAsyncThunk(
         "user",
         JSON.stringify({
           email: userData.email,
+          id: userData.id,
           token: userData.token,
           authMethod: "email",
         }),

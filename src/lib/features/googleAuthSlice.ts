@@ -34,6 +34,7 @@ export const googleRegister = createAsyncThunk(
         "user",
         JSON.stringify({
           email: userData.email,
+          id: userData.id,
           token: userData.data,
           authMethod: "google",
         }),
@@ -64,6 +65,7 @@ export const googleLogin = createAsyncThunk(
         "user",
         JSON.stringify({
           email: userData.email,
+          id: userData.id,
           token: userData.token,
           authMethod: "google",
         }),
