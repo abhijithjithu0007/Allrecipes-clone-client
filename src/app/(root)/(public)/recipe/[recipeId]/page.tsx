@@ -11,7 +11,7 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import CookMode from "@/components/recipe/cook-mode";
 import Recipetab from "@/components/recipe/recipe-multi-tab";
-import Reviews from "@/components/recipe/reviews";
+import Reviews from "@/components/review/reviews";
 
 const convertFractionToDecimal = (fraction: string): number => {
   const fractionMap: { [key: string]: number } = {

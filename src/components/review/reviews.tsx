@@ -3,12 +3,13 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { IoMdStarOutline } from "react-icons/io";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Textarea } from "../ui/textarea";
 import axiosInstance from "@/utils/axios";
 import { useParams } from "next/navigation";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Reviewcount from "./review-count";
 
 interface Props {
   title?: string;
@@ -19,6 +20,11 @@ interface PostReviewPayload {
   notes?: string;
   rating: number;
 }
+export interface ReviewData {
+  rating: number;
+  notes: string;
+  name: string;
+}
 
 export default function Reviews({ title }: Props) {
   const params = useParams();
@@ -28,9 +34,25 @@ export default function Reviews({ title }: Props) {
   const [hoveredRating, setHoveredRating] = useState<number>(0);
   const [notes, setNotes] = useState<string>("");
 
+  const fetchUser = async () => {
+    const response = await axiosInstance.get(
+      `/review/get-review-by-recipe/${recipeId}`
+    );
+    if (response.status !== 200) {
+      throw new Error("Network response was not ok");
+    }
+    return response.data;
+  };
+
   const postReview = async (review: PostReviewPayload) => {
     await axiosInstance.post("/review/add-review", review);
   };
+
+  const { data, refetch } = useQuery<{ data: ReviewData[] }, Error>({
+    queryKey: ["reviews", recipeId],
+    queryFn: fetchUser,
+    enabled: !!recipeId,
+  });
 
   const mutation = useMutation<void, Error, PostReviewPayload>({
     mutationFn: postReview,
@@ -48,6 +70,7 @@ export default function Reviews({ title }: Props) {
       });
       setSelectedRating(0);
       setNotes("");
+      refetch();
     },
     onError: (error) => {
       console.error(error);
@@ -77,12 +100,13 @@ export default function Reviews({ title }: Props) {
     };
     mutation.mutate(review);
   };
+  console.log(data?.data);
 
   const ratings = ["Terrible", "Bad", "OK", "Good", "Excellent"];
 
   return (
     <div className="w-1/2 mt-10">
-      <h1 className="text-4xl font-bold">Reviews (2)</h1>
+      <h1 className="text-4xl font-bold">{`Reviews (${data?.data.length})`}</h1>
       <div className="bg-[#f5f6ea] p-6 mt-4">
         <div className="bg-white p-6">
           <div className="flex items-center justify-start gap-4">
@@ -144,7 +168,7 @@ export default function Reviews({ title }: Props) {
               onChange={(e) => setNotes(e.target.value)}
             />
           </div>
-          <div className="flex justify-end gap-4 mt-7">
+          <div className="flex justify-end gap-4 mt-7 mb-10">
             <button>Cancel</button>
             <button
               onClick={handleSubmit}
@@ -154,6 +178,8 @@ export default function Reviews({ title }: Props) {
               {mutation.isPending ? "Submitting..." : "Submit"}
             </button>
           </div>
+          <hr />
+          <Reviewcount data={data?.data || []} />
         </div>
       </div>
     </div>
