@@ -29,12 +29,11 @@ export default function Page() {
         dispatch(googleLogin(email || ""))
           .unwrap()
           .then((response) => {
-            if (response.message) {
-              alert(response.message);
-            }
-
             if (response.statusCode === 200) {
               router.push("/home");
+            }
+            if (response.message) {
+              alert(response.message);
             }
           })
           .catch((error) => {
