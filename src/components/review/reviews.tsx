@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { IoMdStarOutline } from "react-icons/io";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -25,6 +25,11 @@ export interface ReviewData {
   rating: number;
   notes: string;
   name: string;
+  createdAt: string;
+  user: {
+    _id: string;
+    name: string;
+  };
 }
 
 export default function Reviews({ title }: Props) {
@@ -34,6 +39,7 @@ export default function Reviews({ title }: Props) {
   const [selectedRating, setSelectedRating] = useState<number>(0);
   const [hoveredRating, setHoveredRating] = useState<number>(0);
   const [notes, setNotes] = useState<string>("");
+  const [isUserReview, setIsUserReview] = useState<ReviewData | null>();
 
   const user = userCookie ? JSON.parse(userCookie) : "{}";
 
@@ -42,32 +48,26 @@ export default function Reviews({ title }: Props) {
       `/review/get-review-by-recipe/${recipeId}`
     );
     if (response.status !== 200) {
-      throw new Error("Network response was not ok");
+      throw new Error("Some thing went wrong");
     }
     return response.data;
   };
 
-  const { data, refetch } = useQuery<{ data: ReviewData[] }, Error>({
-    queryKey: ["reviews", recipeId],
+  const { data: reviewsByRcipeData, refetch: reviewsByRcipeRefetch } = useQuery<
+    { data: ReviewData[] },
+    Error
+  >({
+    queryKey: ["reviewsByRecipe"],
     queryFn: fetchRecipeById,
     enabled: !!recipeId,
   });
-  const samp = data?.data.some((item) => item.user._id == user.id);
-  // const fetchRecipeByUserId = async () => {
-  //   const response = await axiosInstance.get(
-  //     `/review/get-review-by-recipe/${recipeId}`
-  //   );
-  //   if (response.status !== 200) {
-  //     throw new Error("Network response was not ok");
-  //   }
-  //   return response.data;
-  // };
 
-  // const { data, refetch } = useQuery<{ data: ReviewData[] }, Error>({
-  //   queryKey: ["reviews"],
-  //   queryFn: fetchRecipeByUserId,
-  //   enabled: !!recipeId,
-  // });
+  const checkUserReview = reviewsByRcipeData?.data.find(
+    (item) => item.user._id == user.id
+  );
+  useEffect(() => {
+    setIsUserReview(checkUserReview);
+  }, [checkUserReview]);
 
   const postReview = async (review: PostReviewPayload) => {
     await axiosInstance.post("/review/add-review", review);
@@ -89,7 +89,7 @@ export default function Reviews({ title }: Props) {
       });
       setSelectedRating(0);
       setNotes("");
-      refetch();
+      reviewsByRcipeRefetch();
     },
     onError: (error) => {
       console.error(error);
@@ -124,7 +124,7 @@ export default function Reviews({ title }: Props) {
 
   return (
     <div className="w-1/2 mt-10">
-      <h1 className="text-4xl font-bold">{`Reviews (${data?.data.length})`}</h1>
+      <h1 className="text-4xl font-bold">{`Reviews (${reviewsByRcipeData?.data.length})`}</h1>
       <div className="bg-[#f5f6ea] p-6 mt-4">
         <div className="bg-white p-6">
           <div className="flex items-center justify-start gap-4">
@@ -132,14 +132,34 @@ export default function Reviews({ title }: Props) {
               src="/images/review_logo.png"
               className="rounded-full"
               alt="review1"
-              width={60}
-              height={60}
+              width={50}
+              height={50}
             />
-            <p className="text-lg font-bold">{samp ? "My review" : title}</p>
+            <p className="text-lg font-bold">
+              {checkUserReview ? "My review" : title}
+            </p>
           </div>
-          {samp ? (
-            <div>
-              <h1>efweferger</h1>
+          {isUserReview ? (
+            <div className="flex flex-col gap-4 mt-4 p-3">
+              <div className="flex items-center gap-4">
+                <div className="flex gap-1">
+                  {Array.from({ length: 5 }, (_, index) => {
+                    const starColor =
+                      index < isUserReview.rating
+                        ? "text-customColor"
+                        : "text-gray-300";
+                    return (
+                      <FaStar key={index} size={15} className={starColor} />
+                    );
+                  })}
+                </div>
+                <p className="text-xs ml-2">
+                  {new Date(isUserReview.createdAt).toLocaleDateString()}
+                </p>
+              </div>
+              <div>
+                <p>{isUserReview.notes}</p>
+              </div>
             </div>
           ) : (
             <div>
@@ -206,7 +226,7 @@ export default function Reviews({ title }: Props) {
           )}
 
           <hr />
-          <Reviewcount data={data?.data || []} />
+          <Reviewcount data={reviewsByRcipeData?.data || []} />
         </div>
       </div>
     </div>
