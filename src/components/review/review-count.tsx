@@ -21,14 +21,14 @@ export default function Reviewcount({ data }: Props) {
       ) : (
         <div className="p-8">
           <h3 className="text-center">{totalRatings} Ratings</h3>
-          <div className="flex flex-col gap-3 items-center">
+          <div className="flex flex-col gap-2 items-center">
             {starCounts.map((count, index) => {
               const progressValue = (count / totalRatings) * 100;
 
               return (
                 <div
                   key={index}
-                  className="flex items-center justify-center gap-4 w-full max-w-md"
+                  className="flex items-center justify-center gap-3 w-full max-w-md"
                 >
                   <p className="flex items-center gap-1 underline decoration-customColor">
                     <span className="text-sm">{5 - index} star</span>

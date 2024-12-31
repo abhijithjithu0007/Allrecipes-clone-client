@@ -10,6 +10,7 @@ import { useParams } from "next/navigation";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Reviewcount from "./review-count";
+import Cookies from "js-cookie";
 
 interface Props {
   title?: string;
@@ -29,12 +30,14 @@ export interface ReviewData {
 export default function Reviews({ title }: Props) {
   const params = useParams();
   const recipeId = params.recipeId as string;
-
+  const userCookie = Cookies.get("user");
   const [selectedRating, setSelectedRating] = useState<number>(0);
   const [hoveredRating, setHoveredRating] = useState<number>(0);
   const [notes, setNotes] = useState<string>("");
 
-  const fetchUser = async () => {
+  const user = userCookie ? JSON.parse(userCookie) : "{}";
+
+  const fetchRecipeById = async () => {
     const response = await axiosInstance.get(
       `/review/get-review-by-recipe/${recipeId}`
     );
@@ -44,21 +47,37 @@ export default function Reviews({ title }: Props) {
     return response.data;
   };
 
+  const { data, refetch } = useQuery<{ data: ReviewData[] }, Error>({
+    queryKey: ["reviews", recipeId],
+    queryFn: fetchRecipeById,
+    enabled: !!recipeId,
+  });
+  const samp = data?.data.some((item) => item.user._id == user.id);
+  // const fetchRecipeByUserId = async () => {
+  //   const response = await axiosInstance.get(
+  //     `/review/get-review-by-recipe/${recipeId}`
+  //   );
+  //   if (response.status !== 200) {
+  //     throw new Error("Network response was not ok");
+  //   }
+  //   return response.data;
+  // };
+
+  // const { data, refetch } = useQuery<{ data: ReviewData[] }, Error>({
+  //   queryKey: ["reviews"],
+  //   queryFn: fetchRecipeByUserId,
+  //   enabled: !!recipeId,
+  // });
+
   const postReview = async (review: PostReviewPayload) => {
     await axiosInstance.post("/review/add-review", review);
   };
-
-  const { data, refetch } = useQuery<{ data: ReviewData[] }, Error>({
-    queryKey: ["reviews", recipeId],
-    queryFn: fetchUser,
-    enabled: !!recipeId,
-  });
 
   const mutation = useMutation<void, Error, PostReviewPayload>({
     mutationFn: postReview,
     mutationKey: ["postReview"],
     onSuccess: () => {
-      toast.success("Review submitted successfully.", {
+      toast.success("Thank you for adding your feedback.", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -100,7 +119,6 @@ export default function Reviews({ title }: Props) {
     };
     mutation.mutate(review);
   };
-  console.log(data?.data);
 
   const ratings = ["Terrible", "Bad", "OK", "Good", "Excellent"];
 
@@ -117,67 +135,76 @@ export default function Reviews({ title }: Props) {
               width={60}
               height={60}
             />
-            <p className="text-lg font-bold">{title}</p>
+            <p className="text-lg font-bold">{samp ? "My review" : title}</p>
           </div>
-          <div className="flex flex-col gap-2 mt-4">
-            <p className="text-base font-bold">
-              My Rating{" "}
-              <span className="text-xs text-gray-600 font-normal">
-                (required)
-              </span>{" "}
-            </p>
-            <div className="p-3 flex items-center gap-4">
-              <div className="flex gap-2">
-                {ratings.map((_, index) => {
-                  const ratingValue = index + 1;
-                  return (
-                    <label
-                      key={ratingValue}
-                      onMouseEnter={() => setHoveredRating(ratingValue)}
-                      onMouseLeave={() => setHoveredRating(0)}
-                      onClick={() => setSelectedRating(ratingValue)}
-                      className="cursor-pointer"
-                    >
-                      {ratingValue <= (hoveredRating || selectedRating) ? (
-                        <FaStar size={40} className="text-customColor" />
-                      ) : (
-                        <IoMdStarOutline size={40} />
-                      )}
-                    </label>
-                  );
-                })}
+          {samp ? (
+            <div>
+              <h1>efweferger</h1>
+            </div>
+          ) : (
+            <div>
+              <div className="flex flex-col gap-2 mt-4">
+                <p className="text-base font-bold">
+                  My Rating{" "}
+                  <span className="text-xs text-gray-600 font-normal">
+                    (required)
+                  </span>{" "}
+                </p>
+                <div className="p-3 flex items-center gap-4">
+                  <div className="flex gap-2">
+                    {ratings.map((_, index) => {
+                      const ratingValue = index + 1;
+                      return (
+                        <label
+                          key={ratingValue}
+                          onMouseEnter={() => setHoveredRating(ratingValue)}
+                          onMouseLeave={() => setHoveredRating(0)}
+                          onClick={() => setSelectedRating(ratingValue)}
+                          className="cursor-pointer"
+                        >
+                          {ratingValue <= (hoveredRating || selectedRating) ? (
+                            <FaStar size={40} className="text-customColor" />
+                          ) : (
+                            <IoMdStarOutline size={40} />
+                          )}
+                        </label>
+                      );
+                    })}
+                  </div>
+                  <div className="h-12 w-[1px] bg-slate-400"></div>
+                  <div>
+                    {hoveredRating || selectedRating ? (
+                      <p className="text-sm">
+                        {ratings[(hoveredRating || selectedRating) - 1]}
+                      </p>
+                    ) : (
+                      <p className="text-sm">Hover over the stars to rate</p>
+                    )}
+                  </div>
+                </div>
               </div>
-              <div className="h-12 w-[1px] bg-slate-400"></div>
-              <div>
-                {hoveredRating || selectedRating ? (
-                  <p className="text-sm">
-                    {ratings[(hoveredRating || selectedRating) - 1]}
-                  </p>
-                ) : (
-                  <p className="text-sm">Hover over the stars to rate</p>
-                )}
+              <div className="mt-7">
+                <p className="text-base font-bold">My Review</p>
+                <Textarea
+                  className="min-h-[100px] mt-3"
+                  placeholder="What did you think about this recipe? Did you make any changes or notes?"
+                  value={notes}
+                  onChange={(e) => setNotes(e.target.value)}
+                />
+              </div>
+              <div className="flex justify-end gap-4 mt-7 mb-10">
+                <button>Cancel</button>
+                <button
+                  onClick={handleSubmit}
+                  className="bg-customColor flex items-center gap-2 text-sm font-bold p-4 pl-16 pr-16 text-white hover:bg-orange-600"
+                  disabled={mutation.isPending}
+                >
+                  {mutation.isPending ? "Submitting..." : "Submit"}
+                </button>
               </div>
             </div>
-          </div>
-          <div className="mt-7">
-            <p className="text-base font-bold">My Review</p>
-            <Textarea
-              className="min-h-[100px] mt-3"
-              placeholder="What did you think about this recipe? Did you make any changes or notes?"
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-            />
-          </div>
-          <div className="flex justify-end gap-4 mt-7 mb-10">
-            <button>Cancel</button>
-            <button
-              onClick={handleSubmit}
-              className="bg-customColor flex items-center gap-2 text-sm font-bold p-4 pl-16 pr-16 text-white hover:bg-orange-600"
-              disabled={mutation.isPending}
-            >
-              {mutation.isPending ? "Submitting..." : "Submit"}
-            </button>
-          </div>
+          )}
+
           <hr />
           <Reviewcount data={data?.data || []} />
         </div>

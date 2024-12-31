@@ -8,6 +8,11 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import Link from "next/link";
+import {
+  navMealData,
+  navIngredientsData,
+  navCuisineData,
+} from "../consts/nav-items-data";
 
 export default function Navitemsrow() {
   return (
@@ -37,46 +42,13 @@ function MealsMenu() {
           </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="flex gap-2 p-4 flex-col lg:w-[170px]">
-              <li className="hover:bg-gray-100 p-1 cursor-pointer">
-                <NavigationMenuLink href="/meals/breakfast">
-                  Breakfast
-                </NavigationMenuLink>
-              </li>
-              <li className="hover:bg-gray-100 p-1 cursor-pointer">
-                <NavigationMenuLink href="/meals/lunch">
-                  Lunch
-                </NavigationMenuLink>
-              </li>
-              <li className="hover:bg-gray-100 p-1 cursor-pointer">
-                <NavigationMenuLink href="/meals/dinner ">
-                  Dinners
-                </NavigationMenuLink>
-              </li>
-              <li className="hover:bg-gray-100 p-1 cursor-pointer">
-                <NavigationMenuLink href="/meals/desserts">
-                  Desserts
-                </NavigationMenuLink>
-              </li>
-              <li className="hover:bg-gray-100 p-1 cursor-pointer">
-                <NavigationMenuLink href="/meals/salads">
-                  Salads
-                </NavigationMenuLink>
-              </li>
-              <li className="hover:bg-gray-100 p-1 cursor-pointer">
-                <NavigationMenuLink href="/meals/drinks">
-                  Drinks
-                </NavigationMenuLink>
-              </li>
-              <li className="hover:bg-gray-100 p-1 cursor-pointer">
-                <NavigationMenuLink href="/meals/snacks">
-                  Snacks
-                </NavigationMenuLink>
-              </li>
-              <li className="hover:bg-gray-100 p-1 cursor-pointer">
-                <NavigationMenuLink href="/meals/side-dish">
-                  Side-Dish
-                </NavigationMenuLink>
-              </li>
+              {navMealData.map((item, key) => (
+                <li key={key} className="hover:bg-gray-100 p-1 cursor-pointer">
+                  <NavigationMenuLink href={item.path}>
+                    {item.name}
+                  </NavigationMenuLink>
+                </li>
+              ))}
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
@@ -97,37 +69,13 @@ function IngredientsMenu() {
           </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="flex gap-2 p-4 flex-col lg:w-[170px]">
-              <li className="hover:bg-gray-100 p-2 cursor-pointer">
-                <NavigationMenuLink href="/ingredients/chicken">
-                  Chicken
-                </NavigationMenuLink>
-              </li>
-              <li className="hover:bg-gray-100 p-2 cursor-pointer">
-                <NavigationMenuLink href="/ingredients/beef">
-                  Beef
-                </NavigationMenuLink>
-              </li>
-              <li className="hover:bg-gray-100 p-2 cursor-pointer">
-                <NavigationMenuLink href="/ingredients/egg">
-                  Egg
-                </NavigationMenuLink>
-              </li>
-              <li className="hover:bg-gray-100 p-2 cursor-pointer">
-                <NavigationMenuLink href="/ingredients/fish">
-                  Fish
-                </NavigationMenuLink>
-              </li>
-              <li className="hover:bg-gray-100 p-2 cursor-pointer">
-                <NavigationMenuLink href="/ingredients/rice">
-                  Rice
-                </NavigationMenuLink>
-              </li>
-
-              <li className="hover:bg-gray-100 p-2 cursor-pointer">
-                <NavigationMenuLink href="/ingredients/wheat">
-                  Wheat
-                </NavigationMenuLink>
-              </li>
+              {navIngredientsData.map((item, key) => (
+                <li key={key} className="hover:bg-gray-100 p-2 cursor-pointer">
+                  <NavigationMenuLink href={item.path}>
+                    {item.name}
+                  </NavigationMenuLink>
+                </li>
+              ))}
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
@@ -147,56 +95,13 @@ function CuisineMenu() {
           </NavigationMenuTrigger>
           <NavigationMenuContent className="max-h-[350px] overflow-y-auto">
             <ul className="flex gap-2 p-4 flex-col lg:w-[170px]">
-              <li className="hover:bg-gray-100 p-2 cursor-pointer">
-                <NavigationMenuLink href="/cuisine/italian">
-                  Italian
-                </NavigationMenuLink>
-              </li>
-              <li className="hover:bg-gray-100 p-2 cursor-pointer">
-                <NavigationMenuLink href="/cuisine/chinese">
-                  Chinese
-                </NavigationMenuLink>
-              </li>
-              <li className="hover:bg-gray-100 p-2 cursor-pointer">
-                <NavigationMenuLink href="/cuisine/indian">
-                  Indian
-                </NavigationMenuLink>
-              </li>
-              <li className="hover:bg-gray-100 p-2 cursor-pointer">
-                <NavigationMenuLink href="/cuisine/mexican">
-                  Mexican
-                </NavigationMenuLink>
-              </li>
-              <li className="hover:bg-gray-100 p-2 cursor-pointer">
-                <NavigationMenuLink href="/cuisine/french">
-                  French
-                </NavigationMenuLink>
-              </li>
-              <li className="hover:bg-gray-100 p-2 cursor-pointer">
-                <NavigationMenuLink href="/cuisine/japanese">
-                  Japanese
-                </NavigationMenuLink>
-              </li>
-              <li className="hover:bg-gray-100 p-2 cursor-pointer">
-                <NavigationMenuLink href="/cuisine/american">
-                  American
-                </NavigationMenuLink>
-              </li>
-              <li className="hover:bg-gray-100 p-2 cursor-pointer">
-                <NavigationMenuLink href="/cuisine/korean">
-                  Korean
-                </NavigationMenuLink>
-              </li>
-              <li className="hover:bg-gray-100 p-2 cursor-pointer">
-                <NavigationMenuLink href="/cuisine/greek">
-                  Greek
-                </NavigationMenuLink>
-              </li>
-              <li className="hover:bg-gray-100 p-2 cursor-pointer">
-                <NavigationMenuLink href="/cuisine/russian">
-                  Russian
-                </NavigationMenuLink>
-              </li>
+              {navCuisineData.map((item, key) => (
+                <li key={key} className="hover:bg-gray-100 p-2 cursor-pointer">
+                  <NavigationMenuLink href={item.path}>
+                    {item.name}
+                  </NavigationMenuLink>
+                </li>
+              ))}
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
