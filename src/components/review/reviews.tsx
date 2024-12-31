@@ -71,7 +71,7 @@ export default function Reviews({ title }: Props) {
   }, [checkUserReview]);
 
   const postReview = async (review: PostReviewPayload) => {
-    await axiosInstance.post("/review/add-review", review);
+    const resp = await axiosInstance.post("/review/add-review", review);
   };
 
   const mutation = useMutation<void, Error, PostReviewPayload>({
@@ -92,12 +92,19 @@ export default function Reviews({ title }: Props) {
       setNotes("");
       reviewsByRcipeRefetch();
     },
-    onError: (error) => {
-      console.error(error);
-      alert("Failed to post the review.");
+    onError: (error: any) => {
+      toast.error(error.response.data.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     },
   });
-
   const handleSubmit = () => {
     if (selectedRating === 0) {
       toast.error("Please select a rating before submitting.", {
