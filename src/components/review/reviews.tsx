@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Reviewcount from "./review-count";
 import Cookies from "js-cookie";
+import Totalreviews from "./total-reviews";
 
 interface Props {
   title?: string;
@@ -24,11 +25,11 @@ interface PostReviewPayload {
 export interface ReviewData {
   rating: number;
   notes: string;
-  name: string;
   createdAt: string;
   user: {
     _id: string;
     name: string;
+    email: string;
   };
 }
 
@@ -228,6 +229,9 @@ export default function Reviews({ title }: Props) {
           <hr />
           <Reviewcount data={reviewsByRcipeData?.data || []} />
         </div>
+      </div>
+      <div>
+        <Totalreviews data={reviewsByRcipeData?.data || []} />
       </div>
     </div>
   );
