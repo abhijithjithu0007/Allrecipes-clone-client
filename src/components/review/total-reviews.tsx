@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { FaStar, FaThumbsUp } from "react-icons/fa";
 import { ReviewData } from "./reviews";
+import Filterreview from "./filter-review";
 
 interface Props {
   data: ReviewData[];
@@ -18,7 +19,7 @@ export default function Totalreviews({ data }: Props) {
             <hr />
             <div className="flex justify-between text-sm p-2">
               <p>{data.length} Reviews</p>
-              <p>Filter</p>
+              <Filterreview />
             </div>
             <hr />
           </div>
