@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import { FaStar, FaThumbsUp } from "react-icons/fa";
 import { ReviewData } from "./reviews";
 import { Filterreview } from "./filter-review";
@@ -12,7 +12,9 @@ interface Props {
 export default function Totalreviews({ data }: Props) {
   const [filterReview, setFilterReview] = React.useState<ReviewData[]>([]);
 
-  console.log(filterReview);
+  useEffect(() => {
+    setFilterReview(data);
+  }, [data]);
 
   return (
     <div className="pt-7">
@@ -21,7 +23,7 @@ export default function Totalreviews({ data }: Props) {
           <div>
             <hr />
             <div className="flex justify-between text-sm p-2">
-              <p>{data.length} Reviews</p>
+              <p>{filterReview.length} Reviews</p>
               <Filterreview
                 setFilterReview={setFilterReview}
                 initilalData={data}
@@ -31,7 +33,7 @@ export default function Totalreviews({ data }: Props) {
           </div>
         )}
         {filterReview.map((review, ind) => (
-          <div key={ind} className="flex flex-col gap-4 p-1 pt-6">
+          <div key={ind} className="flex flex-col gap-4 p-1 pt-7">
             <div className="flex gap-2 items-center ">
               <Image
                 src="/images/user_model_logo.png"
@@ -45,7 +47,9 @@ export default function Totalreviews({ data }: Props) {
               </h3>
             </div>
             <div className="flex gap-3 items-center">
-              <FaStar size={20} className="text-customColor" />
+              {Array.from({ length: review.rating }).map((_, i) => (
+                <FaStar key={i} size={20} className="text-customColor" />
+              ))}{" "}
               <p className="text-xs text-gray-600">
                 {new Date(review.createdAt).toLocaleDateString()}
               </p>
@@ -57,6 +61,7 @@ export default function Totalreviews({ data }: Props) {
               <FaThumbsUp size={15} className="text-customColor" />
               <p className="text-sm">Helpful(3)</p>
             </div>
+            <hr />
           </div>
         ))}
       </div>

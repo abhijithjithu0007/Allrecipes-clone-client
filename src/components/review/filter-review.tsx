@@ -48,7 +48,7 @@ export function Filterreview({
 }: FilterreviewProps) {
   const form = useForm({
     defaultValues: {
-      items: [1 | 2 | 3 | 4 | 5],
+      items: [] as number[],
     },
   });
   const recipeId = useParams().recipeId as string;
@@ -73,7 +73,9 @@ export function Filterreview({
   });
 
   function onSubmit(data: checkBoxData) {
-    if (data.items.length > 0) {
+    if (data.items.length === 0) {
+      setFilterReview(initilalData);
+    } else {
       refetch().then((response) => {
         if (response && response.data) {
           const filteredReviews = Array.isArray(response.data)
@@ -82,15 +84,12 @@ export function Filterreview({
           setFilterReview(filteredReviews);
         }
       });
-    } else {
-      setFilterReview(initilalData);
-      refetch();
     }
   }
 
   useEffect(() => {
     setFilterReview(initilalData);
-  }, []);
+  }, [initilalData]);
 
   return (
     <Dialog>

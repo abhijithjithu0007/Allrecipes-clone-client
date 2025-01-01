@@ -9,7 +9,7 @@ import { RootState } from "@/lib/store";
 import { goToEmailInputForLogin } from "@/lib/features/emailAuthSlice";
 import { EmailInputLogin } from "@/components/auth-components/email-input-login";
 import { EmailOtpInputLogin } from "@/components/auth-components/email-otp-login";
-import { signIn, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { googleLogin } from "@/lib/features/googleAuthSlice";
@@ -45,6 +45,9 @@ export default function Page() {
 
   const handleGoogleSignup = async () => {
     await signIn("google");
+  };
+  const handleOut = async () => {
+    await signOut({ redirect: false });
   };
 
   const renderContent = () => {
@@ -105,7 +108,7 @@ export default function Page() {
           {currentStep === "" && (
             <p className="mt-10 text-center">
               Dont have an account?
-              <a href="/signup" className="underline">
+              <a href="/signup" onClick={handleOut} className="underline">
                 Join now
               </a>
             </p>
