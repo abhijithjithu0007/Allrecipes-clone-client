@@ -132,7 +132,9 @@ export default function Reviews({ title }: Props) {
 
   return (
     <div className="w-1/2 mt-10">
-      <h1 className="text-4xl font-bold">{`Reviews (${reviewsByRcipeData?.data.length})`}</h1>
+      <h1 className="text-4xl font-bold">
+        {`Reviews (${reviewsByRcipeData?.data.length})` || "0"}
+      </h1>
       <div className="bg-[#f5f6ea] p-6 mt-4">
         <div className="bg-white p-6">
           <div className="flex items-center justify-start gap-4">

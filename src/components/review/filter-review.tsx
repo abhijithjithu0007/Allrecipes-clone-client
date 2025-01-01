@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -7,10 +8,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
@@ -20,47 +18,79 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { DialogDescription } from "@radix-ui/react-dialog";
+import { useQuery } from "@tanstack/react-query";
+import { ReviewData } from "./reviews";
+import { useParams } from "next/navigation";
+import axiosInstance from "@/utils/axios";
+import { useEffect } from "react";
+
+interface checkBoxData {
+  items: number[];
+}
 
 const items = [
-  {
-    id: "5 star",
-    label: "5 star",
-  },
-  {
-    id: "4 star",
-    label: "4 star",
-  },
-  {
-    id: "3 star",
-    label: "3 star",
-  },
-  {
-    id: "2 star",
-    label: "2 star",
-  },
-  {
-    id: "1 star",
-    label: "1 star",
-  },
+  { id: 5, label: "5 star" },
+  { id: 4, label: "4 star" },
+  { id: 3, label: "3 star" },
+  { id: 2, label: "2 star" },
+  { id: 1, label: "1 star" },
 ] as const;
 
-const FormSchema = z.object({
-  items: z.array(z.string()).refine((value) => value.some((item) => item), {
-    message: "You have to select at least one item.",
-  }),
-});
+interface FilterreviewProps {
+  setFilterReview: React.Dispatch<React.SetStateAction<ReviewData[]>>;
+  initilalData: ReviewData[];
+}
 
-export function Filterreview() {
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
+export function Filterreview({
+  setFilterReview,
+  initilalData,
+}: FilterreviewProps) {
+  const form = useForm({
     defaultValues: {
-      items: [],
+      items: [1 | 2 | 3 | 4 | 5],
     },
   });
+  const recipeId = useParams().recipeId as string;
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
+  const filterReviewsByRating = async (ratings: number[]) => {
+    const { data } = await axiosInstance.get(
+      `/review/filter-review-by-rating?recipeId=${recipeId}&ratings=${ratings.join(
+        "&ratings="
+      )}`
+    );
+    return data.data;
+  };
+
+  const queryFn = async () => {
+    return filterReviewsByRating(form.watch("items"));
+  };
+
+  const { refetch } = useQuery<{ data: ReviewData[] }, Error>({
+    queryKey: ["reviewFilter", form.watch("items")],
+    queryFn,
+    enabled: false,
+  });
+
+  function onSubmit(data: checkBoxData) {
+    if (data.items.length > 0) {
+      refetch().then((response) => {
+        if (response && response.data) {
+          const filteredReviews = Array.isArray(response.data)
+            ? response.data
+            : [];
+          setFilterReview(filteredReviews);
+        }
+      });
+    } else {
+      setFilterReview(initilalData);
+      refetch();
+    }
   }
+
+  useEffect(() => {
+    setFilterReview(initilalData);
+  }, []);
 
   return (
     <Dialog>
@@ -69,15 +99,15 @@ export function Filterreview() {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle className="text-center text-xl font-bold">
+          <DialogTitle className="text-center text-xl font-extrabold">
             Filter Review
           </DialogTitle>
+          <DialogDescription className="uppercase text-sm font-bold">
+            By rating
+          </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-8 pl-10"
-          >
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
               control={form.control}
               name="items"
@@ -88,32 +118,29 @@ export function Filterreview() {
                       key={item.id}
                       control={form.control}
                       name="items"
-                      render={({ field }) => {
-                        return (
-                          <FormItem
-                            key={item.id}
-                            className="flex flex-row items-start space-x-2 space-y-0 p-3"
-                          >
-                            <FormControl>
-                              <Checkbox
-                                checked={field.value?.includes(item.id)}
-                                onCheckedChange={(checked: any) => {
-                                  return checked
-                                    ? field.onChange([...field.value, item.id])
-                                    : field.onChange(
-                                        field.value?.filter(
-                                          (value) => value !== item.id
-                                        )
-                                      );
-                                }}
-                              />
-                            </FormControl>
-                            <FormLabel className="font-normal">
-                              {item.label}
-                            </FormLabel>
-                          </FormItem>
-                        );
-                      }}
+                      render={({ field }) => (
+                        <FormItem
+                          key={item.id}
+                          className="flex flex-row items-start space-x-2 space-y-0 p-3"
+                        >
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value?.includes(item.id)}
+                              onCheckedChange={(checked: boolean) => {
+                                const updatedItems = checked
+                                  ? [...(field.value || []), item.id]
+                                  : field.value?.filter(
+                                      (value) => value !== item.id
+                                    ) || [];
+                                field.onChange(updatedItems);
+                              }}
+                            />
+                          </FormControl>
+                          <FormLabel className="font-normal">
+                            {item.label}
+                          </FormLabel>
+                        </FormItem>
+                      )}
                     />
                   ))}
                   <FormMessage />
@@ -121,7 +148,12 @@ export function Filterreview() {
               )}
             />
             <DialogFooter>
-              <Button type="submit">Apply</Button>
+              <Button
+                className="p-6 uppercase bg-customColor text-sm font-bold text-white rounded-none"
+                type="submit"
+              >
+                Apply
+              </Button>
             </DialogFooter>
           </form>
         </Form>

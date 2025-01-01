@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import React from "react";
 import { FaStar, FaThumbsUp } from "react-icons/fa";
@@ -9,6 +10,10 @@ interface Props {
 }
 
 export default function Totalreviews({ data }: Props) {
+  const [filterReview, setFilterReview] = React.useState<ReviewData[]>([]);
+
+  console.log(filterReview);
+
   return (
     <div className="pt-7">
       <div>
@@ -17,12 +22,15 @@ export default function Totalreviews({ data }: Props) {
             <hr />
             <div className="flex justify-between text-sm p-2">
               <p>{data.length} Reviews</p>
-              <Filterreview />
+              <Filterreview
+                setFilterReview={setFilterReview}
+                initilalData={data}
+              />
             </div>
             <hr />
           </div>
         )}
-        {data.map((review, ind) => (
+        {filterReview.map((review, ind) => (
           <div key={ind} className="flex flex-col gap-4 p-1 pt-6">
             <div className="flex gap-2 items-center ">
               <Image
