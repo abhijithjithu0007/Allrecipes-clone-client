@@ -2,15 +2,13 @@ import Image from "next/image";
 import React from "react";
 import { FaStar, FaThumbsUp } from "react-icons/fa";
 import { ReviewData } from "./reviews";
-import Filterreview from "./filter-review";
+import { Filterreview } from "./filter-review";
 
 interface Props {
   data: ReviewData[];
 }
 
 export default function Totalreviews({ data }: Props) {
-  console.log(data);
-
   return (
     <div className="pt-7">
       <div>

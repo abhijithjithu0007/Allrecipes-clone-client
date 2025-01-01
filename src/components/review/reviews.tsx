@@ -71,7 +71,7 @@ export default function Reviews({ title }: Props) {
   }, [checkUserReview]);
 
   const postReview = async (review: PostReviewPayload) => {
-    const resp = await axiosInstance.post("/review/add-review", review);
+    await axiosInstance.post("/review/add-review", review);
   };
 
   const mutation = useMutation<void, Error, PostReviewPayload>({
