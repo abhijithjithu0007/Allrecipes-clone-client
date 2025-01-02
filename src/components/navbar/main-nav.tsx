@@ -89,9 +89,6 @@ export default function Mainnav({
                     </div>
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <NavigationMenuLink>Link</NavigationMenuLink>
-                  </NavigationMenuContent>
-                  <NavigationMenuContent>
                     <ul className="flex gap-2 p-4 flex-col lg:w-[170px] cursor-pointer">
                       <li
                         onClick={handleLogOut}
@@ -100,9 +97,11 @@ export default function Mainnav({
                         Log Out
                       </li>
                       <li className="hover:bg-gray-100 p-2">My Profile</li>
-                      <li className="hover:bg-gray-100 p-2">
-                        Saved Recipe & Collection
-                      </li>
+                      <Link href="/u/saved-recipes">
+                        <li className="hover:bg-gray-100 p-2">
+                          Saved Recipe & Collection
+                        </li>
+                      </Link>
                       <hr />
                       <Link href="/u/add-recipe">
                         {" "}
