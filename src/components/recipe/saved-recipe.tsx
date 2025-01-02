@@ -6,6 +6,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -13,6 +14,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { MdDelete } from "react-icons/md";
 import Link from "next/link";
+import { useRemoveSavedRecipe } from "@/hook/useSaveRecipe";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface SavedRecipe {
   _id: string;
@@ -34,10 +38,30 @@ export default function SavedRecipe() {
     return response.data;
   };
 
-  const { data } = useQuery<{ data: SavedRecipe[] }, Error>({
+  const { data, refetch } = useQuery<{ data: SavedRecipe[] }, Error>({
     queryKey: ["fetchSavedRecipe"],
     queryFn: fetchSavedRecipe,
   });
+
+  const { mutate } = useRemoveSavedRecipe();
+
+  const handleRemove = (recipeId: string) => {
+    mutate(recipeId, {
+      onSuccess: (response) => {
+        toast.success(response.message, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        refetch();
+      },
+    });
+  };
 
   return (
     <div className="flex flex-col items-center p-5">
@@ -111,12 +135,17 @@ export default function SavedRecipe() {
                               </Button>
                             </Link>
                           </div>
-                          <div className="flex items-center gap-1 cursor-pointer hover:underline">
-                            <MdDelete />
-                            <a href="#" className="text-xs">
-                              Remove from Saved Recipes
-                            </a>
-                          </div>
+                          <DialogClose>
+                            <div
+                              onClick={() => handleRemove(selectedRecipe._id)}
+                              className="flex items-center gap-1 cursor-pointer hover:underline"
+                            >
+                              <MdDelete />
+                              <p className="text-xs">
+                                Remove from Saved Recipes
+                              </p>
+                            </div>
+                          </DialogClose>
                         </div>
                       </div>
                     </DialogHeader>

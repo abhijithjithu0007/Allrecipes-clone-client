@@ -18,7 +18,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { DialogDescription } from "@radix-ui/react-dialog";
+import { DialogClose, DialogDescription } from "@radix-ui/react-dialog";
 import { useQuery } from "@tanstack/react-query";
 import { ReviewData } from "./reviews";
 import { useParams } from "next/navigation";
@@ -147,12 +147,12 @@ export function Filterreview({
               )}
             />
             <DialogFooter>
-              <Button
-                className="p-6 uppercase bg-customColor text-sm font-bold text-white rounded-none"
+              <DialogClose
                 type="submit"
+                className="p-6 uppercase bg-customColor text-sm font-bold text-white rounded-none"
               >
                 Apply
-              </Button>
+              </DialogClose>
             </DialogFooter>
           </form>
         </Form>

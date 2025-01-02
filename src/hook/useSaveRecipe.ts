@@ -11,3 +11,17 @@ export const useSaveRecipe = () => {
     mutationKey: ["saveRecipe"],
   });
 };
+
+const removeSavedRecipe = async (recipeId: string) => {
+  const response = await axiosInstance.delete(
+    `/recipe/delete-saved-recipe/${recipeId}`
+  );
+  return response.data;
+};
+
+export const useRemoveSavedRecipe = () => {
+  return useMutation({
+    mutationFn: removeSavedRecipe,
+    mutationKey: ["removeSavedRecipe"],
+  });
+};
