@@ -17,6 +17,7 @@ import Link from "next/link";
 import { useRemoveSavedRecipe } from "@/hook/useSaveRecipe";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 interface SavedRecipe {
   _id: string;
@@ -59,6 +60,22 @@ export default function SavedRecipe() {
           theme: "light",
         });
         refetch();
+      },
+      onError: (error) => {
+        if (axios.isAxiosError(error)) {
+          toast.error(error.response?.data?.message, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        } else {
+          alert("An unexpected error occurred.");
+        }
       },
     });
   };
