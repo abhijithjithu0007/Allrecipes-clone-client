@@ -8,6 +8,11 @@ import { AppDispatch, RootState } from "@/lib/store";
 import { getRecipeByMeal } from "@/lib/features/recipeSlice";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import Link from "next/link";
+import { useSaveRecipe } from "@/hook/useSaveRecipe";
+import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { IoIosHeartEmpty } from "react-icons/io";
 
 export default function Page() {
   const { mealType } = useParams<{ mealType: string }>();
@@ -20,6 +25,43 @@ export default function Page() {
   useEffect(() => {
     dispatch(getRecipeByMeal(passingMealType));
   }, [passingMealType]);
+
+  const { mutate } = useSaveRecipe();
+
+  const handleHeartClick = (e: React.MouseEvent, id: string) => {
+    e.stopPropagation();
+    e.preventDefault();
+    mutate(id, {
+      onError: (error) => {
+        if (axios.isAxiosError(error)) {
+          toast.error(error.response?.data?.message, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        } else {
+          alert("An unexpected error occurred.");
+        }
+      },
+      onSuccess: (response) => {
+        toast.success(response.message, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      },
+    });
+  };
 
   return (
     <div>
@@ -54,23 +96,30 @@ export default function Page() {
       <div className="grid grid-cols-1 gap-5 p-10 md:grid-cols-2 lg:grid-cols-3">
         {recipes.map((recipe, ind) => (
           <Link key={ind} href={`/recipe/${recipe._id}`}>
-            <div className="max-w-sm bg-white">
+            <div className="max-w-sm bg-white relative">
               <Image
                 className="rounded-t-lg w-full h-64 object-cover"
                 src={
                   recipe?.image ||
                   "https://www.allrecipes.com/img/icons/recipe-add-photo-square.jpg"
                 }
-                alt=""
-                width={400}
-                height={100}
+                alt="Recipe"
+                width={350}
+                height={80}
               />
-              <div className=" pt-5">
-                <span>
-                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                    {recipe.title}
-                  </h5>
-                </span>
+              <div
+                className="absolute top-2 right-2 bg-customColor rounded-full p-3"
+                onClick={(e) => handleHeartClick(e, recipe._id)}
+              >
+                <IoIosHeartEmpty
+                  size={24}
+                  className="text-white cursor-pointer"
+                />
+              </div>
+              <div className="pt-5">
+                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                  {recipe.title}
+                </h5>
                 <p className="mb-3 font-bold text-gray-500 dark:text-gray-400">
                   {recipe.description}
                 </p>

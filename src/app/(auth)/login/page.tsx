@@ -47,7 +47,9 @@ export default function Page() {
     await signIn("google");
   };
   const handleOut = async () => {
-    await signOut({ redirect: false });
+    if (session) {
+      await signOut({ redirect: false });
+    }
   };
 
   const renderContent = () => {
