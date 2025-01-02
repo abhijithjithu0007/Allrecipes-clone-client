@@ -94,7 +94,7 @@ export function Filterreview({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Filter</Button>
+        <p className="cursor-pointer">Filter</p>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>

@@ -23,7 +23,11 @@ interface PostReviewPayload {
   rating: number;
 }
 export interface ReviewData {
+  _id: string;
   rating: number;
+  helpful: number;
+  helpfulBy: string[];
+
   notes: string;
   createdAt: string;
   user: {
@@ -240,7 +244,10 @@ export default function Reviews({ title }: Props) {
         </div>
       </div>
       <div>
-        <Totalreviews data={reviewsByRcipeData?.data || []} />
+        <Totalreviews
+          data={reviewsByRcipeData?.data || []}
+          refetchReview={reviewsByRcipeRefetch}
+        />
       </div>
     </div>
   );
