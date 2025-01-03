@@ -37,7 +37,7 @@ export default function Userinfo({ data, refetch }: UserInfoProps) {
     try {
       setUploading(true);
       const response = await axios.post<CloudinaryResponse>(
-        "https://api.cloudinary.com/v1_1/dzxrdd7a4/image/upload",
+        process.env.NEXT_PUBLIC_CLODINARY_URL || "",
         formData
       );
       setProfileImage(response.data.secure_url);

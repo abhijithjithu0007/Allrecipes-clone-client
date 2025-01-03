@@ -63,7 +63,7 @@ export const uploadImage = createAsyncThunk<string, File>(
 
     try {
       const response = await axios.post(
-        "https://api.cloudinary.com/v1_1/dzxrdd7a4/image/upload",
+        process.env.NEXT_PUBLIC_CLODINARY_URL || "",
         formData
       );
       return response.data.secure_url;
