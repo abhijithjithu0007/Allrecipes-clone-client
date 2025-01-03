@@ -84,7 +84,7 @@ export default function SavedRecipe() {
     <div className="flex flex-col items-center p-5">
       <h1 className="text-5xl font-extrabold font-serif">My Saved Recipes</h1>
       <div>
-        <h1 className="text-xl font-extrabold mt-4">Recently Saved</h1>
+        <h1 className="text-xl font-extrabold mt-8">Recently Saved</h1>
 
         <div className="flex flex-col items-center mt-4">
           {data?.data.length === 0 ? (
@@ -124,7 +124,7 @@ export default function SavedRecipe() {
                     <DialogTitle className="hidden"></DialogTitle>
                     <DialogHeader className="p-0">
                       <div className="flex gap-6">
-                        <div className="w-1/2">
+                        <div className="w-full">
                           <Image
                             src={selectedRecipe.image || "/images/loginImg.png"}
                             alt={selectedRecipe.title || "Recipe Image"}
@@ -133,7 +133,7 @@ export default function SavedRecipe() {
                             className="h-full w-full object-cover"
                           />
                         </div>
-                        <div className="w-1/2 flex flex-col justify-between gap-10 pt-7 p-4 pb-7">
+                        <div className="w-full min-h-[400px] flex flex-col justify-between gap-10 pt-7 p-4 pb-7">
                           <div className="flex flex-col gap-4">
                             <h1 className="text-xl font-extrabold">
                               {selectedRecipe.title}

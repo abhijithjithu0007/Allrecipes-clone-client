@@ -57,12 +57,14 @@ export default function Mainnav({
           size={32}
           className="z-50 block md:hidden"
         />
-        <Image
-          src={"/images/allrecipes_logo.jpg"}
-          alt="AllRecipes Logo"
-          width={180}
-          height={65}
-        />
+        <Link href="/home">
+          <Image
+            src={"/images/allrecipes_logo.jpg"}
+            alt="AllRecipes Logo"
+            width={180}
+            height={65}
+          />
+        </Link>{" "}
       </div>
       <div className="w-full mt-2">
         <Searchfield />
@@ -96,7 +98,9 @@ export default function Mainnav({
                       >
                         Log Out
                       </li>
-                      <li className="hover:bg-gray-100 p-2">My Profile</li>
+                      <Link href={`/u/user-profile`}>
+                        <li className="hover:bg-gray-100 p-2">My Profile</li>
+                      </Link>
                       <Link href="/u/saved-recipes">
                         <li className="hover:bg-gray-100 p-2">
                           Saved Recipe & Collection
