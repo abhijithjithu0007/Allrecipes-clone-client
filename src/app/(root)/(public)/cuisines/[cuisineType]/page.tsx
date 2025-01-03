@@ -9,7 +9,7 @@ import { getRecipeByCuisine } from "@/lib/features/recipeSlice";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import Link from "next/link";
 import Skelton from "@/components/consts/skelton";
-import { useSaveRecipe } from "@/hook/useSaveRecipe";
+import { useSaveRecipe } from "@/hook/useCustomHook";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

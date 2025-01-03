@@ -25,3 +25,27 @@ export const useRemoveSavedRecipe = () => {
     mutationKey: ["removeSavedRecipe"],
   });
 };
+
+const updateUserProfile = async ({
+  name,
+  profileImage,
+}: {
+  name: string;
+  profileImage: string;
+}) => {
+  const response = await axiosInstance.put("/user/update-profile", {
+    name,
+    profileImage,
+  });
+  if (response.status !== 200) {
+    throw new Error("Failed to update profile");
+  }
+  return response.data;
+};
+
+export const useUpateUserProfile = () => {
+  return useMutation({
+    mutationFn: updateUserProfile,
+    mutationKey: ["updateUserProfile"],
+  });
+};

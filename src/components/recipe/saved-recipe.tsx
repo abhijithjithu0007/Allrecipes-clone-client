@@ -14,7 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { MdDelete } from "react-icons/md";
 import Link from "next/link";
-import { useRemoveSavedRecipe } from "@/hook/useSaveRecipe";
+import { useRemoveSavedRecipe } from "@/hook/useCustomHook";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
