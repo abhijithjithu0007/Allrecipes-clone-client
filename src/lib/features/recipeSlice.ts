@@ -19,7 +19,7 @@ interface Recipe {
   image: string;
 }
 
-interface RecipeState {
+export interface RecipeState {
   recipes: Recipe[];
   status: "idle" | "loading" | "succeeded" | "failed";
   loading: {

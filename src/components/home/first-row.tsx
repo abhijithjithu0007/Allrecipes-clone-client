@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Firstrow() {
   return (
-    <div className="flex  justify-around items-center bg-[#114388]">
+    <div className="flex-col sm:flex text-center justify-around items-center bg-[#114388]">
       <div className="p-4">
         <h1 className="text-xl font-semibold text-white">
           America's{" "}

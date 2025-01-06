@@ -12,6 +12,7 @@ import Link from "next/link";
 import CookMode from "@/components/recipe/cook-mode";
 import Recipetab from "@/components/recipe/recipe-multi-tab";
 import Reviews from "@/components/review/reviews";
+import Nutritions from "@/components/recipe/nutritions";
 
 const convertFractionToDecimal = (fraction: string): number => {
   const fractionMap: { [key: string]: number } = {
@@ -131,6 +132,12 @@ export default function Page() {
                   <h1> I MADE IT</h1>
                   <ImSpoonKnife />
                 </button>
+              </div>
+              <div>
+                <Nutritions
+                  recipeId={recipeId}
+                  servings={recipe?.servings || "0"}
+                />
               </div>
               <div>
                 <Reviews title={recipe?.title} />
