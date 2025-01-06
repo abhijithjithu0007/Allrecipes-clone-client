@@ -17,6 +17,8 @@ import { EmailInput } from "@/components/auth-components/email-input";
 import { EmailOtpInput } from "@/components/auth-components/email-otp";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Page() {
   const { data: session } = useSession();
@@ -36,7 +38,7 @@ export default function Page() {
           .unwrap()
           .then((response) => {
             if (response.message) {
-              alert(response.message);
+              toast.success(response.message);
             }
 
             if (response.statusCode === 200) {
@@ -44,7 +46,7 @@ export default function Page() {
             }
           })
           .catch((error) => {
-            alert(`Registration failed: ${error}`);
+            toast.error(`Registration failed: ${error}`);
           });
       }
     }

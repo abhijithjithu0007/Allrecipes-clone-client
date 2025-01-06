@@ -43,7 +43,7 @@ export default function Userinfo({ data, refetch }: UserInfoProps) {
       setProfileImage(response.data.secure_url);
     } catch (error) {
       console.error("Image upload failed:", error);
-      alert("Failed to upload image. Please try again.");
+      toast.error("Failed to upload image. Please try again.");
     } finally {
       setUploading(false);
     }

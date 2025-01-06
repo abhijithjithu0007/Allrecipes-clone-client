@@ -6,6 +6,8 @@ import { z } from "zod";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/lib/store";
 import { verifyOtpForLogin } from "@/lib/features/emailAuthSlice";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   Form,
   FormControl,
@@ -48,7 +50,7 @@ export function EmailOtpInputLogin() {
 
   const handleVerifyOtp = async (data: z.infer<typeof FormSchema>) => {
     if (!email) {
-      alert("No email found. Please try again.");
+      toast.error("No email found. Please try again.");
       return;
     }
 

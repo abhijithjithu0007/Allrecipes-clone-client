@@ -22,6 +22,8 @@ import {
 } from "@/components/ui/input-otp";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const FormSchema = z.object({
   otp: z.string().min(6, {
@@ -51,7 +53,7 @@ export function EmailOtpInput() {
 
   const handleVerifyOtp = async (data: z.infer<typeof FormSchema>) => {
     if (!email) {
-      alert("No email found. Please try again.");
+      toast.error("No email found. Please try again.");
       return;
     }
 

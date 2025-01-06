@@ -44,10 +44,7 @@ export const sendOtp = createAsyncThunk(
   "emailAuth/sendOtp",
   async (email: string, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        "http://localhost:3001/api/auth/sendOtp",
-        { email }
-      );
+      const response = await axios.post("/auth/sendOtp", { email });
       return response.data;
     } catch (error: any) {
       console.log("Error sending OTP:", error.response?.data);
@@ -65,10 +62,10 @@ export const verifyOtp = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const response = await axiosInstance.post(
-        "http://localhost:3001/api/auth/verifyOtp",
-        { email, otp }
-      );
+      const response = await axiosInstance.post("/auth/verifyOtp", {
+        email,
+        otp,
+      });
 
       return response.data;
     } catch (error: any) {
@@ -84,7 +81,9 @@ export const sendOtpForLogin = createAsyncThunk(
   "emailAuth/sendOtpForLogin",
   async (email: string, { rejectWithValue }) => {
     try {
-      const response = await axios.post("/auth/send-login-otp", { email });
+      const response = await axiosInstance.post("/auth/send-login-otp", {
+        email,
+      });
       return response.data;
     } catch (error: any) {
       console.log("Error sending OTP:", error.response?.data);

@@ -13,6 +13,8 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { googleLogin } from "@/lib/features/googleAuthSlice";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Page() {
   const { data: session } = useSession();
@@ -33,11 +35,11 @@ export default function Page() {
               router.push("/home");
             }
             if (response.message) {
-              alert(response.message);
+              toast.success(response.message);
             }
           })
           .catch((error) => {
-            alert(`Registration failed: ${error}`);
+            toast.error(error.message);
           });
       }
     }

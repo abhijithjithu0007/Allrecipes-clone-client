@@ -6,6 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "../ui/label";
 import validator from "validator";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export function EmailInputLogin() {
   const dispatch: AppDispatch = useDispatch();
@@ -19,7 +21,7 @@ export function EmailInputLogin() {
 
   const handleSendOtp = async () => {
     if (!email || !validator.isEmail(email)) {
-      alert("Please enter a valid email address.");
+      toast.warning("Please enter a valid email address.");
       return;
     }
     await dispatch(sendOtpForLogin(email));
