@@ -64,7 +64,7 @@ export default function Nutritions({
     return response.data.data;
   };
 
-  const { data, refetch } = useQuery<Nutrition, Error>({
+  const { data } = useQuery<Nutrition, Error>({
     queryKey: ["fetchNutritions"],
     queryFn: fetchNutritions,
   });
@@ -74,9 +74,9 @@ export default function Nutritions({
   };
 
   return (
-    <div className="mt-7 w-1/2">
+    <div className="mt-7 w-full sm:w-1/2">
       <div className="flex flex-col gap-6">
-        <h1 className="text-3xl font-extrabold">
+        <h1 className="text-2xl sm:text-3xl font-extrabold">
           Nutrition Facts{" "}
           <span className="text-base font-normal">(per serving)</span>
         </h1>

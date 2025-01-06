@@ -78,8 +78,8 @@ export default function Page() {
         />
       </div>
 
-      <div className="p-10 text-center">
-        <div className="pl-20 pr-20">
+      <div className="p-3 sm:p-10 text-center">
+        <div className="px-5 sm:px-20">
           <div className="pb-10 flex items-center justify-center gap-2 uppercase font-bold text-black">
             <h1 className="">Recipes</h1>
             <MdOutlineKeyboardArrowRight />

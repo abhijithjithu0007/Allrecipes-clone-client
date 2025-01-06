@@ -42,19 +42,14 @@ export default function Page() {
   return (
     <div>
       <div>
-        <div className="p-10 pl-16 bg-[#F5F6EA]">
+        <div className="p-5 sm:p-10 px-16 bg-[#F5F6EA]">
           <h1 className="text-4xl font-extrabold">Recipes A-Z</h1>
-          <Input
-            type="text"
-            placeholder="Search"
-            className="p-6 mt-5 placeholder:text-lg outline outline-1 rounded-none bg-white w-1/2"
-          />
         </div>
         <div className="p-10 pl-16">
           <h3 className="font-bold text-lg">
             Find a topic by its first letter:
           </h3>
-          <div className="flex gap-5 font-semibold pt-5">
+          <div className="flex flex-wrap gap-5 font-semibold pt-5">
             {alphabet.map((letter) => (
               <button
                 key={letter}
@@ -81,11 +76,13 @@ export default function Page() {
               <span className="text-white font-bold text-xl p-4 bg-black ">
                 {letter}
               </span>
-              <div className="pt-5 text-xl grid grid-cols-4 gap-5">
+              <div className="pt-5 text-xl grid grid-cols-3 sm:grid-cols-4 gap-5">
                 {recipes.map((recipe, ind) => (
                   <div key={ind}>
                     <Link href={`/meals/${recipe.mealType.toLowerCase()}`}>
-                      <p className="border-t pt-2 text-lg">{recipe.title}</p>
+                      <p className="border-t pt-2 text-base sm:text-xl">
+                        {recipe.title}
+                      </p>
                     </Link>
                   </div>
                 ))}

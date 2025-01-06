@@ -135,12 +135,12 @@ export default function Reviews({ title }: Props) {
   const ratings = ["Terrible", "Bad", "OK", "Good", "Excellent"];
 
   return (
-    <div className="w-1/2 mt-10">
+    <div className="w-full sm:w-2/3 lg:w-1/2 mt-10">
       <h1 className="text-4xl font-bold">
         {`Reviews (${reviewsByRcipeData?.data.length})` || "0"}
       </h1>
       <div className="bg-[#f5f6ea] p-6 mt-4">
-        <div className="bg-white p-6">
+        <div className="bg-white p-3 sm:p-6">
           <div className="flex items-center justify-start gap-4">
             <Image
               src="/images/review_logo.png"
@@ -184,7 +184,7 @@ export default function Reviews({ title }: Props) {
                     (required)
                   </span>{" "}
                 </p>
-                <div className="p-3 flex items-center gap-4">
+                <div className="p-3 flex flex-col md:flex-row items-center gap-4">
                   <div className="flex gap-2">
                     {ratings.map((_, index) => {
                       const ratingValue = index + 1;
@@ -205,7 +205,7 @@ export default function Reviews({ title }: Props) {
                       );
                     })}
                   </div>
-                  <div className="h-12 w-[1px] bg-slate-400"></div>
+                  <div className="hidden md:block h-12 sm:w-[1px] sm:bg-slate-400"></div>
                   <div>
                     {hoveredRating || selectedRating ? (
                       <p className="text-sm">

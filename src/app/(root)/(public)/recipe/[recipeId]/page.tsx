@@ -58,8 +58,8 @@ export default function Page() {
           <ImSpoonKnife size={50} className="animate-spin text-customColor" />
         </div>
       ) : (
-        <div>
-          <div className="p-5 pl-40">
+        <div className="p-3">
+          <div className="pl-0 sm:pl-5 md:pl-40">
             <div>
               <h3 className="uppercase text-sm font-bold flex items-center gap-2">
                 Recipes <MdOutlineKeyboardArrowRight />
@@ -80,9 +80,9 @@ export default function Page() {
                 alt=""
                 width={500}
                 height={500}
-                className="rounded-md max-h-[600px] max-w-[500px]"
+                className="rounded-md h-[500px] sm:max-h-[600px] sm:max-w-[500px] "
               />
-              <div className="grid grid-cols-2 gap-5 border border-gray-500 border-t-8 border-t-[#e7ab46] rounded-md p-5 w-1/3 mt-5">
+              <div className="grid grid-cols-2 gap-5 border border-gray-500 border-t-8 border-t-[#e7ab46] rounded-md p-5 w-full sm:w-1/3 mt-5">
                 <p className="flex flex-col items-center">
                   Prep time:
                   <span>
@@ -127,7 +127,7 @@ export default function Page() {
                   ))}
                 </div>
               </div>
-              <div className="mt-10 p-6 border-b">
+              <div className="mt-10 p-6 flex justify-center sm:justify-start  border-b">
                 <button className="bg-customColor flex items-center gap-2 text-sm font-bold p-4 pl-20 pr-20 text-white hover:bg-orange-600">
                   <h1> I MADE IT</h1>
                   <ImSpoonKnife />

@@ -74,8 +74,8 @@ export default function Page() {
         />
       </div>
 
-      <div className="p-10 text-center">
-        <div className="pl-20 pr-20">
+      <div className="p-3 sm:p-10 text-center">
+        <div className="px-5 sm:px-20">
           <div className="pb-10 flex items-center justify-center gap-2 uppercase font-bold text-black">
             <h1 className="">Recipes</h1>
             <MdOutlineKeyboardArrowRight />
@@ -97,7 +97,7 @@ export default function Page() {
           <Link key={ind} href={`/recipe/${recipe._id}`}>
             <div className="max-w-sm bg-white relative">
               <Image
-                className="rounded-t-lg w-full h-64 object-cover"
+                className="rounded-t-lg w-full h-52 object-cover"
                 src={
                   recipe?.image ||
                   "https://www.allrecipes.com/img/icons/recipe-add-photo-square.jpg"
