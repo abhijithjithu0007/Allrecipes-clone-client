@@ -1,6 +1,5 @@
+import axiosInstance from "@/utils/axios";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
-import Cookies from "js-cookie";
 
 interface googleAuthState {
   email: string;
@@ -23,24 +22,11 @@ export const googleRegister = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const response = await axios.post(
-        "http://localhost:3001/api/auth/register",
-        { name, email }
-      );
-      const { data } = response;
-      const userData = data.data;
+      const response = await axiosInstance.post("/auth/register", {
+        name,
+        email,
+      });
 
-      Cookies.set(
-        "user",
-        JSON.stringify({
-          email: userData.email,
-          id: userData.id,
-          token: userData.data,
-          authMethod: "google",
-        }),
-        { expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000) }
-      );
-      console.log("Google Register Response:", response.data);
       return response.data;
     } catch (error: any) {
       console.log("Google Register Error:", error.response?.data);
@@ -54,23 +40,8 @@ export const googleLogin = createAsyncThunk(
   "auth/login",
   async (email: string, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        "http://localhost:3001/api/auth/g-login",
-        { email }
-      );
-      const { data } = response;
-      const userData = data.data;
+      const response = await axiosInstance.post("/auth/g-login", { email });
 
-      Cookies.set(
-        "user",
-        JSON.stringify({
-          email: userData.email,
-          id: userData.id,
-          token: userData.token,
-          authMethod: "google",
-        }),
-        { expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000) }
-      );
       return response.data;
     } catch (error: any) {
       console.log("Login Error:", error.response?.data);

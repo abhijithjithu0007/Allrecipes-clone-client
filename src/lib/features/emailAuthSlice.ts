@@ -1,6 +1,6 @@
+import axiosInstance from "@/utils/axios";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import Cookies from "js-cookie";
 
 interface EmailAuthState {
   email: string;
@@ -65,22 +65,11 @@ export const verifyOtp = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const response = await axios.post(
+      const response = await axiosInstance.post(
         "http://localhost:3001/api/auth/verifyOtp",
         { email, otp }
       );
-      const { data } = response;
-      const userData = data.data;
-      Cookies.set(
-        "user",
-        JSON.stringify({
-          email: userData.email,
-          id: userData.id,
-          token: userData.token,
-          authMethod: "email",
-        }),
-        { expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000) }
-      );
+
       return response.data;
     } catch (error: any) {
       console.log("Error verifying OTP:", error.response?.data);
@@ -95,10 +84,7 @@ export const sendOtpForLogin = createAsyncThunk(
   "emailAuth/sendOtpForLogin",
   async (email: string, { rejectWithValue }) => {
     try {
-      const response = await axios.post(
-        "http://localhost:3001/api/auth/send-login-otp",
-        { email }
-      );
+      const response = await axios.post("/auth/send-login-otp", { email });
       return response.data;
     } catch (error: any) {
       console.log("Error sending OTP:", error.response?.data);
@@ -116,22 +102,11 @@ export const verifyOtpForLogin = createAsyncThunk(
     { rejectWithValue }
   ) => {
     try {
-      const response = await axios.post(
-        "http://localhost:3001/api/auth/verify-login-otp",
-        { email, otp }
-      );
-      const { data } = response;
-      const userData = data.data;
-      Cookies.set(
-        "user",
-        JSON.stringify({
-          email: userData.email,
-          id: userData.id,
-          token: userData.token,
-          authMethod: "email",
-        }),
-        { expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000) }
-      );
+      const response = await axiosInstance.post("/auth/verify-login-otp", {
+        email,
+        otp,
+      });
+
       return response.data;
     } catch (error: any) {
       console.log("Error verifying OTP:", error.response?.data);
