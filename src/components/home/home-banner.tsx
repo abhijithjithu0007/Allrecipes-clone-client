@@ -30,8 +30,8 @@ export default function Homebanner() {
   ];
 
   return (
-    <div className="flex p-8 gap-3 w-full">
-      <div className="w-2/3">
+    <div className="flex flex-col lg:flex-row p-3 sm:p-8 gap-3 w-full">
+      <div className="w-full  lg:w-2/3">
         <Image
           src={"/images/home-banner-image.jpg"}
           alt=""
@@ -39,12 +39,12 @@ export default function Homebanner() {
           height={0}
         />
       </div>
-      <div className=" bg-[#F5F6EA] w-1/3 text-center p-4">
+      <div className=" bg-[#F5F6EA] w-full lg:w-1/3 text-center p-4">
         <h1 className="text-2xl font-extrabold">Latest & Trending</h1>
         <div className="p-7">
           {imaged.map((image) => (
             <div
-              className="flex items-center text-start gap-7 p-1"
+              className="flex items-center text-start gap-2 sm:gap-5 lg:gap-6 lg:p-1"
               key={image.id}
             >
               <Image

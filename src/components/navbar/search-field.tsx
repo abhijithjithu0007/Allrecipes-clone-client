@@ -37,7 +37,7 @@ export default function SearchField() {
           id="search"
           type="text"
           placeholder="Find a recipe or ingredient"
-          className="border border-black rounded-r-none"
+          className="border sm:w-[300px] border-black rounded-r-none"
           value={query}
           onChange={handleInputChange}
         />

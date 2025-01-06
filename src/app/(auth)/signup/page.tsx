@@ -72,8 +72,8 @@ export default function Page() {
   };
 
   return (
-    <div className="flex h-screen w-full">
-      <div className="relative w-1/2 h-full">
+    <div className="flex flex-col sm:flex-row h-screen w-full">
+      <div className="relative w-full sm:w-1/2 h-full">
         <Image
           src="/images/loginImg.png"
           alt="Login"
@@ -82,7 +82,7 @@ export default function Page() {
         />
       </div>
 
-      <div className="w-1/2 h-full flex flex-col items-center justify-center bg-white px-6 py-8">
+      <div className="w-full sm:w-1/2 h-full flex flex-col items-center justify-center bg-white px-6 py-8">
         <div className="w-full max-w-sm">
           <div className="mb-12">
             <Image

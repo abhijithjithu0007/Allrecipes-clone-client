@@ -49,7 +49,7 @@ export default function Mainnav({
   };
 
   return (
-    <nav className="flex justify-between p-6 pl-14 pr-14">
+    <nav className="flex justify-between p-2 pl-5 pr-5 sm:p-4 lg:p-6 sm:pl-14 sm:pr-14">
       <div className="w-full flex justify-start gap-10 items-center">
         <IoReorderThreeOutline
           onClick={() => setIsOpen(true)}
@@ -65,7 +65,7 @@ export default function Mainnav({
           />
         </Link>{" "}
       </div>
-      <div className="w-full mt-2">
+      <div className="hidden md:flex w-full mt-2">
         <Searchfield />
       </div>
       <div className="w-full flex justify-end mt-2 z-40">
