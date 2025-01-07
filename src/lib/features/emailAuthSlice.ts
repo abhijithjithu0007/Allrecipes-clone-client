@@ -1,6 +1,5 @@
 import axiosInstance from "@/utils/axios";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
 
 interface EmailAuthState {
   email: string;
@@ -44,7 +43,7 @@ export const sendOtp = createAsyncThunk(
   "emailAuth/sendOtp",
   async (email: string, { rejectWithValue }) => {
     try {
-      const response = await axios.post("/auth/sendOtp", { email });
+      const response = await axiosInstance.post("/auth/sendOtp", { email });
       return response.data;
     } catch (error: any) {
       console.log("Error sending OTP:", error.response?.data);
