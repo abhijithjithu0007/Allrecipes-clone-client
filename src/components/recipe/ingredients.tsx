@@ -99,7 +99,7 @@ export default function Ingredients() {
     );
   }
   return (
-    <div className="p-7">
+    <div className="p-1 sm:p-4 md:p-5">
       <div className="p-4 pb-10">
         <div>
           <h2 className="font-bold">Ingredients</h2>
@@ -154,7 +154,7 @@ export default function Ingredients() {
         </DndContext>
         <div className="pt-5">
           <div
-            className="border-2 border-customColor flex w-52 items-center justify-center gap-3 p-4 rounded-sm hover:bg-customColor hover:text-white"
+            className="border-2 border-customColor flex w-44 lg:w-64 items-center justify-center gap-3 p-2 md:p-3 lg:p-4 rounded-sm hover:bg-customColor hover:text-white"
             onClick={handleAddIngredient}
           >
             <FaPlus size={20} />

@@ -82,7 +82,9 @@ export default function SavedRecipe() {
 
   return (
     <div className="flex flex-col items-center p-5">
-      <h1 className="text-5xl font-extrabold font-serif">My Saved Recipes</h1>
+      <h1 className="text-2xl md:text-4xl lg:text-5xl text-center font-extrabold font-serif">
+        My Saved Recipes
+      </h1>
       <div>
         <h1 className="text-xl font-extrabold mt-8">Recently Saved</h1>
 

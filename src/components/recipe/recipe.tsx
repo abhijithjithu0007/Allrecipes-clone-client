@@ -52,8 +52,8 @@ export default function Recipe() {
     }
   }, [resposeMsg, status]);
   return (
-    <div className="flex flex-col justify-center items-center">
-      <div className="w-1/2 shadow-lg bg-white mb-10">
+    <div className="flex justify-center items-center">
+      <div className="w-full md:w-2/3 lg:w-1/2 shadow-lg bg-white mb-10">
         <Sectionone />
         <Ingredients />
         <Directions />

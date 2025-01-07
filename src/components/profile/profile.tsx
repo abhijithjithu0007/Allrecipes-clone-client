@@ -26,7 +26,7 @@ export default function Profile() {
   });
 
   return (
-    <div className="flex w-full p-10 bg-gray-100 h-full gap-6">
+    <div className="flex flex-col md:flex-row w-full p-3 sm:p-10 bg-gray-100 h-full gap-6">
       {data ? (
         <>
           <Leftbar data={data} />

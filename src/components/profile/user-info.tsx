@@ -88,23 +88,25 @@ export default function Userinfo({ data, refetch }: UserInfoProps) {
     <div className="bg-white p-5 w-full">
       <div>
         <div className="flex items-center justify-between">
-          <h1 className="text-4xl font-extrabold p-3">Profile Settings</h1>
+          <h1 className="text-3xl sm:text-4xl font-extrabold p-3">
+            Profile Settings
+          </h1>
           <Button
             variant="ghost"
             onClick={handleUpadeProfile}
-            className="w-44 border-none p-7 uppercase bg-customColor text-sm font-bold text-white"
+            className="w-32 sm:w-44 border-none p-7 uppercase bg-customColor text-sm font-bold text-white"
           >
             Save changes
           </Button>
         </div>
-        <div className="p-5 text-lg">
+        <div className="p-5 text-base sm:text-lg">
           <p>
             The information on this page will be displayed on your public
             profile, which is visible to other users.
           </p>
-          <div className="flex mt-3 items-center text-gray-600">
-            <IoPeopleSharp />
-            <p className="text-sm">
+          <div className="flex gap-3 sm:gap-1 mt-3 items-center text-gray-600">
+            <IoPeopleSharp className="text-2xl sm:text-sm" />
+            <p className="text-xs sm:text-sm">
               The information on this page will be displayed publicly and will
               be visible to others.
             </p>
@@ -115,7 +117,7 @@ export default function Userinfo({ data, refetch }: UserInfoProps) {
           <div className="p-4 border-b border-gray-400">
             <h1 className="text-2xl font-bold">About Me</h1>
           </div>
-          <div className="p-6 flex items-center justify-evenly">
+          <div className="p-6 flex flex-col lg:flex-row items-center justify-evenly">
             <div>
               <div className="grid w-full max-w-sm items-center gap-1.5">
                 <Label className="text-md font-bold" htmlFor="email">
@@ -148,7 +150,7 @@ export default function Userinfo({ data, refetch }: UserInfoProps) {
                 />
               </div>
             </div>
-            <div className="cursor-pointer">
+            <div className="cursor-pointer mt-6 lg:mt-0">
               <Label className="text-sm font-bold">Profile Picture</Label>
               <div
                 onClick={handleImageClick}

@@ -67,7 +67,7 @@ export default function Finalsection() {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-1 sm:p-4 md:p-5">
       <div className="flex gap-4 justify-around items-center">
         <Label htmlFor="number" className="text-base font-bold">
           Servings

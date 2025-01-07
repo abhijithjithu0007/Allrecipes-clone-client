@@ -101,7 +101,7 @@ export default function Directions() {
   }
 
   return (
-    <div className="p-7">
+    <div className="p-1 sm:p-4 md:p-5">
       <div className="p-4 pb-10">
         <div>
           <h2 className="font-bold">Directions</h2>

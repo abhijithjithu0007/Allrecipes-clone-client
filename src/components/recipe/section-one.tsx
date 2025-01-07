@@ -42,7 +42,7 @@ export default function Sectionone() {
   };
 
   return (
-    <div className="p-5">
+    <div className="p-3 sm:p-5">
       <div className="flex flex-col gap-4">
         <div className="relative flex w-60">
           <div className="absolute top-0 left-0 z-10">
@@ -61,8 +61,8 @@ export default function Sectionone() {
         </div>
         <hr />
       </div>
-      <div className="flex p-6">
-        <div className="flex flex-col gap-6 w-1/2">
+      <div className="flex flex-col lg:flex-row p-6">
+        <div className="flex flex-col gap-6 w-full lg:w-1/2">
           <div>
             <Label htmlFor="title" className="text-base font-bold">
               Recipe Title
@@ -91,7 +91,7 @@ export default function Sectionone() {
             />
           </div>
         </div>
-        <div className="w-1/2 flex flex-col justify-center items-center gap-2">
+        <div className="w-full mt-4 lg:mt-0 lg:w-1/2 flex flex-col justify-center items-center gap-2">
           <Label htmlFor="photo" className="text-base font-bold">
             Photo (Optional)
           </Label>
