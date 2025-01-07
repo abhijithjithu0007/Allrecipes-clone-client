@@ -21,9 +21,9 @@ export default function Navitemsrow() {
         <MealsMenu />
         <IngredientsMenu />
         <CuisineMenu />
-        <AboutUsMenu />
       </div>
-      <div>
+      <div className="flex items-center">
+        <AboutUsMenu />
         <h1 className="text-sm font-bold">GET MAGAZINE</h1>
       </div>
     </div>
@@ -118,7 +118,7 @@ function AboutUsMenu() {
           <NavigationMenuTrigger className="hover:underline">
             <div className="text-sm font-extrabold">ABOUT US</div>
           </NavigationMenuTrigger>
-          <NavigationMenuContent>
+          <NavigationMenuContent className="z-40">
             <ul className="flex gap-2 p-4 flex-col lg:w-[170px] z-30">
               <li className="hover:bg-gray-100 p-2 cursor-pointer">
                 <NavigationMenuLink href="/aboutus/about-all-recipes">
