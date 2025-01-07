@@ -90,7 +90,7 @@ export default function Reviews({ title }: Props) {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light",
+        theme: "dark",
       });
       setSelectedRating(0);
       setNotes("");
@@ -105,7 +105,7 @@ export default function Reviews({ title }: Props) {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light",
+        theme: "dark",
       });
     },
   });
@@ -119,7 +119,7 @@ export default function Reviews({ title }: Props) {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light",
+        theme: "dark",
       });
 
       return;

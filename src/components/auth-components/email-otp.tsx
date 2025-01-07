@@ -53,7 +53,16 @@ export function EmailOtpInput() {
 
   const handleVerifyOtp = async (data: z.infer<typeof FormSchema>) => {
     if (!email) {
-      toast.error("No email found. Please try again.");
+      toast.error("No email found. Please try again.", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
       return;
     }
 

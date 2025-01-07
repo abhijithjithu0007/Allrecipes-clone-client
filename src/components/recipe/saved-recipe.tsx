@@ -57,7 +57,7 @@ export default function SavedRecipe() {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: "dark",
         });
         refetch();
       },
@@ -71,7 +71,7 @@ export default function SavedRecipe() {
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme: "light",
+            theme: "dark",
           });
         } else {
           alert("An unexpected error occurred.");

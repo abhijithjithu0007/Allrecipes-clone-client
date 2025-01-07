@@ -21,7 +21,16 @@ export function EmailInputLogin() {
 
   const handleSendOtp = async () => {
     if (!email || !validator.isEmail(email)) {
-      toast.warning("Please enter a valid email address.");
+      toast.warning("Please enter a valid email address.", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
       return;
     }
     await dispatch(sendOtpForLogin(email));

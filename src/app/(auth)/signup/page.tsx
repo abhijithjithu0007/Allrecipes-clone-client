@@ -38,7 +38,16 @@ export default function Page() {
           .unwrap()
           .then((response) => {
             if (response.message) {
-              toast.success(response.message);
+              toast.success(response.message, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+              });
             }
 
             if (response.statusCode === 200) {
@@ -46,7 +55,16 @@ export default function Page() {
             }
           })
           .catch((error) => {
-            toast.error(`Registration failed: ${error}`);
+            toast.error(`Registration failed: ${error}`, {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
           });
       }
     }

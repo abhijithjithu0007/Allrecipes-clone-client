@@ -41,7 +41,7 @@ export default function Page() {
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme: "light",
+            theme: "dark",
           });
         } else {
           alert("An unexpected error occurred.");
@@ -56,7 +56,7 @@ export default function Page() {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: "dark",
         });
       },
     });

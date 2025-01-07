@@ -27,7 +27,7 @@ export default function CookMode() {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: "dark",
         });
       } catch (err) {
         console.error(err);

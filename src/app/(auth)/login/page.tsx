@@ -35,11 +35,29 @@ export default function Page() {
               router.push("/home");
             }
             if (response.message) {
-              toast.success(response.message);
+              toast.success(response.message, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+              });
             }
           })
           .catch((error) => {
-            toast.error(error.message);
+            toast.error(error.message, {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
           });
       }
     }

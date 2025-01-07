@@ -45,7 +45,7 @@ export default function Page() {
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
-            theme: "light",
+            theme: "dark",
           });
         } else {
           alert("An unexpected error occurred.");
@@ -60,7 +60,7 @@ export default function Page() {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: "dark",
         });
       },
     });

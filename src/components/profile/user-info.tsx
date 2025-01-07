@@ -43,7 +43,16 @@ export default function Userinfo({ data, refetch }: UserInfoProps) {
       setProfileImage(response.data.secure_url);
     } catch (error) {
       console.error("Image upload failed:", error);
-      toast.error("Failed to upload image. Please try again.");
+      toast.error("Failed to upload image. Please try again.", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     } finally {
       setUploading(false);
     }
@@ -77,7 +86,7 @@ export default function Userinfo({ data, refetch }: UserInfoProps) {
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme: "light",
+            theme: "dark",
           });
         },
       }

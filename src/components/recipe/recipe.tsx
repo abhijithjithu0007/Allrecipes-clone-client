@@ -31,7 +31,7 @@ export default function Recipe() {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: "dark",
         });
       }
       if (status === "succeeded") {
@@ -43,7 +43,7 @@ export default function Recipe() {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light",
+          theme: "dark",
         });
         dispatch(resetImage());
         dispatch(resetStatus());
