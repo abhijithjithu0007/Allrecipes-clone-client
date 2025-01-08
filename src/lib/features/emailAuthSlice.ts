@@ -72,6 +72,9 @@ export const verifyOtp = createAsyncThunk(
         otp,
       });
 
+      if (response.status === 200) {
+        localStorage.setItem("logged", JSON.stringify(true));
+      }
       return response.data;
     } catch (error: any) {
       console.log("Error verifying OTP:", error.response?.data);
@@ -117,6 +120,9 @@ export const verifyOtpForLogin = createAsyncThunk(
         otp,
       });
 
+      if (response.status === 200) {
+        localStorage.setItem("logged", JSON.stringify(true));
+      }
       return response.data;
     } catch (error: any) {
       console.log("Error verifying OTP:", error.response?.data);
@@ -171,7 +177,6 @@ const emailAuthSlice = createSlice({
       .addCase(verifyOtp.fulfilled, (state) => {
         state.loading.verifyOtp = false;
         state.currentStep = "";
-        localStorage.setItem("logged", JSON.stringify(true));
       })
       .addCase(verifyOtp.rejected, (state, action) => {
         state.loading.verifyOtp = false;
@@ -195,7 +200,6 @@ const emailAuthSlice = createSlice({
       })
       .addCase(verifyOtpForLogin.fulfilled, (state) => {
         state.loading.verifyOtpForLogin = false;
-        localStorage.setItem("logged", JSON.stringify(true));
         state.currrentStepOfLogin = "";
       })
       .addCase(verifyOtpForLogin.rejected, (state, action) => {

@@ -26,7 +26,9 @@ export const googleRegister = createAsyncThunk(
         name,
         email,
       });
-
+      if (response.status === 200) {
+        localStorage.setItem("logged", JSON.stringify(true));
+      }
       return response.data;
     } catch (error: any) {
       console.log("Google Register Error:", error.response?.data);
@@ -41,7 +43,9 @@ export const googleLogin = createAsyncThunk(
   async (email: string, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.post("/auth/g-login", { email });
-
+      if (response.status === 200) {
+        localStorage.setItem("logged", JSON.stringify(true));
+      }
       return response.data;
     } catch (error: any) {
       console.log("Login Error:", error.response?.data);
