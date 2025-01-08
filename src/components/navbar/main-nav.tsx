@@ -29,6 +29,7 @@ export default function Mainnav({
     const handlecheck = async () => {
       if (!userCookie) {
         setIsLogout(true);
+        localStorage.removeItem("logged");
         await signOut({ redirect: false });
       }
     };
@@ -39,6 +40,7 @@ export default function Mainnav({
   const handleLogOut = async () => {
     const user = JSON.parse(userCookie || "{}");
 
+    localStorage.removeItem("logged");
     if (user.authMethod === "google") {
       await signOut({ callbackUrl: "/login" });
       Cookies.remove("user");
@@ -48,6 +50,10 @@ export default function Mainnav({
       router.push("/login");
     }
   };
+  useEffect(() => {
+    let isUser = JSON.parse(localStorage.getItem("logged") || "false");
+    setIsLogout(!isUser);
+  }, []);
 
   return (
     <nav className="flex justify-between p-2 pl-5 pr-5 sm:p-4 lg:p-6 sm:pl-14 sm:pr-14">
