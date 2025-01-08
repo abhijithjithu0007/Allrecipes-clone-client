@@ -1,5 +1,6 @@
 import axiosInstance from "@/utils/axios";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
 
 interface EmailAuthState {
   email: string;
@@ -73,7 +74,7 @@ export const verifyOtp = createAsyncThunk(
       });
 
       if (response.status === 200) {
-        localStorage.setItem("logged", JSON.stringify(true));
+        Cookies.set("logged", "true", { path: "/" });
       }
       return response.data;
     } catch (error: any) {
@@ -121,7 +122,7 @@ export const verifyOtpForLogin = createAsyncThunk(
       });
 
       if (response.status === 200) {
-        localStorage.setItem("logged", JSON.stringify(true));
+        Cookies.set("logged", "true", { path: "/" });
       }
       return response.data;
     } catch (error: any) {

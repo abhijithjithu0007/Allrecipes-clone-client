@@ -29,7 +29,7 @@ export default function Mainnav({
     const handlecheck = async () => {
       if (!userCookie) {
         setIsLogout(true);
-        localStorage.removeItem("logged");
+        Cookies.remove("logged");
         await signOut({ redirect: false });
       }
     };
@@ -39,8 +39,7 @@ export default function Mainnav({
 
   const handleLogOut = async () => {
     const user = JSON.parse(userCookie || "{}");
-
-    localStorage.removeItem("logged");
+    Cookies.remove("logged");
     if (user.authMethod === "google") {
       await signOut({ callbackUrl: "/login" });
       Cookies.remove("user");
@@ -51,8 +50,10 @@ export default function Mainnav({
     }
   };
   useEffect(() => {
-    let isUser = JSON.parse(localStorage.getItem("logged") || "false");
-    setIsLogout(!isUser);
+    const logged = Cookies.get("logged");
+    const isLoggedIn = logged === "true";
+
+    setIsLogout(!isLoggedIn);
   }, []);
 
   return (

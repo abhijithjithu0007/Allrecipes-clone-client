@@ -1,6 +1,6 @@
 import axiosInstance from "@/utils/axios";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-
+import Cookies from "js-cookie";
 interface googleAuthState {
   email: string;
   name: string | null;
@@ -27,7 +27,7 @@ export const googleRegister = createAsyncThunk(
         email,
       });
       if (response.status === 200) {
-        localStorage.setItem("logged", JSON.stringify(true));
+        Cookies.set("logged", "true", { path: "/" }); // Persistent cookie
       }
       return response.data;
     } catch (error: any) {
@@ -44,7 +44,7 @@ export const googleLogin = createAsyncThunk(
     try {
       const response = await axiosInstance.post("/auth/g-login", { email });
       if (response.status === 200) {
-        localStorage.setItem("logged", JSON.stringify(true));
+        Cookies.set("logged", "true", { path: "/" });
       }
       return response.data;
     } catch (error: any) {
