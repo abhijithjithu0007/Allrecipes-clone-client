@@ -73,9 +73,9 @@ export const verifyOtp = createAsyncThunk(
         otp,
       });
 
-      if (response.status === 200) {
-        Cookies.set("logged", "true", { path: "/" });
-      }
+      Cookies.set("logged", "true", { path: "/" });
+      console.log("jhfbevujvefgjvfgcvgcfCHAGHcfahgscgaCHS");
+
       return response.data;
     } catch (error: any) {
       console.log("Error verifying OTP:", error.response?.data);
