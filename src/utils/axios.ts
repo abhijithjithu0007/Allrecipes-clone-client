@@ -1,4 +1,3 @@
-import Cookies from "js-cookie";
 import axios from "axios";
 
 const axiosInstance = axios.create({
@@ -8,23 +7,5 @@ const axiosInstance = axios.create({
   },
   withCredentials: true,
 });
-
-axiosInstance.interceptors.request.use(
-  (config) => {
-    const userCookie = Cookies.get("user");
-    if (userCookie) {
-      const user = JSON.parse(userCookie);
-      const token = user.token;
-
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
-    }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
 
 export default axiosInstance;
