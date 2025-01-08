@@ -24,6 +24,7 @@ export default function Mainnav({
   const [isLogout, setIsLogout] = React.useState(false);
   const router = useRouter();
   const userCookie = Cookies.get("user");
+
   useEffect(() => {
     const handlecheck = async () => {
       if (!userCookie) {

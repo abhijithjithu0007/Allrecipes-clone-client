@@ -6,6 +6,7 @@ export function middleware(request: NextRequest) {
   const userCookie = request.cookies.get("user");
 
   let userData: { token?: string } | null = null;
+
   if (userCookie) {
     try {
       userData = JSON.parse(userCookie.value);
@@ -24,6 +25,10 @@ export function middleware(request: NextRequest) {
 
   if (userData?.token && (pathname === "/login" || pathname === "/signup")) {
     return NextResponse.redirect(new URL("/home", request.url));
+  }
+
+  if (!userCookie) {
+    console.warn("User cookie not found on route:", pathname);
   }
 
   return NextResponse.next();
