@@ -77,6 +77,7 @@ export const verifyOtp = createAsyncThunk(
         path: "/",
         secure: false,
         sameSite: "Lax",
+        expires: 7,
       });
 
       return response.data;
@@ -128,6 +129,7 @@ export const verifyOtpForLogin = createAsyncThunk(
         path: "/",
         secure: false,
         sameSite: "Lax",
+        expires: 7,
       });
 
       return response.data;
