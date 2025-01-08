@@ -73,8 +73,11 @@ export const verifyOtp = createAsyncThunk(
         otp,
       });
 
-      Cookies.set("logged", "true", { path: "/" });
-      console.log("jhfbevujvefgjvfgcvgcfCHAGHcfahgscgaCHS");
+      Cookies.set("logged", "true", {
+        path: "/",
+        secure: false,
+        sameSite: "Lax",
+      });
 
       return response.data;
     } catch (error: any) {
@@ -121,8 +124,11 @@ export const verifyOtpForLogin = createAsyncThunk(
         otp,
       });
 
-      Cookies.set("logged", "true", { path: "/" });
-      console.log("fjebfhewjbfewhjfbwehjbfwejbh");
+      Cookies.set("logged", "true", {
+        path: "/",
+        secure: false,
+        sameSite: "Lax",
+      });
 
       return response.data;
     } catch (error: any) {
