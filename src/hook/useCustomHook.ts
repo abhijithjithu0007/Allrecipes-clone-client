@@ -50,4 +50,14 @@ export const useUpateUserProfile = () => {
   });
 };
 
+const userLogut = async ({}) => {
+  const response = await axiosInstance.post("/auth/user-logout");
+  return response.data;
+};
 
+export const useUserLogout = () => {
+  return useMutation({
+    mutationFn: userLogut,
+    mutationKey: ["userLogout"],
+  });
+};

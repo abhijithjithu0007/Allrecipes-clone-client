@@ -13,6 +13,11 @@ import { IoPersonCircle, IoReorderThreeOutline } from "react-icons/io5";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
 import axiosInstance from "@/utils/axios";
+import { useUserLogout } from "@/hook/useCustomHook";
+import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Mainnav({
   setIsOpen,
@@ -32,7 +37,31 @@ export default function Mainnav({
     queryFn: fetchUserData,
   });
 
+  const router = useRouter();
+
   const isUser = data?.email ? true : false;
+  const { mutate } = useUserLogout();
+  const handleLogout = async () => {
+    await signOut({ redirect: false });
+    mutate(
+      { void: true },
+      {
+        onSuccess: () => {
+          toast.success("Logged out successfully.", {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+          router.push("/login");
+        },
+      }
+    );
+  };
 
   return (
     <nav className="flex justify-between p-2 pl-5 pr-5 sm:p-4 lg:p-6 sm:pl-14 sm:pr-14">
@@ -68,7 +97,12 @@ export default function Mainnav({
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <ul className="flex gap-2 p-4 flex-col lg:w-[170px] cursor-pointer">
-                      <li className="hover:bg-gray-100 p-2">Log Out</li>
+                      <li
+                        onClick={handleLogout}
+                        className="hover:bg-gray-100 p-2"
+                      >
+                        Log Out
+                      </li>
                       <Link href={`/u/user-profile`}>
                         <li className="hover:bg-gray-100 p-2">My Profile</li>
                       </Link>
