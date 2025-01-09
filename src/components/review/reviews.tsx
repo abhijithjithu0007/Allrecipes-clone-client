@@ -46,6 +46,8 @@ export default function Reviews({ title }: Props) {
   const [notes, setNotes] = useState<string>("");
   const [isUserReview, setIsUserReview] = useState<ReviewData | null>();
 
+  console.log("==================", userCookie, "=========================");
+
   const user = userCookie ? JSON.parse(userCookie) : "{}";
 
   const fetchRecipeById = async () => {

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Searchfield from "./search-field";
 import Image from "next/image";
 import {
@@ -10,51 +10,29 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { IoPersonCircle, IoReorderThreeOutline } from "react-icons/io5";
-import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
-import { signOut } from "next-auth/react";
 import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
+import axiosInstance from "@/utils/axios";
 
 export default function Mainnav({
   setIsOpen,
 }: {
-  isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const [isLogout, setIsLogout] = React.useState(false);
-  const router = useRouter();
-  const userCookie = Cookies.get("user");
-
-  useEffect(() => {
-    const handlecheck = async () => {
-      if (!userCookie) {
-        setIsLogout(true);
-        Cookies.remove("logged");
-        await signOut({ redirect: false });
-      }
-    };
-
-    handlecheck();
-  }, []);
-
-  const handleLogOut = async () => {
-    const user = JSON.parse(userCookie || "{}");
-    Cookies.remove("logged");
-    if (user.authMethod === "google") {
-      await signOut({ callbackUrl: "/login" });
-      Cookies.remove("user");
+  const fetchUserData = async () => {
+    const response = await axiosInstance.get("/user/user-profile");
+    if (response.status !== 200) {
+      throw new Error("Something went wrong");
     }
-    if (user.authMethod === "email") {
-      Cookies.remove("user");
-      router.push("/login");
-    }
+    return response.data.data;
   };
-  useEffect(() => {
-    const logged = Cookies.get("logged");
-    const isLoggedIn = logged === "true";
 
-    setIsLogout(!isLoggedIn);
-  }, []);
+  const { data } = useQuery({
+    queryKey: ["userProfile"],
+    queryFn: fetchUserData,
+  });
+
+  const isUser = data?.email ? true : false;
 
   return (
     <nav className="flex justify-between p-2 pl-5 pr-5 sm:p-4 lg:p-6 sm:pl-14 sm:pr-14">
@@ -71,7 +49,7 @@ export default function Mainnav({
             width={180}
             height={65}
           />
-        </Link>{" "}
+        </Link>
       </div>
       <div className="hidden md:flex w-full mt-2">
         <Searchfield />
@@ -80,16 +58,7 @@ export default function Mainnav({
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              {isLogout ? (
-                <NavigationMenuTrigger>
-                  <NavigationMenuLink
-                    href="/login"
-                    className="flex items-center gap-2"
-                  >
-                    <IoPersonCircle size={20} /> Login
-                  </NavigationMenuLink>
-                </NavigationMenuTrigger>
-              ) : (
+              {isUser ? (
                 <>
                   <NavigationMenuTrigger>
                     <div className="flex text-sm gap-2 items-center">
@@ -99,12 +68,7 @@ export default function Mainnav({
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <ul className="flex gap-2 p-4 flex-col lg:w-[170px] cursor-pointer">
-                      <li
-                        onClick={handleLogOut}
-                        className="hover:bg-gray-100 p-2"
-                      >
-                        Log Out
-                      </li>
+                      <li className="hover:bg-gray-100 p-2">Log Out</li>
                       <Link href={`/u/user-profile`}>
                         <li className="hover:bg-gray-100 p-2">My Profile</li>
                       </Link>
@@ -115,12 +79,20 @@ export default function Mainnav({
                       </Link>
                       <hr />
                       <Link href="/u/add-recipe">
-                        {" "}
                         <li className="hover:bg-gray-100 p-2">Add Recipe</li>
                       </Link>
                     </ul>
                   </NavigationMenuContent>
                 </>
+              ) : (
+                <NavigationMenuTrigger>
+                  <NavigationMenuLink
+                    href="/login"
+                    className="flex items-center gap-2"
+                  >
+                    <IoPersonCircle size={20} /> Login
+                  </NavigationMenuLink>
+                </NavigationMenuTrigger>
               )}
             </NavigationMenuItem>
           </NavigationMenuList>

@@ -73,12 +73,6 @@ export const verifyOtp = createAsyncThunk(
         otp,
       });
 
-      Cookies.set("logged", "true", {
-        secure: true,
-        sameSite: "none",
-        expires: 7,
-      });
-
       return response.data;
     } catch (error: any) {
       console.log("Error verifying OTP:", error.response?.data);
@@ -122,12 +116,6 @@ export const verifyOtpForLogin = createAsyncThunk(
       const response = await axiosInstance.post("/auth/verify-login-otp", {
         email,
         otp,
-      });
-
-      Cookies.set("logged", "true", {
-        secure: true,
-        sameSite: "none",
-        expires: 7,
       });
 
       return response.data;

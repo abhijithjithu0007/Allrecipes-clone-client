@@ -10,7 +10,7 @@ export default function Navbar() {
 
   return (
     <div className="relative">
-      <Mainnav isOpen={isOpen} setIsOpen={setIsOpen} />
+      <Mainnav setIsOpen={setIsOpen} />
 
       {isOpen && (
         <div className="absolute top-0 left-0 h-full bg-gray-100 shadow-lg z-50">
