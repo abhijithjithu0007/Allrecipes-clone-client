@@ -18,7 +18,7 @@ import { useRemoveSavedRecipe } from "@/hook/useCustomHook";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import { ImSpoonKnife } from "react-icons/im";
+import { Skeleton } from "@mui/material";
 
 interface SavedRecipe {
   _id: string;
@@ -95,7 +95,14 @@ export default function SavedRecipe() {
 
         {isLoading ? (
           <div className="flex justify-center items-center h-screen">
-            <ImSpoonKnife size={50} className="animate-spin text-customColor" />
+            <div className="flex gap-4 flex-wrap justify-center">
+              {[...Array(6)].map((_, idx) => (
+                <div key={idx} className="max-w-[170px] border cursor-pointer">
+                  <Skeleton variant="rectangular" width={170} height={170} />
+                  <Skeleton variant="text" width={150} />
+                </div>
+              ))}
+            </div>
           </div>
         ) : (
           <div className="flex flex-col items-center mt-4">

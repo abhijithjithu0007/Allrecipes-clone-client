@@ -57,10 +57,11 @@ export default function Reviews({ title }: Props) {
     return response.data;
   };
 
-  const { data: reviewsByRcipeData, refetch: reviewsByRcipeRefetch } = useQuery<
-    { data: ReviewData[] },
-    Error
-  >({
+  const {
+    data: reviewsByRcipeData,
+    refetch: reviewsByRcipeRefetch,
+    isLoading: reviewsByRecipeLoading,
+  } = useQuery<{ data: ReviewData[] }, Error>({
     queryKey: ["reviewsByRecipe"],
     queryFn: fetchRecipeById,
     enabled: !!recipeId,
@@ -136,7 +137,7 @@ export default function Reviews({ title }: Props) {
   return (
     <div className="w-full sm:w-2/3 lg:w-1/2 mt-10">
       <h1 className="text-4xl font-bold">
-        {`Reviews (${reviewsByRcipeData?.data.length})` || "0"}
+        Reviews ({reviewsByRcipeData?.data.length || 0})
       </h1>
       <div className="bg-[#f5f6ea] p-3 md:p-6 mt-4">
         <div className="bg-white p-3 sm:p-6">
@@ -246,6 +247,7 @@ export default function Reviews({ title }: Props) {
         <Totalreviews
           data={reviewsByRcipeData?.data || []}
           refetchReview={reviewsByRcipeRefetch}
+          isReviewLoading={reviewsByRecipeLoading}
         />
       </div>
     </div>

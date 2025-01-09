@@ -30,7 +30,7 @@ export default function Homebanner() {
   ];
 
   return (
-    <div className="flex flex-col lg:flex-row p-3 sm:p-8 gap-3 w-full">
+    <div className="flex flex-col lg:flex-row p-3 sm:p-5 gap-3 w-full">
       <div className="w-full  lg:w-2/3">
         <Image
           src={"/images/home-banner-image.jpg"}

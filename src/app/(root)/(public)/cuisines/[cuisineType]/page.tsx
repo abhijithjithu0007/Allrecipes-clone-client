@@ -8,7 +8,7 @@ import { AppDispatch, RootState } from "@/lib/store";
 import { getRecipeByCuisine } from "@/lib/features/recipeSlice";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import Link from "next/link";
-import Skelton from "@/components/consts/skelton";
+import { Skeleton } from "@mui/material";
 import { useSaveRecipe } from "@/hook/useCustomHook";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -96,8 +96,19 @@ export default function Page() {
       <h1 className="uppercase text-3xl underline text-center p-10 font-extrabold">
         EXPLORE <span className="text-customColor">{cuisineType}</span> FOODS
       </h1>
+
       {getRecipeByCuisineLoad ? (
-        <Skelton />
+        <div className="grid grid-cols-1 gap-5 p-10 md:grid-cols-2 lg:grid-cols-3">
+          {[...Array(3)].map((_, ind) => (
+            <div key={ind} className="max-w-sm bg-white relative">
+              <Skeleton variant="rectangular" width="100%" height={250} />
+              <div className="pt-5">
+                <Skeleton variant="text" width="60%" />
+                <Skeleton variant="text" width="80%" />
+              </div>
+            </div>
+          ))}
+        </div>
       ) : (
         <div className="grid grid-cols-1 gap-5 p-10 md:grid-cols-2 lg:grid-cols-3">
           {recipes.map((recipe, ind) => (

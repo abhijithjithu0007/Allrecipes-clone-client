@@ -13,6 +13,8 @@ import { useSaveRecipe } from "@/hook/useCustomHook";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { Skeleton } from "@mui/material";
+
 export default function Page() {
   const { ingType } = useParams<{ ingType: string }>();
   const passingIngType = ingType.charAt(0).toUpperCase() + ingType.slice(1);
@@ -21,6 +23,9 @@ export default function Page() {
   const imageUrl = ingredientsImages[ingType as keyof typeof ingredientsImages];
 
   const { recipes } = useSelector((state: RootState) => state.recipe);
+  const { getRecipeByIngredientLoad } = useSelector(
+    (state: RootState) => state.recipe.loading
+  );
   useEffect(() => {
     dispatch(getRecipeByIngredient(passingIngType));
   }, [passingIngType]);
@@ -92,41 +97,56 @@ export default function Page() {
       <h1 className="uppercase text-3xl underline text-center p-10 font-extrabold">
         <span className="text-customColor">{ingType}</span> RECIPES
       </h1>
-      <div className="grid grid-cols-1 gap-5 p-10 md:grid-cols-2 lg:grid-cols-3">
-        {recipes.map((recipe, ind) => (
-          <Link key={ind} href={`/recipe/${recipe._id}`}>
-            <div className="max-w-sm bg-white relative">
-              <Image
-                className="rounded-t-lg w-full h-52 object-cover"
-                src={
-                  recipe?.image ||
-                  "https://www.allrecipes.com/img/icons/recipe-add-photo-square.jpg"
-                }
-                alt="Recipe"
-                width={350}
-                height={80}
-              />
-              <div
-                className="absolute top-2 right-2 bg-customColor rounded-full p-3"
-                onClick={(e) => handleHeartClick(e, recipe._id)}
-              >
-                <IoIosHeartEmpty
-                  size={24}
-                  className="text-white cursor-pointer"
-                />
-              </div>
+
+      {getRecipeByIngredientLoad ? (
+        <div className="grid grid-cols-1 gap-5 p-10 md:grid-cols-2 lg:grid-cols-3">
+          {[...Array(3)].map((_, ind) => (
+            <div key={ind} className="max-w-sm bg-white relative">
+              <Skeleton variant="rectangular" width="100%" height={200} />
               <div className="pt-5">
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                  {recipe.title}
-                </h5>
-                <p className="mb-3 font-bold text-gray-500 dark:text-gray-400">
-                  {recipe.description}
-                </p>
+                <Skeleton variant="text" width="60%" />
+                <Skeleton variant="text" width="80%" />
               </div>
             </div>
-          </Link>
-        ))}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 gap-5 p-10 md:grid-cols-2 lg:grid-cols-3">
+          {recipes.map((recipe, ind) => (
+            <Link key={ind} href={`/recipe/${recipe._id}`}>
+              <div className="max-w-sm bg-white relative">
+                <Image
+                  className="rounded-t-lg w-full h-52 object-cover"
+                  src={
+                    recipe?.image ||
+                    "https://www.allrecipes.com/img/icons/recipe-add-photo-square.jpg"
+                  }
+                  alt="Recipe"
+                  width={350}
+                  height={80}
+                />
+                <div
+                  className="absolute top-2 right-2 bg-customColor rounded-full p-3"
+                  onClick={(e) => handleHeartClick(e, recipe._id)}
+                >
+                  <IoIosHeartEmpty
+                    size={24}
+                    className="text-white cursor-pointer"
+                  />
+                </div>
+                <div className="pt-5">
+                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    {recipe.title}
+                  </h5>
+                  <p className="mb-3 font-bold text-gray-500 dark:text-gray-400">
+                    {recipe.description}
+                  </p>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
