@@ -6,7 +6,15 @@ import { IoCloseCircleOutline } from "react-icons/io5";
 import { Textarea } from "../ui/textarea";
 import { FaPlus } from "react-icons/fa";
 import { AppDispatch, RootState } from "@/lib/store";
-import { closestCorners, DndContext, DragEndEvent } from "@dnd-kit/core";
+import {
+  closestCorners,
+  DndContext,
+  DragEndEvent,
+  TouchSensor,
+  MouseSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
 import {
   SortableContext,
   verticalListSortingStrategy,
@@ -55,6 +63,15 @@ export default function Directions() {
   const toggleReorderMode = () => {
     setReorderMode(!reorderMode);
   };
+
+  const touchSensor = useSensor(TouchSensor, {
+    activationConstraint: {
+      delay: 250,
+      tolerance: 5,
+    },
+  });
+  const mouseSensor = useSensor(MouseSensor);
+  const sensors = useSensors(touchSensor, mouseSensor);
 
   function SortableItem({
     id,
@@ -115,6 +132,7 @@ export default function Directions() {
 
         <div className="p-2 flex flex-col gap-3">
           <DndContext
+            sensors={sensors}
             collisionDetection={closestCorners}
             onDragEnd={handleDragEnd}
           >
