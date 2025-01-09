@@ -74,9 +74,8 @@ export const verifyOtp = createAsyncThunk(
       });
 
       Cookies.set("logged", "true", {
-        path: "/",
-        secure: false,
-        sameSite: "Lax",
+        secure: true,
+        sameSite: "none",
         expires: 7,
       });
 
@@ -126,9 +125,8 @@ export const verifyOtpForLogin = createAsyncThunk(
       });
 
       Cookies.set("logged", "true", {
-        path: "/",
-        secure: false,
-        sameSite: "Lax",
+        secure: true,
+        sameSite: "none",
         expires: 7,
       });
 
