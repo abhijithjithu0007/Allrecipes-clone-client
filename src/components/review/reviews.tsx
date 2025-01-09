@@ -45,9 +45,6 @@ export default function Reviews({ title }: Props) {
   const [hoveredRating, setHoveredRating] = useState<number>(0);
   const [notes, setNotes] = useState<string>("");
   const [isUserReview, setIsUserReview] = useState<ReviewData | null>();
-
-  console.log("==================", userCookie, "=========================");
-
   const user = userCookie ? JSON.parse(userCookie) : "{}";
 
   const fetchRecipeById = async () => {
@@ -141,7 +138,7 @@ export default function Reviews({ title }: Props) {
       <h1 className="text-4xl font-bold">
         {`Reviews (${reviewsByRcipeData?.data.length})` || "0"}
       </h1>
-      <div className="bg-[#f5f6ea] p-6 mt-4">
+      <div className="bg-[#f5f6ea] p-3 md:p-6 mt-4">
         <div className="bg-white p-3 sm:p-6">
           <div className="flex items-center justify-start gap-4">
             <Image

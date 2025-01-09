@@ -124,7 +124,6 @@ export default function Finalsection() {
               <SelectItem value="Snack">Snack</SelectItem>
               <SelectItem value="Dessert">Dessert</SelectItem>
               <SelectItem value="Side-dish">Side-Dish</SelectItem>
-              <SelectItem value="Appetizer">Appetizer</SelectItem>
               <SelectItem value="Salads">Salads</SelectItem>
               <SelectItem value="Drinks">Drinks</SelectItem>
             </SelectContent>
@@ -148,6 +147,8 @@ export default function Finalsection() {
               <SelectItem value="Mexican">Mexican</SelectItem>
               <SelectItem value="French">French</SelectItem>
               <SelectItem value="Japanese">Japanese</SelectItem>
+              <SelectItem value="Greek">Greek</SelectItem>
+              <SelectItem value="Russian">Russian</SelectItem>
               <SelectItem value="American">American</SelectItem>
               <SelectItem value="Korean">Korean</SelectItem>
             </SelectContent>

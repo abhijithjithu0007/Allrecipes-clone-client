@@ -80,9 +80,9 @@ export default function Page() {
                 alt=""
                 width={500}
                 height={500}
-                className="rounded-md h-[500px] sm:max-h-[600px] sm:max-w-[500px] "
+                className="rounded-md h-[400px] sm:h-[500px] sm:max-h-[600px] sm:max-w-[500px] "
               />
-              <div className="grid grid-cols-2 gap-5 border border-gray-500 border-t-8 border-t-[#e7ab46] rounded-md p-5 w-full sm:w-1/3 mt-5">
+              <div className="grid grid-cols-2 gap-5 border border-gray-500 border-t-[15px] border-t-[#e7ab46] rounded-md p-5 w-full sm:w-1/3 mt-5">
                 <p className="flex flex-col items-center">
                   Prep time:
                   <span>

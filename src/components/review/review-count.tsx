@@ -31,7 +31,7 @@ export default function Reviewcount({ data }: Props) {
                   className="flex items-center justify-center gap-3 w-full max-w-md"
                 >
                   <p className="flex items-center gap-1 underline decoration-customColor">
-                    <span className="text-sm">{5 - index} star</span>
+                    <span className="text-xs md:text-sm">{5 - index} star</span>
                     <MdStarRate className="text-customColor" />
                   </p>
                   <div className="flex justify-center">

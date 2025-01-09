@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/lib/store";
 import { searchRecipes } from "@/lib/features/recipeSlice";
 import Link from "next/link";
+import { FiLoader } from "react-icons/fi";
 
 let debounceTimer: NodeJS.Timeout;
 
@@ -51,8 +52,11 @@ export default function SearchField() {
           className="absolute top-full left-0 w-full bg-white border border-gray-200 shadow-lg z-50"
           style={{ maxHeight: "200px", overflowY: "auto" }}
         >
-          {loading.getAllrecipesLoad ? (
-            <div className="p-2 text-gray-500">Loading...</div>
+          {loading.searchRecipeLoad ? (
+            <div className="p-2 flex items-center text-gray-500">
+              Loading...
+              <FiLoader className="animate-spin" />
+            </div>
           ) : recipes.length > 0 ? (
             recipes.map((recipe, index) => (
               <Link

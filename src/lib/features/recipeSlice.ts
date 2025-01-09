@@ -226,7 +226,7 @@ const recipeSlice = createSlice({
       .addCase(searchRecipes.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.recipes = action.payload.data;
-        state.loading.getAllrecipesLoad = false;
+        state.loading.searchRecipeLoad = false;
       })
       .addCase(searchRecipes.rejected, (state, action) => {
         state.status = "failed";
