@@ -10,7 +10,6 @@ import { useParams } from "next/navigation";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Reviewcount from "./review-count";
-import Cookies from "js-cookie";
 import Totalreviews from "./total-reviews";
 
 interface Props {
@@ -40,12 +39,10 @@ export interface ReviewData {
 export default function Reviews({ title }: Props) {
   const params = useParams();
   const recipeId = params.recipeId as string;
-  const userCookie = Cookies.get("user");
   const [selectedRating, setSelectedRating] = useState<number>(0);
   const [hoveredRating, setHoveredRating] = useState<number>(0);
   const [notes, setNotes] = useState<string>("");
   const [isUserReview, setIsUserReview] = useState<ReviewData | null>();
-  const user = userCookie ? JSON.parse(userCookie) : "{}";
 
   const fetchRecipeById = async () => {
     const response = await axiosInstance.get(
@@ -67,8 +64,12 @@ export default function Reviews({ title }: Props) {
     enabled: !!recipeId,
   });
 
+  const { data: userData } = useQuery<{ _id: string | "" }>({
+    queryKey: ["userProfile"],
+  });
+
   const checkUserReview = reviewsByRcipeData?.data.find(
-    (item) => item.user._id == user.id
+    (item) => item.user._id == userData?._id
   );
   useEffect(() => {
     setIsUserReview(checkUserReview);
@@ -248,6 +249,7 @@ export default function Reviews({ title }: Props) {
           data={reviewsByRcipeData?.data || []}
           refetchReview={reviewsByRcipeRefetch}
           isReviewLoading={reviewsByRecipeLoading}
+          userId={userData?._id || ""}
         />
       </div>
     </div>

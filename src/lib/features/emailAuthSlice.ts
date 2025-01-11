@@ -1,6 +1,5 @@
 import axiosInstance from "@/utils/axios";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import Cookies from "js-cookie";
 
 interface EmailAuthState {
   email: string;
@@ -172,6 +171,7 @@ const emailAuthSlice = createSlice({
       .addCase(verifyOtp.fulfilled, (state) => {
         state.loading.verifyOtp = false;
         state.currentStep = "";
+        state.email = "";
       })
       .addCase(verifyOtp.rejected, (state, action) => {
         state.loading.verifyOtp = false;

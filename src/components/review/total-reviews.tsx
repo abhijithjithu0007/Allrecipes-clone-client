@@ -5,7 +5,6 @@ import { FaStar, FaThumbsUp } from "react-icons/fa";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ReviewData } from "./reviews";
 import { Filterreview } from "./filter-review";
-import Cookies from "js-cookie";
 import axiosInstance from "@/utils/axios";
 import { Skeleton } from "@mui/material";
 
@@ -13,18 +12,16 @@ interface Props {
   data: ReviewData[];
   refetchReview: () => void;
   isReviewLoading: boolean;
+  userId: string;
 }
 
 export default function Totalreviews({
   data,
   refetchReview,
   isReviewLoading,
+  userId,
 }: Props) {
   const queryClient = useQueryClient();
-  const userCookie = Cookies.get("user");
-  const user = JSON.parse(userCookie || "{}");
-  const userId = user.id;
-
   const [filterReview, setFilterReview] = React.useState<ReviewData[]>(
     data.map((review) => ({
       ...review,
