@@ -127,7 +127,7 @@ export default function Totalreviews({
                     className="bg-gray-300 rounded-full"
                   />
                   <h3 className="font-bold">
-                    {review.user?.name || "Allrecipes Member"}
+                    {review.user?.name || "Cookhouse Member"}
                   </h3>
                 </div>
                 <div className="flex gap-3 items-center">
