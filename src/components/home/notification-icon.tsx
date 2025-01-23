@@ -20,10 +20,13 @@ interface Notification {
 
 export default function Notificationicon() {
   const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [iconShiwer, setIconShiwer] = useState<boolean>(false);
 
   useEffect(() => {
     socket.on("newRecipeNotification", (data: Notification) => {
       setNotifications((prev) => [...prev, data]);
+      setIconShiwer(true);
+      setTimeout(() => setIconShiwer(false), 2500);
     });
 
     return () => {
@@ -35,22 +38,22 @@ export default function Notificationicon() {
     <HoverCard>
       <HoverCardTrigger
         asChild
-        className="fixed text-white bg-yellow-500 bottom-12 right-12 p-4 rounded-full shadow-lg hover:bg-yellow-600 transition"
+        className={`fixed text-white bg-yellow-500 bottom-8 right-8 sm:bottom-12 sm:right-12 p-3 sm:p-4 rounded-full shadow-lg transition ${
+          iconShiwer ? "animate-bounce" : "hover:bg-yellow-600"
+        }`}
       >
         <Button>
-          <MdNotificationsActive size={30} />
+          <MdNotificationsActive className="text-customColor text-2xl sm:text-xl" />
         </Button>
       </HoverCardTrigger>
+
       {notifications && notifications.length > 0 ? (
-        <HoverCardContent className="rounded-lg p-4 bg-white shadow-lg w-60">
-          <h3 className="text-lg font-semibold text-gray-700 border-b pb-2 mb-3">
-            Notifications 📢
-          </h3>
+        <HoverCardContent className="rounded-lg p-4 bg-transparent w-60">
           <ul className="space-y-2">
             {notifications.map((notification, index) => (
               <li
                 key={index}
-                className="bg-gray-100 hover:bg-gray-200 p-3 rounded-md transition"
+                className="text-sm rounded-2xl bg-white p-3 shadow-gray-400 shadow-xl text-gray-500"
               >
                 <Link
                   href={`/recipe/${notification.recipeId}`}
@@ -63,11 +66,10 @@ export default function Notificationicon() {
           </ul>
         </HoverCardContent>
       ) : (
-        <HoverCardContent className="rounded-lg p-4 bg-white shadow-lg w-72">
-          <h3 className="text-lg font-semibold text-gray-700 border-b pb-2 mb-3">
-            Notifications 📢
-          </h3>
-          <p className="text-sm text-gray-500">No notifications yet.</p>
+        <HoverCardContent className="outline-none p-4 bg-transparent w-72">
+          <p className="text-sm rounded-2xl bg-white p-3 shadow-gray-400 shadow-xl text-gray-500">
+            No notifications yet.
+          </p>
         </HoverCardContent>
       )}
     </HoverCard>

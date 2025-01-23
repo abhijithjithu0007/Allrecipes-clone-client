@@ -56,7 +56,7 @@ export default function Sectionone() {
         <div>
           <p>
             Uploading personal recipes is easy! Add yours to your favorites,
-            share with friends, family, or the Allrecipes community.
+            share with friends, family, or the Cookhouse community.
           </p>
         </div>
         <hr />
