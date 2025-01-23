@@ -38,7 +38,7 @@ export function EmailInputLogin() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-6">Create an account</h1>
+      <h1 className="text-3xl font-bold mb-6">Login an account</h1>
       <div>
         <Label htmlFor="email" className="text-lg font-bold">
           Email Address
