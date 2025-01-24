@@ -1,7 +1,6 @@
 import Navbar from "@/components/navbar/navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Notificationicon from "@/components/home/notification-icon";
 
 export default async function RootLayout({
   children,
@@ -13,7 +12,6 @@ export default async function RootLayout({
       <body>
         <Navbar />
         {children}
-        <Notificationicon />
         <ToastContainer />
       </body>
     </html>

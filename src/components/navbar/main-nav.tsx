@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Notification from "./notification";
 
 export default function Mainnav({
   setIsOpen,
@@ -80,10 +81,14 @@ export default function Mainnav({
           />
         </Link>
       </div>
+
       <div className="hidden md:flex w-full mt-2">
         <Searchfield />
       </div>
       <div className="w-full flex justify-end mt-2 z-40">
+        <div className="flex items-center mt-1">
+          <Notification />
+        </div>
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
