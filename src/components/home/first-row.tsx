@@ -13,7 +13,7 @@ export default function Firstrow() {
         </h1>
       </div>
       <div className="flex gap-4 p-2 sm:p-4">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 sm:gap-2">
           <div className="bg-[#2ec5b6] w-3 h-3 rounded-full"></div>
           <h1 className="text-sm lg:text-xl  text-white">
             {" "}
@@ -21,7 +21,7 @@ export default function Firstrow() {
             Original Recipes
           </h1>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 sm:gap-2">
           <div className="bg-[#f15025] w-3 h-3 rounded-full"></div>
           <h1 className="text-sm lg:text-xl  text-white">
             {" "}
@@ -31,7 +31,7 @@ export default function Firstrow() {
             Ratings & Reviews
           </h1>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 sm:gap-2">
           <div className="bg-[#e7ab46] w-3 h-3 rounded-full"></div>
           <h1 className="text-sm lg:text-xl  text-white">
             {" "}

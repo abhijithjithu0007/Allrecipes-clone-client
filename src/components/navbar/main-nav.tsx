@@ -66,7 +66,7 @@ export default function Mainnav({
 
   return (
     <nav className="flex justify-between p-2 pl-5 pr-5 sm:p-4 lg:p-6 sm:pl-14 sm:pr-14">
-      <div className="w-full flex justify-start gap-10 items-center">
+      <div className="w-full flex justify-start gap-3 sm:gap-10 items-center">
         <IoReorderThreeOutline
           onClick={() => setIsOpen(true)}
           size={32}

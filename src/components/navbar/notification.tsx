@@ -41,8 +41,7 @@ export default function Notification() {
         <SheetTrigger>
           <div className="relative">
             <MdOutlineNotificationsActive
-              size={25}
-              className={`text-gray-700 hover:text-yellow-500 transition duration-300
+              className={`text-gray-700 text-xl sm:text-2xl hover:text-yellow-500 transition duration-300
                 ${iconShiver ? "animate-bounce" : ""}`}
             />
           </div>
