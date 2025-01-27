@@ -24,7 +24,6 @@ export default function Navitemsrow() {
       </div>
       <div className="flex items-center">
         <AboutUsMenu />
-        <h1 className="text-sm font-bold">GET MAGAZINE</h1>
       </div>
     </div>
   );

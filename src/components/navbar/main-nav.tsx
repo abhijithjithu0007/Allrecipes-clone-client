@@ -86,7 +86,7 @@ export default function Mainnav({
         <Searchfield />
       </div>
       <div className="w-full flex justify-end mt-2 z-40">
-        <div className="flex items-center mt-1">
+        <div className="flex items-center mt-2">
           <Notification />
         </div>
         <NavigationMenu>
