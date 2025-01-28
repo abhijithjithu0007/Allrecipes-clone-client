@@ -15,7 +15,7 @@ export default function Finalhomesection() {
       />
       <Link href="/meals/salads">
         <div className="absolute hidden md:flex inset-0 items-center justify-start pl-20">
-          <div className="bg-white flex flex-col gap-4 p-5 shadow-lg">
+          <div className="bg-white opacity-80 flex flex-col gap-4 p-5 shadow-lg">
             <h2 className="uppercase text-gray-500 font-bold">seasonal</h2>
             <h1 className="text-4xl font-bold hover:underline decoration-customColor">
               Winter Menu Ideas

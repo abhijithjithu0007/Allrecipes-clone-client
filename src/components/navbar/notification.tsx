@@ -7,7 +7,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { MdOutlineNotificationsActive } from "react-icons/md";
 import socket from "@/utils/socket";
 import Link from "next/link";
 
@@ -21,13 +20,10 @@ interface Notification {
 
 export default function Notification() {
   const [notifications, setNotifications] = useState<Notification[]>([]);
-  const [iconShiver, setIconShiver] = useState<boolean>(false);
 
   useEffect(() => {
     socket.on("newRecipeNotification", (data: Notification) => {
       setNotifications((prev) => [...prev, data]);
-      setIconShiver(true);
-      setTimeout(() => setIconShiver(false), 5000);
     });
 
     return () => {
@@ -39,11 +35,13 @@ export default function Notification() {
     <div>
       <Sheet>
         <SheetTrigger>
-          <div className="relative">
-            <MdOutlineNotificationsActive
-              className={`text-gray-700 text-xl sm:text-2xl hover:text-yellow-500 transition duration-300
-                ${iconShiver ? "animate-bounce" : ""}`}
-            />
+          <div className="relative flex items-center gap-2 cursor-pointer p-1">
+            Notifications{" "}
+            <div
+              className={`${
+                notifications.length > 0 ? "block" : ""
+              } absolute hidden top-0 right-0 h-[6px] w-[6px] bg-red-600 rounded-full`}
+            ></div>
           </div>
         </SheetTrigger>
 

@@ -196,6 +196,7 @@ const emailAuthSlice = createSlice({
       .addCase(verifyOtpForLogin.fulfilled, (state) => {
         state.loading.verifyOtpForLogin = false;
         state.currrentStepOfLogin = "";
+        state.email = "";
       })
       .addCase(verifyOtpForLogin.rejected, (state, action) => {
         state.loading.verifyOtpForLogin = false;

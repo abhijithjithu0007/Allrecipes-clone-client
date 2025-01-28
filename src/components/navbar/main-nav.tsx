@@ -86,22 +86,19 @@ export default function Mainnav({
         <Searchfield />
       </div>
       <div className="w-full flex justify-end mt-2 z-40">
-        <div className="flex items-center mt-2">
-          <Notification />
-        </div>
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
               {isUser ? (
                 <>
                   <NavigationMenuTrigger>
-                    <div className="flex text-sm gap-2 items-center">
+                    <div className="flex text-[13px] sm:text-sm gap-2 items-center">
                       <IoPersonCircle size={25} className="text-customColor" />{" "}
-                      My Profile
+                      My Account
                     </div>
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <ul className="flex gap-2 p-4 flex-col lg:w-[170px] cursor-pointer">
+                    <ul className="flex gap-2 p-3 flex-col lg:w-[170px] cursor-pointer">
                       <li
                         onClick={handleLogout}
                         className="hover:bg-gray-100 p-2"
@@ -116,6 +113,10 @@ export default function Mainnav({
                           Saved Recipe & Collection
                         </li>
                       </Link>
+                      <li className="hover:bg-gray-100 p-1">
+                        {" "}
+                        <Notification />
+                      </li>
                       <hr />
                       <Link href="/u/add-recipe">
                         <li className="hover:bg-gray-100 p-2">Add Recipe</li>
