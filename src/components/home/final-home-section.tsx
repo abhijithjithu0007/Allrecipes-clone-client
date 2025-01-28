@@ -26,7 +26,7 @@ export default function Finalhomesection() {
             </p>
           </div>
         </div>
-        <div className="md:hidden flex items-center justify-center h-full">
+        <div className="md:hidden flex items-center justify-center bg-gray-50 p-3 sm:bg-white h-full">
           <div className="bg-white flex flex-col gap-4 p-5">
             <h2 className="uppercase text-gray-500 font-bold">seasonal</h2>
             <h1 className="text-3xl sm:text-4xl font-bold hover:underline decoration-customColor">
